@@ -1,2 +1,6 @@
 /postgres
 /logs
+
+/humhub/assets
+/humhub/protected/config/dynamic.php
+/humhub/protected/runtime
