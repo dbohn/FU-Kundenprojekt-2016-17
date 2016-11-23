@@ -1,6 +1,24 @@
 version: '2'
 
 services:
+  nginx:
+    image: nginx
+    volumes:
+      - ./humhub:/humhub
+      - ./config/site.conf:/etc/nginx/conf.d/site.conf
+    networks:
+      - appnet
+    ports:
+      - "8080:80"
+  php:
+    build:
+      context: images/php
+      args:
+        - workdir=/humhub
+    volumes:
+      - ./humhub:/humhub
+    networks:
+      - appnet
   database:
     image: postgres:latest
     ports:
@@ -10,4 +28,14 @@ services:
       - POSTGRES_PASSWORD=1234
       - POSTGRES_DB=humhub
     volumes:
-      - ./postgres:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - appnet
+
+volumes:
+  postgres:
+    driver: "local"
+
+networks:
+  appnet:
+    driver: "bridge"
