@@ -6,6 +6,7 @@ services:
     volumes:
       - ./humhub:/humhub
       - ./config/site.conf:/etc/nginx/conf.d/site.conf
+      - ./logs:/var/log/nginx
     networks:
       - appnet
     ports:
@@ -19,6 +20,20 @@ services:
       - ./humhub:/humhub
     networks:
       - appnet
+  mysql:
+    image: mariadb:latest
+    ports:
+      - "33062:3306"
+    volumes:
+      - mariadb:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=humhub
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=humhub
+      - MYSQL_PASSWORD=1234
+    networks:
+      - appnet
+
   database:
     image: postgres:latest
     ports:
@@ -33,6 +48,8 @@ services:
       - appnet
 
 volumes:
+  mariadb:
+    driver: "local"
   postgres:
     driver: "local"
 
