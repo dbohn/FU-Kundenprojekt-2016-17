@@ -19,5 +19,5 @@ humhub.dev/bcs/
     PUT /users/bcs_id
         Parameters:
             BCS-Super Token
-            <changed data set>
+            <changed data set, e.g. user name>
 
