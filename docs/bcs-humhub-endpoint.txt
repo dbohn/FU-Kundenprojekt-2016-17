@@ -1,0 +1,23 @@
+
+
+humhub.dev/bcs/
+    POST /users - Create a new user
+        Parameters:
+            BCS-Super Token
+            bcs_id
+            username
+            email
+            first_name
+            last_name
+            password
+            roles
+
+    DELETE /users/bcs_id
+        Parameters:
+            BCS-Super Token
+
+    PUT /users/bcs_id
+        Parameters:
+            BCS-Super Token
+            <changed data set>
+

@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  database:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=humhub
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=humhub
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
