@@ -1,0 +1,10 @@
+{
+    "id": "bcs",
+    "name": "BCS",
+    "description": "BCS module to communicate with BCS.",
+    "keywords": ["bcs", "api"],
+    "version": "0.0.1",
+    "humhub": {
+        "minVersion": "1.1"
+    }
+}
