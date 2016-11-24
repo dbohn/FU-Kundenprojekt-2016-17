@@ -3,13 +3,17 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    BCS Api
+                    BCS Einstellugen
                 </div>
 
                 <hr>
 
                 <div class="panel-body">
-                    Einstellungen
+                    <p>Einstellungen...</p>
+
+                    <p>BCS-Super-Token generieren</p>
+
+                    <p>was man sonst so braucht</p>
                 </div>
             </div>
         </div>

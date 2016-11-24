@@ -2,22 +2,20 @@
 
 namespace humhub\modules\bcs\controllers;
 
-use humhub\components\Controller;
+use humhub\modules\admin\components\Controller;
 
 class SettingsController extends Controller
 {
 
     public function init()
     {
-        $this->appendPageTitle('BCS Settings');
-        $this->subLayout = '@bcs/views/layouts/main';
-
+        $this->appendPageTitle('BCS');
         return parent::init();
     }
 
 
     public function actionIndex()
     {
-        return $this->render('/api/index');
+        return $this->render('/settings/index');
     }
 }
