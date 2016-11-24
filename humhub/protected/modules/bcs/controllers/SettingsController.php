@@ -11,6 +11,7 @@ class SettingsController extends Controller
     {
         $this->appendPageTitle('BCS Settings');
         $this->subLayout = '@bcs/views/layouts/main';
+
         return parent::init();
     }
 
