@@ -4,6 +4,7 @@ namespace humhub\modules\bcs\controllers;
 
 use humhub\components\Controller;
 use humhub\components\Request;
+use humhub\modules\bcs\models\BcsToken;
 use humhub\modules\user\models\forms\Registration;
 use Yii;
 use yii\web\Response;
@@ -98,10 +99,11 @@ class ApiController extends Controller
      */
     private function forceBcsAuthentication()
     {
-        // TODO: read current tokens from database or config file...
-        $validApiTokens = [
-            'a3Jhc3Nfc2ljaGVy'
-        ];
+        $tokens = BcsToken::find()->all();
+
+        $validApiTokens = array_map(function ($model) {
+            return $model->token;
+        }, $tokens);
 
         $requestToken = Yii::$app->request->headers->get('bcs-super-token');
 
