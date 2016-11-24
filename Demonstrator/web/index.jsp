@@ -5,6 +5,9 @@
     <title>Demonstrator</title>
     <link rel="stylesheet" href="resources/bootstrap-flex.min.css">
     <link rel="stylesheet" href="resources/style.css">
+    <script src="resources/js/jquery-3.1.1.min.js"></script>
+    <script src="resources/js/tether.min.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-light navbar-fixed-top bg-faded">
