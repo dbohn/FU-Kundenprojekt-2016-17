@@ -67,6 +67,7 @@ class ApiController extends Controller
             $_POST['Profile']['lastname'] = $request->post('last_name');
         }
 
+        // reassign POST data to request
         $request->setBodyParams($_POST);
 
         $registration = new Registration();
@@ -87,12 +88,6 @@ class ApiController extends Controller
         }
 
         return $this->responseSuccess('User registration successful');
-
-
-        // create user registration
-        // Note:
-        //    $enablePasswordForm = true;
-        //    $enableEmailField = false;
     }
 
     /**
