@@ -8,6 +8,13 @@ use Yii;
 class ApiController extends Controller
 {
 
+    public function init()
+    {
+        $this->enableCsrfValidation = false;
+
+        parent::init();
+    }
+
     public function actionUsers()
     {
         $this->forcePostRequest();
