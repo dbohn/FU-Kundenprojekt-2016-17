@@ -4,7 +4,7 @@ namespace humhub\modules\bcs\controllers;
 
 use humhub\components\Controller;
 
-class ApiController extends Controller
+class SettingsController extends Controller
 {
 
     public function init()

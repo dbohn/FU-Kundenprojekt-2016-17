@@ -19,7 +19,7 @@ class Events extends \yii\base\Object
 
         $event->sender->addItem(array(
             'label' => Yii::t('BcsModule.base', 'BCS'),
-            'url' => Url::to(['/bcs/api/index']),
+            'url' => Url::to(['/bcs/settings/index']),
             'icon' => '<i class="fa fa-cog"></i>',
             'isActive' => (Yii::$app->controller->module && Yii::$app->controller->module->id == 'bcs'),
             'sortOrder' => 300,
