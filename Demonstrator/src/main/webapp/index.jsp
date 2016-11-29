@@ -1,13 +1,13 @@
-<%@ page import="main.Dummy" %>
+<%@ page import="de.fuberlin.kundenprojekt.friedrich.Dummy" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Demonstrator</title>
-    <link rel="stylesheet" href="resources/bootstrap-flex.min.css">
-    <link rel="stylesheet" href="resources/style.css">
-    <script src="resources/js/jquery-3.1.1.min.js"></script>
-    <script src="resources/js/tether.min.js"></script>
-    <script src="resources/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap-flex.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/tether.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-light navbar-fixed-top bg-faded">
@@ -32,23 +32,24 @@
         </li>
     </ul>
 </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs">
-                <div class="jumbotron">
-                    <h1 class="display-3">Demonstrator</h1>
-                    <p class="lead">Demonstration einer Integration von Humhub in ein BCS-System</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs">
-                <p>Diese Seite basiert auf <a href="http://v4-alpha.getbootstrap.com">Bootstrap</a>, um eine Grundoptik zu bieten</p>
-            </div>
-            <div class="col-xs">
-                <p><%=Dummy.doSomething() %></p>
+<div class="container">
+    <div class="row">
+        <div class="col-xs">
+            <div class="jumbotron">
+                <h1 class="display-3">Demonstrator</h1>
+                <p class="lead">Demonstration einer Integration von Humhub in ein BCS-System</p>
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xs">
+            <p>Diese Seite basiert auf <a href="http://v4-alpha.getbootstrap.com">Bootstrap</a>, um eine Grundoptik zu bieten</p>
+        </div>
+        <div class="col-xs">
+            <p>Test 2</p>
+            <%=Dummy.doSomething()%>
+        </div>
+    </div>
+</div>
 </body>
 </html>
