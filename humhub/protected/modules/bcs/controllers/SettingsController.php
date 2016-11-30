@@ -4,6 +4,7 @@ namespace humhub\modules\bcs\controllers;
 
 use humhub\modules\admin\components\Controller;
 use humhub\modules\bcs\models\BcsToken;
+use humhub\modules\bcs\repositories\UserRepository;
 
 class SettingsController extends Controller
 {

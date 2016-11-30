@@ -2,6 +2,7 @@
 
 namespace humhub\modules\bcs\controllers;
 
+use humhub\modules\bcs\models\UserBcs;
 use humhub\modules\user\models\forms\Registration;
 use Yii;
 use yii\web\Response;
@@ -30,12 +31,16 @@ class UsersController extends ApiController
         $username = $request->post('username');
         $password = $request->post('password');
         $email = $request->post('email');
+        $bcsId = $request->post('bcs_id');
+
+        // TODO: bcs_id has to be unique
 
         if (empty($username) ||
             empty($password) ||
-            empty($email)
+            empty($email) ||
+            empty($bcsId)
         ) {
-            return $this->responseError("Username, password and e-mail are required fields", 400);
+            return $this->responseError("Username, password, e-mail and bcs id are required fields", 400);
         }
 
         // fake user fields
@@ -72,6 +77,13 @@ class UsersController extends ApiController
         if (!$registration->register()) {
             return $this->responseError('User registration failed', 400);
         }
+
+        $userBcs = new UserBcs();
+
+        $userBcs->setAttribute('user_id', $registration->getUser()->id);
+        $userBcs->setAttribute('bcs_id', $request->post('bcs_id'));
+
+        $userBcs->save();
 
         return $this->responseSuccess('User registration successful');
     }

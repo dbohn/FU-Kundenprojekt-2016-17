@@ -36,7 +36,7 @@ abstract class ApiController extends Controller
             return $model->token;
         }, $tokens);
 
-        $requestToken = Yii::$app->request->headers->get('bcs-super-token');
+        $requestToken = Yii::$app->request->headers->get('x-bcs-super-token');
 
         if (!in_array($requestToken, $validApiTokens)) {
             return $this->responseError(null, 401);
