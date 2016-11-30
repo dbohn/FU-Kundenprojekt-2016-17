@@ -15,6 +15,11 @@ class SettingsController extends Controller
     }
 
 
+    /**
+     * Action to display all bcs tokens
+     *
+     * @return string
+     */
     public function actionIndex()
     {
         $tokens = BcsToken::find()->all();
@@ -23,6 +28,11 @@ class SettingsController extends Controller
     }
 
 
+    /**
+     * Action to generate a new bcs super token
+     *
+     * @return \yii\web\Response
+     */
     public function actionAdd()
     {
         $token = new BcsToken();
