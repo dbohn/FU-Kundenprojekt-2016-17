@@ -5,10 +5,10 @@
          version="3.1">
     <servlet>
         <servlet-name>user</servlet-name>
-        <servlet-class>de.fuberlin.kundenprojekt.friedrich.endpoints.User</servlet-class>
+        <servlet-class>de.fuberlin.kundenprojekt.friedrich.endpoints.UsersEndpoint</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>user</servlet-name>
-        <url-pattern>/users/*</url-pattern>
+        <url-pattern>/users</url-pattern>
     </servlet-mapping>
 </web-app>

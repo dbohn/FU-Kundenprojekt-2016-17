@@ -1,4 +1,5 @@
-<%@ page import="de.fuberlin.kundenprojekt.friedrich.Dummy" %>
+<%@ page import="de.fuberlin.kundenprojekt.friedrich.UserRepository" %>
+<%@ page import="de.fuberlin.kundenprojekt.friedrich.PasswordHasher" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -14,10 +15,10 @@
     <a class="navbar-brand" href="#">Navbar</a>
     <ul class="nav navbar-nav">
         <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="users.jsp">Users</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
@@ -47,7 +48,7 @@
         </div>
         <div class="col-xs">
             <p>Test 2</p>
-            <%=Dummy.doSomething()%>
+            <p>Passwortlänge: <%=PasswordHasher.createHash("password").length()%></p>
         </div>
     </div>
 </div>
