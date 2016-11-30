@@ -102,4 +102,15 @@ abstract class ApiController extends Controller
     {
         return Response::$httpStatuses[$code] ?? 'Unknown error';
     }
+
+    /**
+     * Exit if http method is not GET
+     */
+    protected function forceGetRequest()
+    {
+        if (\Yii::$app->request->method != 'GET') {
+            print "Invalid method!";
+            die();
+        }
+    }
 }

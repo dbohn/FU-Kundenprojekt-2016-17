@@ -24,7 +24,6 @@ class UsersController extends ApiController
             return $error;
         }
 
-        // read request body for input data
         /** @var \humhub\components\Request $request */
         $request = Yii::$app->request;
 

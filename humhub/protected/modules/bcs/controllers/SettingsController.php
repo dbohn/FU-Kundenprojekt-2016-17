@@ -4,7 +4,6 @@ namespace humhub\modules\bcs\controllers;
 
 use humhub\modules\admin\components\Controller;
 use humhub\modules\bcs\models\BcsToken;
-use humhub\modules\bcs\repositories\UserRepository;
 
 class SettingsController extends Controller
 {
@@ -40,7 +39,7 @@ class SettingsController extends Controller
 
         $token->setAttribute('token', $this->random_str(60));
 
-        $token->setAttribute('comment', 'BCS Token for test: humhub.local');
+        $token->setAttribute('comment', 'BCS Super Token');
 
         $token->save();
 
