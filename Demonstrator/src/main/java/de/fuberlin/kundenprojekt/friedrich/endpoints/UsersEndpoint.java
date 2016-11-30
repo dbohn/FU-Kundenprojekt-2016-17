@@ -1,8 +1,10 @@
 package de.fuberlin.kundenprojekt.friedrich.endpoints;
 
+import com.mashape.unirest.http.JsonNode;
 import de.fuberlin.kundenprojekt.friedrich.PasswordHasher;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
+import de.fuberlin.kundenprojekt.friedrich.social.HumHubUserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,12 +19,16 @@ import java.io.PrintWriter;
 
 public class UsersEndpoint extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //String username = request.getParameter("username");
-        //String email = request.getParameter("email");
 
-        resp(response, request.getMethod());
+        //DummyUser TODO: Connection to database, import user data
+        User dummyUser = new User("hans","wurst, hans","han@gmx.de","999d","0000");
+        dummyUser.id=5;
 
-        //response.sendRedirect("index.jsp");
+        //TODO: bcsSuperToken has to be adjusted
+        HumHubUserRepository ur = new HumHubUserRepository("bDmLAezCwc1gSGuydWTTwi3LGglFK1lceXkegfoLbp07PZqZQrf6aQjx1ZzS","http://nginx");
+
+        String status = ur.add(dummyUser);
+        resp(response,status);
     }
 
     @Override
@@ -34,7 +40,7 @@ public class UsersEndpoint extends HttpServlet {
         String password = PasswordHasher.createHash(req.getParameter("password"));
         String phone = req.getParameter("phone");
 
-        String fullName = first_name + ' ' + last_name;
+        String fullName =  last_name + ", " + first_name;
 
         User user = new User(username, fullName, email, password, phone);
 
