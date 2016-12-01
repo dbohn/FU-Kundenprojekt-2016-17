@@ -19,4 +19,12 @@
         <servlet-name>csvimport</servlet-name>
         <url-pattern>/csvimport</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>humhubregistration</servlet-name>
+        <servlet-class>de.fuberlin.kundenprojekt.friedrich.endpoints.HumhubRegistrationEndpoint</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>humhubregistration</servlet-name>
+        <url-pattern>/users/humhub</url-pattern>
+    </servlet-mapping>
 </web-app>

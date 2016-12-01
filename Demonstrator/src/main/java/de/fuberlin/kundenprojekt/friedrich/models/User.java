@@ -11,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public Integer id;
+    public String id;
 
     public String username;
     public String email;
@@ -34,5 +34,29 @@ public class User {
     @Override
     public String toString() {
         return String.format("User: %s, %s", username, full_name);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getFullName() {
+        return full_name;
     }
 }

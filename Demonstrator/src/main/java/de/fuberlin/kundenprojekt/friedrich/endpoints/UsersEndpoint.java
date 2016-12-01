@@ -1,10 +1,7 @@
 package de.fuberlin.kundenprojekt.friedrich.endpoints;
 
-import com.mashape.unirest.http.JsonNode;
-import de.fuberlin.kundenprojekt.friedrich.PasswordHasher;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
-import de.fuberlin.kundenprojekt.friedrich.social.HumHubUserRepository;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,21 +11,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 
 public class UsersEndpoint extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //DummyUser TODO: Connection to database, import user data
-        User dummyUser = new User("hans","wurst, hans","han@gmx.de","999d","0000");
+        /*User dummyUser = new User("hans","wurst, hans","han@gmx.de","999d","0000");
         dummyUser.id=5;
 
         //TODO: bcsSuperToken has to be adjusted
         HumHubUserRepository ur = new HumHubUserRepository("bDmLAezCwc1gSGuydWTTwi3LGglFK1lceXkegfoLbp07PZqZQrf6aQjx1ZzS","http://nginx");
 
         String status = ur.add(dummyUser);
-        resp(response,status);
+        resp(response,status);*/
+        request.getRequestDispatcher("./users.jsp").forward(request, response);
     }
 
     @Override
@@ -37,7 +35,7 @@ public class UsersEndpoint extends HttpServlet {
         String email = req.getParameter("email");
         String first_name = req.getParameter("first_name");
         String last_name = req.getParameter("last_name");
-        String password = PasswordHasher.createHash(req.getParameter("password"));
+        String password = req.getParameter("password");
         String phone = req.getParameter("phone");
 
         String fullName =  last_name + ", " + first_name;
@@ -47,7 +45,8 @@ public class UsersEndpoint extends HttpServlet {
         UserRepository.storeUser(user);
 
         //resp(resp, username);
-        resp.sendRedirect("./users.jsp");
+        //resp.sendRedirect("./users.jsp");
+        req.getRequestDispatcher("./users.jsp").forward(req, resp);
     }
 
     private void resp(HttpServletResponse resp, String msg) throws IOException {

@@ -20,24 +20,24 @@ public class HumHubUserRepository {
         this.bcsSuperToken = bcsSuperToken;
     }
 
-    public String add(User usersObject) {
+    public JsonNode add(User usersObject) {
 
         //read properties out of userObject
         String username = usersObject.username;
         String email = usersObject.email;
         String password = usersObject.password;
         String phone = usersObject.phone;
-        String id = usersObject.id.toString();
+        String id = usersObject.id;
         //first_name and last_name are part of full_name, separated by a comma
         String [] name = usersObject.full_name.split(",");
         String first_name = name[1].trim();
         String last_name = name[0];
 
         //response to caller
-        String body = null;
+        JsonNode body = null;
 
         try {
-            HttpResponse<String> response = Unirest.post(baseUrl + "/bcs/users/add")
+            HttpResponse<JsonNode> response = Unirest.post(baseUrl + "/bcs/users/add")
                     .header("x-bcs-super-token", bcsSuperToken)
                     .header("accept", "application/json")
                     .field("username", username)
@@ -47,7 +47,7 @@ public class HumHubUserRepository {
                     .field("password", password)
                     .field("phone", phone)
                     .field("bcs_id", id)
-                    .asString();
+                    .asJson();
             body = response.getBody();
         } catch (UnirestException e) {
             e.printStackTrace();
