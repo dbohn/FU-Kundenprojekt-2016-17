@@ -8,6 +8,8 @@ use humhub\modules\user\models\User;
 class UserBcs extends ActiveRecord
 {
 
+    protected static $bcsIdCache = [];
+
     /**
      * Returns the bcs id for given user
      *
@@ -20,8 +22,12 @@ class UserBcs extends ActiveRecord
             $user = $user->id;
         }
 
-        return static::find()->where([
-            'user_id' => $user
-        ])->one()->bcs_id;
+        if (!isset(static::$bcsIdCache[$user])) {
+            static::$bcsIdCache[$user] = static::find()->where([
+                'user_id' => $user
+            ])->one()->bcs_id;
+        }
+
+        return static::$bcsIdCache[$user];
     }
 }

@@ -4,8 +4,8 @@ namespace humhub\modules\bcs\controllers;
 
 use humhub\modules\bcs\models\UserBcs;
 use humhub\modules\bcs\repositories\UserRepository;
+use humhub\modules\bcs\transformers\messages\MessageTransformer;
 use humhub\modules\mail\models\Message;
-use humhub\modules\mail\models\UserMessage;
 
 class MessagesController extends ApiController
 {
@@ -15,9 +15,15 @@ class MessagesController extends ApiController
      */
     protected $userRepository;
 
+    /**
+     * @var MessageTransformer
+     */
+    protected $messageTransformer;
+
     public function init()
     {
         $this->userRepository = new UserRepository();
+        $this->messageTransformer = new MessageTransformer();
 
         parent::init();
     }
@@ -39,33 +45,13 @@ class MessagesController extends ApiController
             return $this->responseError('User not found bcs id ' . $bcsId, 404);
         }
 
-        $messages = $this->userRepository->getMessages($user);
+        $userMessages = $this->userRepository->getMessages($user);
 
-        $responseMessages = [];
-
-        /** @var UserMessage $userMessage */
-        foreach ($messages as $userMessage) {
+        return $this->responseSuccess(array_map(function ($userMessage) {
             /** @var Message $message */
             $message = $userMessage->getMessage()->one();
 
-            $responseMessages[] = [
-                'message' => $message,
-                'entries' => $message->getEntries()->all(),
-                'users' => $message->getUsers()->all(),
-                'bcs_map' => $this->mapUserToBcs($message->getUsers()->all()),
-            ];
-        }
-
-        return $this->responseSuccess($responseMessages);
-    }
-
-    private function mapUserToBcs($users)
-    {
-        return array_map(function ($user) {
-            return [
-                'bcs_id' => UserBcs::idFor($user),
-                'user_id' => $user->id,
-            ];
-        }, $users);
+            return $this->messageTransformer->transform($message);
+        }, $userMessages));
     }
 }
