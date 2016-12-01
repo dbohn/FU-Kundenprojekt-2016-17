@@ -36,7 +36,7 @@ abstract class ApiController extends Controller
             return $model->token;
         }, $tokens);
 
-        $requestToken = Yii::$app->request->headers->get('bcs-super-token');
+        $requestToken = Yii::$app->request->headers->get('x-bcs-super-token');
 
         if (!in_array($requestToken, $validApiTokens)) {
             return $this->responseError(null, 401);
@@ -101,5 +101,16 @@ abstract class ApiController extends Controller
     protected function tryFetchHttpMessage($code)
     {
         return Response::$httpStatuses[$code] ?? 'Unknown error';
+    }
+
+    /**
+     * Exit if http method is not GET
+     */
+    protected function forceGetRequest()
+    {
+        if (\Yii::$app->request->method != 'GET') {
+            print "Invalid method!";
+            die();
+        }
     }
 }
