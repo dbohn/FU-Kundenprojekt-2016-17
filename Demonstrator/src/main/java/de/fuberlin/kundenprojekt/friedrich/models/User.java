@@ -30,4 +30,9 @@ public class User {
         this.phone = phone;
         this.full_name = full_name;
     }
+
+    @Override
+    public String toString() {
+        return String.format("User: %s, %s", username, full_name);
+    }
 }

@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Demonstrator</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="bootstrap-flex.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="js/jquery-3.1.1.min.js"></script>

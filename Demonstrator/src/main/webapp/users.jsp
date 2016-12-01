@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Demonstrator &mdash; Users</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="bootstrap-flex.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="js/jquery-3.1.1.min.js"></script>
@@ -65,6 +66,25 @@
                 </tbody>
             </table>
 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs">
+            <hr>
+            <div class="card">
+                <div class="card-header">
+                    Massenimport
+                </div>
+                <div class="card-block">
+                    <form action="csvimport" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="csvfile">CSV-Datei:</label>
+                            <input type="file" id="csvfile" name="csvfile" class="form-control-file">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
