@@ -11,4 +11,12 @@
         <servlet-name>user</servlet-name>
         <url-pattern>/users</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>csvimport</servlet-name>
+        <servlet-class>de.fuberlin.kundenprojekt.friedrich.endpoints.CsvImportEndpoint</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>csvimport</servlet-name>
+        <url-pattern>/csvimport</url-pattern>
+    </servlet-mapping>
 </web-app>
