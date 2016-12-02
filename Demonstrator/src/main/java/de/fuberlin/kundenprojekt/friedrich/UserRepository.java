@@ -11,7 +11,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 @Named
 @RequestScoped

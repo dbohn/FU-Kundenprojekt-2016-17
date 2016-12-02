@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 @Entity
 @Table(name="users")

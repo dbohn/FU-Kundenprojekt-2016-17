@@ -4,7 +4,6 @@ import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -20,6 +19,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+/**
+ * @author Team Friedrich
+ */
 @MultipartConfig
 public class CsvImportEndpoint extends HttpServlet {
     @Override
@@ -38,7 +40,9 @@ public class CsvImportEndpoint extends HttpServlet {
             e.printStackTrace();
         }
 
-        resp.sendRedirect("./users.jsp");
+        req.setAttribute("status", "CSV file imported!");
+
+        req.getRequestDispatcher("./users.jsp").forward(req, resp);
     }
 
     private List<User> parseCSV(String content) throws IOException {

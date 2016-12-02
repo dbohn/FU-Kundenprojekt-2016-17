@@ -5,7 +5,6 @@ import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.social.HumHubUserRepository;
 
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

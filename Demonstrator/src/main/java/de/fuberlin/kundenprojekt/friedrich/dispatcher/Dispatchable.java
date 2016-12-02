@@ -1,7 +1,7 @@
 package de.fuberlin.kundenprojekt.friedrich.dispatcher;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 public interface Dispatchable {
     public void dispatch();

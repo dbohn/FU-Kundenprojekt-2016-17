@@ -13,19 +13,9 @@ import java.io.PrintWriter;
 /**
  * @author Team Friedrich
  */
-
 public class UsersEndpoint extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //DummyUser TODO: Connection to database, import user data
-        /*User dummyUser = new User("hans","wurst, hans","han@gmx.de","999d","0000");
-        dummyUser.id=5;
-
-        //TODO: bcsSuperToken has to be adjusted
-        HumHubUserRepository ur = new HumHubUserRepository("bDmLAezCwc1gSGuydWTTwi3LGglFK1lceXkegfoLbp07PZqZQrf6aQjx1ZzS","http://nginx");
-
-        String status = ur.add(dummyUser);
-        resp(response,status);*/
         request.getRequestDispatcher("./users.jsp").forward(request, response);
     }
 
@@ -44,8 +34,8 @@ public class UsersEndpoint extends HttpServlet {
 
         UserRepository.storeUser(user);
 
-        //resp(resp, username);
-        //resp.sendRedirect("./users.jsp");
+        req.setAttribute("status", "User successfully added!");
+
         req.getRequestDispatcher("./users.jsp").forward(req, resp);
     }
 

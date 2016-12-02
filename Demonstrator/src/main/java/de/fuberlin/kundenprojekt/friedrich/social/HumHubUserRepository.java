@@ -6,10 +6,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
- * Created by Annika on 30.11.2016.
+ * @author Team Friedrich
  */
 public class HumHubUserRepository {
     private String baseUrl;
