@@ -1,39 +1,17 @@
-<%@ page import="de.fuberlin.kundenprojekt.friedrich.UserRepository" %>
-<%@ page import="de.fuberlin.kundenprojekt.friedrich.models.User" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Demonstrator &mdash; Users</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="bootstrap-flex.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/tether.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap-flex.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
+    <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/tether.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-light navbar-fixed-top bg-faded">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <ul class="nav navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="index.jsp">Home</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="users.jsp">Users <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="supportedContentDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-        </li>
-    </ul>
-</nav>
+<%@ include file="partials/navigation.jsp" %>
 <div class="container">
     <div class="row">
         <div class="col-xs">
@@ -43,6 +21,15 @@
             </div>
         </div>
     </div>
+    <c:if test="${not empty status}">
+        <div class="row">
+            <div class="col-xs">
+                <div class="alert alert-success">
+                        ${status}
+                </div>
+            </div>
+        </div>
+    </c:if>
     <div class="row">
         <div class="col-xs">
             <table class="table">
@@ -52,17 +39,24 @@
                     <th>Full Name</th>
                     <th>E-Mail</th>
                     <th>Phone</th>
+                    <th>&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
-                <%for(User u: UserRepository.getUserList()) {%>
+                <c:forEach var="u" items="${userList}">
                     <tr>
-                        <td><%=u.username%></td>
-                        <td><%=u.full_name%></td>
-                        <td><%=u.email%></td>
-                        <td><%=u.phone%></td>
+                        <td>${u.username}</td>
+                        <td>${u.fullName}</td>
+                        <td>${u.email}</td>
+                        <td>${u.phone}</td>
+                        <td>
+                            <form action="${pageContext.request.contextPath}/users/humhub" method="post">
+                                <input type="hidden" name="id" value="${u.id}">
+                                <button type="submit" class="btn btn-outline-primary" title="An HumHub melden">HumHub</button>
+                            </form>
+                        </td>
                     </tr>
-                <%}%>
+                </c:forEach>
                 </tbody>
             </table>
 
@@ -76,7 +70,7 @@
                     Massenimport
                 </div>
                 <div class="card-block">
-                    <form action="csvimport" method="post" enctype="multipart/form-data">
+                    <form action="${pageContext.request.contextPath}/csvimport" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="csvfile">CSV-Datei:</label>
                             <input type="file" id="csvfile" name="csvfile" class="form-control-file">
@@ -95,7 +89,7 @@
                     Neuen Nutzer anlegen
                 </div>
                 <div class="card-block">
-                    <form action="users" method="post">
+                    <form action="${pageContext.request.contextPath}/users" method="post">
                         <div class="form-group">
                             <label for="username">Username: </label>
                             <input type="text" name="username" id="username" class="form-control" />

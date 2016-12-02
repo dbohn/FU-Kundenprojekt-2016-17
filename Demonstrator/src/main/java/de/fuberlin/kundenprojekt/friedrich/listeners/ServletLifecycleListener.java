@@ -5,7 +5,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 public class ServletLifecycleListener implements ServletContextListener {
 

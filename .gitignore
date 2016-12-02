@@ -8,3 +8,9 @@
 /Demonstrator/out
 /Demonstrator/target
 /Demonstrator/.idea/workspace.xml
+humhub/protected/modules/birthday/
+humhub/protected/modules/calendar/
+humhub/protected/modules/cfiles/
+humhub/protected/modules/mostactiveusers/
+humhub/protected/modules/polls/
+humhub/protected/modules/tasks/

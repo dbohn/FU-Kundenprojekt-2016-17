@@ -9,7 +9,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 public class PasswordHasher {
 
