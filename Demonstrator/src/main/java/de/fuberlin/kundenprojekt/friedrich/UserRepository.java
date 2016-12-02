@@ -1,5 +1,6 @@
 package de.fuberlin.kundenprojekt.friedrich;
 
+import de.fuberlin.kundenprojekt.friedrich.exceptions.AuthenticationException;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.storage.Database;
 import org.hibernate.Session;
@@ -40,6 +41,23 @@ public class UserRepository {
                 .setParameter("user", id);
 
         User user = userQuery.getSingleResult();
+
+        session.close();
+
+        return user;
+    }
+
+    public User validateCredentials(String email, String password) throws AuthenticationException {
+        Session session = Database.getSession();
+        TypedQuery<User> userQuery = session.createQuery("from User where email=:email and password=:password", User.class)
+                .setParameter("email", email)
+                .setParameter("password", password);
+
+        User user = userQuery.getSingleResult();
+
+        if (user == null) {
+            throw new AuthenticationException();
+        }
 
         session.close();
 

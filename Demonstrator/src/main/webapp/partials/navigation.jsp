@@ -10,12 +10,18 @@
         <li class="nav-item">
             <a class="nav-link" href="http://humhub.local:8080">Humhub</a>
         </li>
+    </ul>
+    <ul class="nav navbar-nav float-xs-right">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${user.fullName}</a>
             <div class="dropdown-menu" aria-labelledby="supportedContentDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="logout"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+
+                <form id="logout-form" action="logout" method="POST" style="display: none;">
+                </form>
             </div>
         </li>
     </ul>
