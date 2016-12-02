@@ -23,8 +23,6 @@ class MessageTransformer extends AbstractTransformer
             'created_by' => UserBcs::idFor($data->created_by),
             'updated_at' => $data->updated_at,
             'updated_by' => UserBcs::idFor($data->updated_by),
-            'messageEntries' => $this->transformCollection($data->getEntries()->all(), new EntryTransformer()),
-            'users' => $this->transformCollection($data->getUsers()->all(), new UserTransformer()),
         ];
     }
 }

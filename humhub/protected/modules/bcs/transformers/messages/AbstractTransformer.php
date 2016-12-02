@@ -16,7 +16,7 @@ abstract class AbstractTransformer
      * @param AbstractTransformer $transformer
      * @return array
      */
-    protected function transformCollection($items, AbstractTransformer $transformer)
+    public function transformCollection($items, AbstractTransformer $transformer)
     {
         return array_filter(array_map(function ($item) use ($transformer) {
             return $transformer->transform($item);

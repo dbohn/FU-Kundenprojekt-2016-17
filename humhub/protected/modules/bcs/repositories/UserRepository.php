@@ -3,7 +3,6 @@
 namespace humhub\modules\bcs\repositories;
 
 use humhub\modules\bcs\models\UserBcs;
-use humhub\modules\mail\models\UserMessage;
 use humhub\modules\user\models\User;
 
 class UserRepository
@@ -26,21 +25,4 @@ class UserRepository
 
         return User::findIdentity($userBcs->user_id);
     }
-
-    /**
-     * @param User $user
-     *
-     * @return array
-     */
-    public function getMessages(User $user)
-    {
-        $query = UserMessage::find();
-
-        $query->joinWith('message');
-        $query->where(['user_message.user_id' => $user->id]);
-        $query->orderBy('message.updated_at DESC');
-
-        return $query->all();
-    }
-
 }
