@@ -53,7 +53,8 @@
                             <form action="${pageContext.request.contextPath}/users/humhub" method="post">
                                 <input type="hidden" name="id" value="${u.id}">
                                 <button type="submit" class="btn btn-outline-primary" title="An HumHub melden">HumHub</button>
-                            </form></td>
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
