@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -99,5 +99,13 @@ public class User implements Serializable {
         }
 
         return userinfo.getUpdatedAt().isBefore(userinfo.getLastSyncedAt()) || userinfo.getUpdatedAt().isEqual(userinfo.getLastSyncedAt());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User) {
+            return this.id.equals(((User) obj).getId());
+        }
+        return super.equals(obj);
     }
 }

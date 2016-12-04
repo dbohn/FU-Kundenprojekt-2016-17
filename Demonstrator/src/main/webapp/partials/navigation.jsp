@@ -7,6 +7,9 @@
         <li class="nav-item${ (pageContext.request.servletPath.indexOf('users') > -1) ? " active" : "" }">
             <a class="nav-link" href="${pageContext.request.contextPath}/users">Users <span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item${ (pageContext.request.servletPath.indexOf('conversations') > -1) ? " active" : "" }">
+            <a href="${pageContext.request.contextPath}/conversations" class="nav-link">Nachrichten</a>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="http://humhub.local:8080">Humhub</a>
         </li>

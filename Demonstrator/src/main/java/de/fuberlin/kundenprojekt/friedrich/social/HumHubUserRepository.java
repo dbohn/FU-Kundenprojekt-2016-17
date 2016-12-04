@@ -38,9 +38,7 @@ public class HumHubUserRepository {
         JsonNode body = null;
 
         try {
-            HttpResponse<JsonNode> response = Unirest.post(baseUrl + "/bcs/users/add")
-                    .header("x-bcs-super-token", bcsSuperToken)
-                    .header("accept", "application/json")
+            HttpResponse<JsonNode> response = HumHubApiUtil.post(baseUrl, "/bcs/users/add", bcsSuperToken)
                     .field("username", username)
                     .field("email", email)
                     .field("first_name", first_name)

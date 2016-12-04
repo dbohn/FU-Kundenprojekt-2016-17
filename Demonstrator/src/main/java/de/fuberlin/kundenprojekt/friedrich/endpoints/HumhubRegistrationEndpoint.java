@@ -3,6 +3,7 @@ package de.fuberlin.kundenprojekt.friedrich.endpoints;
 import com.mashape.unirest.http.JsonNode;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
+import de.fuberlin.kundenprojekt.friedrich.social.Configuration;
 import de.fuberlin.kundenprojekt.friedrich.social.HumHubUserRepository;
 
 import javax.inject.Inject;
@@ -33,7 +34,7 @@ public class HumhubRegistrationEndpoint extends HttpServlet {
         User user = userRepository.getUserById(id);
         //resp(resp, user.toString());
 
-        HumHubUserRepository ur = new HumHubUserRepository("IVa9aWe6rFneYtEpJEXiVTS4gKmBuoXvPLVxpnRaE2xubLzeV4Pbn8QK284v","http://nginx");
+        HumHubUserRepository ur = new HumHubUserRepository(Configuration.getHost(),Configuration.getBcsToken());
 
         JsonNode status = ur.add(user);
         if (status != null) {

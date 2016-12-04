@@ -26,6 +26,11 @@ public class AuthFilter implements Filter {
 
         String loginURL = request.getContextPath() + "/login";
 
+        if(request.getServletPath().matches(".*(css|jpg|png|gif|js)$")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
         if ((session != null && session.getAttribute("user") != null) || request.getRequestURI().equals(loginURL)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
