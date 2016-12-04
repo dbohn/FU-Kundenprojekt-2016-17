@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 @WebFilter("/*")
 public class AuthFilter implements Filter {

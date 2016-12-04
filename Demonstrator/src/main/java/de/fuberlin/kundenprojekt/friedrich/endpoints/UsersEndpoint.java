@@ -2,6 +2,7 @@ package de.fuberlin.kundenprojekt.friedrich.endpoints;
 
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
+import de.fuberlin.kundenprojekt.friedrich.models.Userinfo;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 
 /**
  * @author Team Friedrich
@@ -31,6 +33,10 @@ public class UsersEndpoint extends HttpServlet {
         String fullName =  last_name + ", " + first_name;
 
         User user = new User(username, fullName, email, password, phone);
+
+        //Userinfo userinfo = new Userinfo(LocalDateTime.now(), LocalDateTime.now(), null);
+
+        //user.addUserinfo(userinfo);
 
         UserRepository.storeUser(user);
 

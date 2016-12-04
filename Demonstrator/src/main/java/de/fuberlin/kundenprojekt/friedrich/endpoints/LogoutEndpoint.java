@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 @WebServlet("/logout")
 public class LogoutEndpoint extends HttpServlet {

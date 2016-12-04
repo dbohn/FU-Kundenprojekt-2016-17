@@ -24,5 +24,6 @@
         </property>
 
         <mapping class="de.fuberlin.kundenprojekt.friedrich.models.User"/>
+        <mapping class="de.fuberlin.kundenprojekt.friedrich.models.Userinfo"/>
     </session-factory>
 </hibernate-configuration>

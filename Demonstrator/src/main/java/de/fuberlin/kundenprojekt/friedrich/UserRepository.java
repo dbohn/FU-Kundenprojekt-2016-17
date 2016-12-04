@@ -2,6 +2,7 @@ package de.fuberlin.kundenprojekt.friedrich;
 
 import de.fuberlin.kundenprojekt.friedrich.exceptions.AuthenticationException;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
+import de.fuberlin.kundenprojekt.friedrich.models.Userinfo;
 import de.fuberlin.kundenprojekt.friedrich.storage.Database;
 import org.hibernate.Session;
 
@@ -10,6 +11,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ public class UserRepository {
     public List<User> getUserList() {
         Session session = Database.getSession();
 
-        TypedQuery<User> users = session.createQuery("from User", User.class);
+        TypedQuery<User> users = session.createQuery("from User order by full_name", User.class);
         List<User> userList = users.getResultList();
 
         session.close();
@@ -72,11 +74,16 @@ public class UserRepository {
 
     public static void storeUser(User user) {
 
+        if (user.getUserinfo() == null) {
+            Userinfo userinfo = new Userinfo(LocalDateTime.now(), LocalDateTime.now(), null);
+            user.addUserinfo(userinfo);
+        }
+
         Session session = Database.getSession();
 
         session.beginTransaction();
 
-        session.save(user);
+        session.saveOrUpdate(user);
 
         session.getTransaction().commit();
 

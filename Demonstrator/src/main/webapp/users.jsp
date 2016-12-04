@@ -50,10 +50,15 @@
                         <td>${u.email}</td>
                         <td>${u.phone}</td>
                         <td>
+                            <c:if test="${!u.isUserSynced}">
                             <form action="${pageContext.request.contextPath}/users/humhub" method="post">
                                 <input type="hidden" name="id" value="${u.id}">
                                 <button type="submit" class="btn btn-outline-primary" title="An HumHub melden">HumHub</button>
                             </form>
+                            </c:if>
+                            <c:if test="${u.isUserSynced}">
+                                <button type="submit" class="btn btn-outline-primary" title="An HumHub melden" disabled>Synchronisiert</button>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>
