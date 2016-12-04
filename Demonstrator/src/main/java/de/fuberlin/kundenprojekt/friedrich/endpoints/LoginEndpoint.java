@@ -38,6 +38,7 @@ public class LoginEndpoint extends HttpServlet {
             req.getSession().setAttribute("user", user);
             resp.sendRedirect(req.getContextPath());
         } catch (AuthenticationException e) {
+            req.setAttribute("error", "failed");
             req.getRequestDispatcher("./login.jsp").forward(req, resp);
         }
     }

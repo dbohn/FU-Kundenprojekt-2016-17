@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -12,8 +13,13 @@
 <body>
 <div class="container">
     <div class="row flex-items-xs-middle flex-items-xs-center">
-        <div class="col-xs-4 flex-xs-middle">
+        <div class="col-xs-7 flex-xs-middle">
             <h3>Login</h3>
+            <c:if test="${not empty error}">
+                <div class="alert alert-danger">
+                        Die angegebenen Nutzerdaten wurden nicht gefunden.
+                </div>
+            </c:if>
             <form action="${pageContext.request.contextPath}/login" method="post">
                 <input type="text" name="email" id="email" placeholder="E-Mail" class="form-control">
                 <input type="password" name="password" id="password" placeholder="Password" class="form-control">

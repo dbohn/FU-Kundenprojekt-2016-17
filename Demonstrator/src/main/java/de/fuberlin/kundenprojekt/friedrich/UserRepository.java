@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -53,7 +54,12 @@ public class UserRepository {
                 .setParameter("email", email)
                 .setParameter("password", password);
 
-        User user = userQuery.getSingleResult();
+        User user;
+        try {
+            user = userQuery.getSingleResult();
+        } catch (NoResultException e) {
+            throw new AuthenticationException();
+        }
 
         if (user == null) {
             throw new AuthenticationException();
