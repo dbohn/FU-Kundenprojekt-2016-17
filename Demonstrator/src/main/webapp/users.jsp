@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="u" items="${userList}">
-                    <tr>
+                    <tr${(u.id == user.id) ? " class=\"table-info\"" : ""}>
                         <td>${u.username}</td>
                         <td>${u.fullName}</td>
                         <td>${u.email}</td>
