@@ -34,7 +34,7 @@ public class HumhubRegistrationEndpoint extends HttpServlet {
         User user = userRepository.getUserById(id);
         //resp(resp, user.toString());
 
-        HumHubUserRepository ur = new HumHubUserRepository(Configuration.getHost(),Configuration.getBcsToken());
+        HumHubUserRepository ur = new HumHubUserRepository(Configuration.getBcsToken(), Configuration.getHost());
 
         JsonNode status = ur.add(user);
         if (status != null) {
