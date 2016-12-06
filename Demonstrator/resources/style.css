@@ -1,9 +1,24 @@
+html.chat, html.chat body {
+    height: 100%;
+}
+
 body {
     padding-top: 70px;
 }
 
+.messages {
+    max-height: 50vh;
+    overflow: scroll;
+    border: 1px solid #E5E5EA;
+    padding: 10px;
+}
+
 .message-box {
     margin-bottom: 20px;
+}
+
+.message-editor {
+    padding: 10px;
 }
 
 .from-me .message {
@@ -12,6 +27,10 @@ body {
     color: white;
     background: #0275d8;
     border-radius: 25px;
+}
+
+.from-me .message.pending {
+    background: #9AC8EF;
 }
 
 .from-me .message:before {
@@ -24,6 +43,10 @@ body {
     border-right: 20px solid #0275d8;
     border-bottom-left-radius: 16px 14px;
     -webkit-transform: translate(0, -2px);
+}
+
+.from-me .message.pending:before {
+    border-right-color: #9AC8EF;
 }
 
 .from-me .message:after {

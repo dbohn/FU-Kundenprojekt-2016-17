@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html class="chat">
 <head>
     <title>Demonstrator &mdash; Users</title>
     <meta charset="utf-8">
@@ -43,9 +43,9 @@
                     <h3>{{ activeConversation.title }}</h3>
                     <h4>Gestartet am {{ createdAtDate }} um {{ createdAtTime }}</h4>
                 </div>
-                <div class="messages">
+                <div class="messages" ref="messages">
                     <div class="row" :class="{'flex-items-xs-right': mine(message)}"
-                         v-for="message in activeConversation.messages">
+                         v-for="message in messages">
                         <div class="message-box col-xs-6"
                              :class="{'from-me': mine(message), 'from-them': !mine(message)}">
                             <div class="author">{{ message.user.displayName }}</div>
@@ -53,11 +53,19 @@
                             <div class="time">{{ format(message.createdAt) }}</div>
                         </div>
                     </div>
+                    <div class="row flex-items-xs-right"
+                         v-for="message in pendingMessages">
+                        <div class="message-box col-xs-6 from-me">
+                            <div class="message pending">{{ message.content }}</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="message-editor">
                     <form @submit.prevent="postMessage">
                         <div class="form-group row">
-                            <textarea class="col-xs-10 form-control" placeholder="Antworten..." name="editor" id="editor" cols="30" rows="10" v-model="message"></textarea>
+                            <div class="col-xs-10">
+                                <textarea class="form-control" placeholder="Antworten..." name="editor" id="editor" cols="30" rows="5" v-model="message"></textarea>
+                            </div>
                             <div class="col-xs-2">
                                 <button class="btn btn-primary">Senden</button>
                             </div>
@@ -77,6 +85,7 @@
             thisUrl: "${pageContext.request.contextPath}/conversations",
             activeConversation: null,
             message: "",
+            pendingMessages: {}
         },
         computed: {
             createdAtDate() {
@@ -97,24 +106,47 @@
                 let date = new Date(this.activeConversation.createdAt);
 
                 return date.toLocaleTimeString();
+            },
+
+            messages() {
+                return this.activeConversation.messages;
             }
         },
         methods: {
-            loadConversation(conversationId) {
+            loadConversation(conversationId, pendingId = null) {
                 $.get('?conversation=' + conversationId).then((data) => {
                     this.activeConversation = data;
+
+                    if (pendingId != null) {
+                        Vue.delete(this.pendingMessages, pendingId);
+                    }
+
+                    Vue.nextTick(() => {
+                        this.scrollToBottom();
+                    });
                 });
             },
 
             postMessage() {
                 let id = this.activeConversation.id;
+                let message = this.message;
+                let key = Date.now();
+
+                Vue.set(this.pendingMessages, key, {
+                    content: this.message
+                });
+
+                this.message = "";
+
+                Vue.nextTick(() => {
+                    this.scrollToBottom();
+                });
 
                 $.post(this.thisUrl, {
                     conversation: id,
-                    message: this.message,
+                    message: message,
                 }).then((response) => {
-                    //console.log(response);
-                    this.loadConversation(id);
+                    this.loadConversation(id, key);
                 });
 
                 console.log(this.message);
@@ -128,6 +160,11 @@
 
             mine(message) {
                 return message.user.user != null && this.me == message.user.user.id;
+            },
+
+            scrollToBottom() {
+                let messageContainer = this.$refs.messages;
+                messageContainer.scrollTop = messageContainer.scrollHeight;
             }
         }
     });
