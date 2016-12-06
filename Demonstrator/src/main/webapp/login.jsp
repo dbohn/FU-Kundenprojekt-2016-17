@@ -10,20 +10,27 @@
     <script src="${pageContext.request.contextPath}/js/tether.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 </head>
-<body>
+<body class="login">
 <div class="container">
     <div class="row flex-items-xs-middle flex-items-xs-center">
         <div class="col-xs-7 flex-xs-middle">
-            <h3>Login</h3>
+            <h3 class="display-4">Login</h3>
+        </div>
+        <div class="col-xs-7 flex-xs-middle login-box">
             <c:if test="${not empty error}">
                 <div class="alert alert-danger">
                         Die angegebenen Nutzerdaten wurden nicht gefunden.
                 </div>
             </c:if>
             <form action="${pageContext.request.contextPath}/login" method="post">
-                <input type="text" name="email" id="email" placeholder="E-Mail" class="form-control">
-                <input type="password" name="password" id="password" placeholder="Password" class="form-control">
-                <button type="submit" class="btn btn-outline-primary btn-block">Login</button>
+
+                <div class="form-group">
+                    <input type="text" name="email" value="${param.email}" autofocus id="email" placeholder="E-Mail" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" id="password" placeholder="Password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form>
         </div>
     </div>

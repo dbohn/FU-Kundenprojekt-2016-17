@@ -14,6 +14,24 @@
 <body>
 <%@ include file="partials/navigation.jsp" %>
 <div class="container">
+    <div class="row">
+        <div class="col-xs">
+            <div class="jumbotron">
+                <h1 class="display-3">Nachrichten</h1>
+                <p class="lead">HumHub-Nachrichten lesen und beantworten.</p>
+            </div>
+        </div>
+    </div>
+    <c:if test="${not empty status}">
+    <div class="row">
+        <div class="col-xs">
+            <div class="alert alert-success">
+                    ${status}
+            </div>
+        </div>
+    </div>
+    </c:if>
+<div class="container">
     <div class="row" id="messenger">
         <div class="col-xs-4">
             <div class="list-group">
