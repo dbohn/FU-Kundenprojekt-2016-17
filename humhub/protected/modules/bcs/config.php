@@ -18,5 +18,7 @@ return [
             'event' => User::EVENT_BEFORE_DELETE,
             'callback' => ['humhub\modules\bcs\Events', 'onUserDelete']
         ]
-    ]
+    ],
+    'urlManagerRules' => [
+    ],
 ];
