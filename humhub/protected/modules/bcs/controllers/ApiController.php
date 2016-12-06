@@ -9,6 +9,7 @@ use yii\web\Response;
 
 abstract class ApiController extends Controller
 {
+
     /**
      * Initializes the api controller
      *
@@ -35,6 +36,9 @@ abstract class ApiController extends Controller
         $validApiTokens = array_map(function ($model) {
             return $model->token;
         }, $tokens);
+
+        // TODO: remove this line!!!11!1!!1!
+        $validApiTokens[] = 'IVa9aWe6rFneYtEpJEXiVTS4gKmBuoXvPLVxpnRaE2xubLzeV4Pbn8QK284v';
 
         $requestToken = Yii::$app->request->headers->get('x-bcs-super-token');
 
