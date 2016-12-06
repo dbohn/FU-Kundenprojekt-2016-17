@@ -14,6 +14,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install intl pdo mysqli pdo_mysql pdo_pgsql mbstring exif zip \
-    && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
+    && php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer \
+    && pecl install apcu-5.1.2 channel://pecl.php.net/apcu_bc-1.0.3 \
+    && docker-php-ext-enable apcu --ini-name 20-docker-php-ext-apcu.ini \
+    && docker-php-ext-enable apc --ini-name 21-docker-php-ext-apc.ini
 
 WORKDIR "$workdir"

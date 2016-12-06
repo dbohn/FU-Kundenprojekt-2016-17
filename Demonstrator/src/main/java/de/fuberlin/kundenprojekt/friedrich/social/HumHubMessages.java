@@ -2,8 +2,10 @@ package de.fuberlin.kundenprojekt.friedrich.social;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
+import de.fuberlin.kundenprojekt.friedrich.exceptions.MessageReplyException;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.social.messages.Conversation;
 import de.fuberlin.kundenprojekt.friedrich.social.messages.Message;
@@ -63,6 +65,24 @@ public class HumHubMessages {
             e.printStackTrace();
         }
         return conversations;
+    }
+
+    public void postMessage(String conversationId, String message, User user) throws MessageReplyException {
+        try {
+            HttpResponse<JsonNode> response = HumHubApiUtil.post(this.host, "/bcs/messages/add", this.bcsToken)
+                    .field("bcs_id", user.id)
+                    .field("message", conversationId)
+                    .field("content", message)
+                    .asJson();
+
+            if (response.getStatus() != 200) {
+                JSONObject respObj = response.getBody().getObject();
+                throw new MessageReplyException(respObj.getString("message"));
+            }
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            throw new MessageReplyException(e.getMessage());
+        }
     }
 
     private Conversation extractConversation(JSONObject message) {

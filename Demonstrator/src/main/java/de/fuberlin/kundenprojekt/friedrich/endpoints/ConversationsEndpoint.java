@@ -2,6 +2,7 @@ package de.fuberlin.kundenprojekt.friedrich.endpoints;
 
 import com.google.gson.*;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
+import de.fuberlin.kundenprojekt.friedrich.exceptions.MessageReplyException;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.social.Configuration;
 import de.fuberlin.kundenprojekt.friedrich.social.HumHubMessages;
@@ -39,6 +40,26 @@ public class ConversationsEndpoint extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("application/json");
+        String message = req.getParameter("message");
+        String conversationId = req.getParameter("conversation");
+
+        User user = (User) req.getSession().getAttribute("user");
+
+        HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
+
+        try {
+            humHubMessages.postMessage(conversationId, message, user);
+            respJson(resp, "message submitted");
+        } catch (MessageReplyException e) {
+            resp.setStatus(500);
+            respJson(resp, e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     private void loadConversation(String conversation, HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
@@ -63,6 +84,12 @@ public class ConversationsEndpoint extends HttpServlet {
     private void resp(HttpServletResponse resp, String msg) throws IOException {
         PrintWriter out = resp.getWriter();
         out.println("<p>" + msg + "</p>");
+        out.close();
+    }
+
+    private void respJson(HttpServletResponse resp, String msg) throws IOException {
+        PrintWriter out = resp.getWriter();
+        out.println("{\"message\":\"" + msg + "\"}");
         out.close();
     }
 }

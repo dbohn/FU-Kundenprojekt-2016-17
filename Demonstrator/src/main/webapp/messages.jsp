@@ -43,12 +43,26 @@
                     <h3>{{ activeConversation.title }}</h3>
                     <h4>Gestartet am {{ createdAtDate }} um {{ createdAtTime }}</h4>
                 </div>
-                <div class="row" :class="{'flex-items-xs-right': mine(message)}" v-for="message in activeConversation.messages">
-                    <div class="message-box col-xs-6" :class="{'from-me': mine(message), 'from-them': !mine(message)}">
-                        <div class="author">{{ message.user.displayName }}</div>
-                        <div class="message">{{ message.content }}</div>
-                        <div class="time">{{ format(message.createdAt) }}</div>
+                <div class="messages">
+                    <div class="row" :class="{'flex-items-xs-right': mine(message)}"
+                         v-for="message in activeConversation.messages">
+                        <div class="message-box col-xs-6"
+                             :class="{'from-me': mine(message), 'from-them': !mine(message)}">
+                            <div class="author">{{ message.user.displayName }}</div>
+                            <div class="message">{{ message.content }}</div>
+                            <div class="time">{{ format(message.createdAt) }}</div>
+                        </div>
                     </div>
+                </div>
+                <div class="message-editor">
+                    <form @submit.prevent="postMessage">
+                        <div class="form-group row">
+                            <textarea class="col-xs-10 form-control" placeholder="Antworten..." name="editor" id="editor" cols="30" rows="10" v-model="message"></textarea>
+                            <div class="col-xs-2">
+                                <button class="btn btn-primary">Senden</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -60,7 +74,9 @@
         data: {
 
             me: "${user.id}",
-            activeConversation: null
+            thisUrl: "${pageContext.request.contextPath}/conversations",
+            activeConversation: null,
+            message: "",
         },
         computed: {
             createdAtDate() {
@@ -88,7 +104,20 @@
                 $.get('?conversation=' + conversationId).then((data) => {
                     this.activeConversation = data;
                 });
-                console.log(conversationId);
+            },
+
+            postMessage() {
+                let id = this.activeConversation.id;
+
+                $.post(this.thisUrl, {
+                    conversation: id,
+                    message: this.message,
+                }).then((response) => {
+                    //console.log(response);
+                    this.loadConversation(id);
+                });
+
+                console.log(this.message);
             },
 
             format(date) {
