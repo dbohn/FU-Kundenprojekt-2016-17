@@ -6,6 +6,17 @@ body {
     padding-top: 70px;
 }
 
+.login {
+    background: #eceeef;
+}
+
+.login-box {
+    background: #fff;
+    padding: 20px 10px 10px 10px;
+    border: 1px solid #d0d5d8;
+    border-radius: 3px;
+}
+
 .messages {
     max-height: 50vh;
     overflow: scroll;
