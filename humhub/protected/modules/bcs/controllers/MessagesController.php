@@ -8,6 +8,7 @@ use humhub\modules\bcs\transformers\messages\EntryTransformer;
 use humhub\modules\bcs\transformers\messages\MessageTransformer;
 use humhub\modules\bcs\transformers\messages\UserTransformer;
 use humhub\modules\mail\models\Message;
+use humhub\modules\mail\models\MessageEntry;
 
 class MessagesController extends ApiController
 {
@@ -97,7 +98,7 @@ class MessagesController extends ApiController
         $bcsId = $request->get('bcs_id');
 
         if (!($user = $this->userRepository->findByBcsId($bcsId))) {
-            return $this->responseError('User not found bcs id ' . $bcsId, 404);
+            return $this->responseError('User not found by bcs id ' . $bcsId, 404);
         }
 
         if (!($message = $this->messageRepository->fromUser($user, $request->get('message')))) {
@@ -121,5 +122,40 @@ class MessagesController extends ApiController
                 $this->userTransformer
             ),
         ]);
+    }
+
+    public function actionAdd()
+    {
+        /** @var \humhub\components\Request $request */
+        $request = \Yii::$app->request;
+
+        $this->forcePostRequest();
+
+        if ($error = $this->forceBcsAuthentication()) {
+            return $error;
+        }
+
+        if (!($user = $this->userRepository->findByBcsId($request->post('bcs_id')))) {
+            return $this->responseError('User not found by bcs id ' . $request->post('bcs_id'), 422);
+        }
+
+        if (!($message = $this->messageRepository->fromUser($user, $request->post('message')))) {
+            return $this->responseError('message not found', 422);
+        }
+
+        if (!($content = $request->post('content'))) {
+            return $this->responseError('message body not found', 422);
+        }
+
+        $messageEntry = new MessageEntry();
+
+        $messageEntry->message_id = $message->id;
+        $messageEntry->user_id = $user->id;
+        $messageEntry->content = $content;
+
+        $messageEntry->save();
+        $messageEntry->notify();
+
+        return $this->responseSuccess('reply successful');
     }
 }
