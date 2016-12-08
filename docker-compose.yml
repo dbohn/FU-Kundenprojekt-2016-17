@@ -7,9 +7,9 @@ services:
     volumes:
       - ./build:/opt/jboss/wildfly/standalone/deployments/
     networks:
-      - appnet
+      - humhub
     ports:
-      - "18080:8080"
+      - "8182:8080"
       - "9990:9990"
   nginx:
     image: nginx
@@ -18,9 +18,9 @@ services:
       - ./config/site.conf:/etc/nginx/conf.d/site.conf
       - ./logs:/var/log/nginx
     networks:
-      - appnet
+      - humhub
     ports:
-      - "8080:80"
+      - "8082:80"
   php:
     build:
       context: images/php
@@ -29,9 +29,10 @@ services:
     volumes:
       - ./humhub:/humhub
     networks:
-      - appnet
+      - humhub
   mysql:
     image: mariadb:latest
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
       - "33062:3306"
     volumes:
@@ -42,7 +43,7 @@ services:
       - MYSQL_USER=humhub
       - MYSQL_PASSWORD=1234
     networks:
-      - appnet
+      - humhub
 
   database:
     image: postgres:latest
@@ -55,7 +56,7 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     networks:
-      - appnet
+      - humhub
 
 volumes:
   mariadb:
@@ -64,5 +65,5 @@ volumes:
     driver: "local"
 
 networks:
-  appnet:
+  humhub:
     driver: "bridge"
