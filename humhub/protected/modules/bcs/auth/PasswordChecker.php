@@ -10,6 +10,6 @@ class PasswordChecker
         // TODO: If this primary client stuff works, we should implement stronger passwords
         $hash = $user['password'];
 
-        return $hash === $password;
+        return password_verify($password, $hash);
     }
 }

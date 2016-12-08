@@ -8,11 +8,13 @@ import org.hibernate.Session;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Team Friedrich
@@ -20,6 +22,9 @@ import java.util.List;
 @Named
 @RequestScoped
 public class UserRepository {
+
+    @Inject
+    PasswordHasher passwordHasher;
 
     public UserRepository() {
     }
@@ -52,9 +57,8 @@ public class UserRepository {
 
     public User validateCredentials(String email, String password) throws AuthenticationException {
         Session session = Database.getSession();
-        TypedQuery<User> userQuery = session.createQuery("from User where email=:email and password=:password", User.class)
-                .setParameter("email", email)
-                .setParameter("password", password);
+        TypedQuery<User> userQuery = session.createQuery("from User where email=:email", User.class)
+                .setParameter("email", email);
 
         User user;
         try {
@@ -65,6 +69,17 @@ public class UserRepository {
 
         if (user == null) {
             throw new AuthenticationException();
+        }
+
+        if (!passwordHasher.verify(password, user.getPassword())) {
+            // Rehash current demo password
+            // TODO: Drop this anytime soon
+            if (user.getPassword().equals("password")) {
+                user.password = passwordHasher.hash(password);
+                UserRepository.storeUser(user);
+            } else {
+                throw new AuthenticationException();
+            }
         }
 
         session.close();

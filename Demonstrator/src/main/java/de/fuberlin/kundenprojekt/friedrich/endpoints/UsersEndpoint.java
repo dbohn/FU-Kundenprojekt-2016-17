@@ -1,9 +1,11 @@
 package de.fuberlin.kundenprojekt.friedrich.endpoints;
 
+import de.fuberlin.kundenprojekt.friedrich.PasswordHasher;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.models.Userinfo;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,10 @@ import java.time.LocalDateTime;
  * @author Team Friedrich
  */
 public class UsersEndpoint extends HttpServlet {
+
+    @Inject
+    PasswordHasher passwordHasher;
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.getRequestDispatcher("./users.jsp").forward(request, response);
@@ -27,27 +33,17 @@ public class UsersEndpoint extends HttpServlet {
         String email = req.getParameter("email");
         String first_name = req.getParameter("first_name");
         String last_name = req.getParameter("last_name");
-        String password = req.getParameter("password");
+        String password = passwordHasher.hash(req.getParameter("password").trim());
         String phone = req.getParameter("phone");
 
         String fullName =  last_name + ", " + first_name;
 
         User user = new User(username, fullName, email, password, phone);
 
-        //Userinfo userinfo = new Userinfo(LocalDateTime.now(), LocalDateTime.now(), null);
-
-        //user.addUserinfo(userinfo);
-
         UserRepository.storeUser(user);
 
         req.setAttribute("status", "User successfully added!");
 
         req.getRequestDispatcher("./users.jsp").forward(req, resp);
-    }
-
-    private void resp(HttpServletResponse resp, String msg) throws IOException {
-        PrintWriter out = resp.getWriter();
-        out.println("<p>" + msg + "</p>");
-        out.close();
     }
 }
