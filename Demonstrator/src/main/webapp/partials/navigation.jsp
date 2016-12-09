@@ -11,6 +11,9 @@
             <a href="${pageContext.request.contextPath}/conversations" class="nav-link">Nachrichten</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="${pageContext.request.contextPath}/search">search <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="http://humhub.local:8080">Humhub</a>
         </li>
     </ul>

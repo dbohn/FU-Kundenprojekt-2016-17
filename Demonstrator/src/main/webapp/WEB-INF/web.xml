@@ -33,6 +33,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>search</servlet-name>
-        <url-pattern>/index</url-pattern>
+        <url-pattern>/search</url-pattern>
     </servlet-mapping>
 </web-app>
