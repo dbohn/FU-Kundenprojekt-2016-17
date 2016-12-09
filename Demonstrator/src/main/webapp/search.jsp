@@ -9,8 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>search</title>
-    <title>Demonstrator &mdash; Search</title>
+    <title>Demonstrator  &mdash; search</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap-flex.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
@@ -29,9 +28,9 @@
                           Suche
                   </div>
                  <div class="card-block">
-                     <form action="${pageContext.request.contextPath}/search" method="post" enctype="multipart/form-data">
+                     <form action="${pageContext.request.contextPath}/HumHubSearch" method="post" enctype="multipart/form-data">
                             <div class="form-group">
-                             <input type="text" id="searchData" name="searchData" class="form-control">
+                             <input type="text" id="searchTerm" name="searchTerm" class="form-control">
                          </div>
                             <button type="submit" class="btn btn-primary">Suche</button>
                      </form>

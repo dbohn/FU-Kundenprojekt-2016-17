@@ -11,10 +11,17 @@
             <a href="${pageContext.request.contextPath}/conversations" class="nav-link">Nachrichten</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}/search">search <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="http://humhub.local:8080">Humhub</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="http://humhub.local:8080">Humhub</a>
+        <div class="form-group">
+            <form role="search" style="width: 15em; margin: 0.3em 2em;">
+                <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search">
+                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </form>
+        </div>
         </li>
     </ul>
     <ul class="nav navbar-nav float-xs-right">
