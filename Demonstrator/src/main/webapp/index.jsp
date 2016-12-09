@@ -30,6 +30,24 @@
             <p>Test 2</p>
         </div>
     </div>
+    <div class="row">
+        <div class="col-xs">
+            <hr>
+            <div class="card">
+                <div class="card-header">
+                    Suche
+                </div>
+                <div class="card-block">
+                    <form action="${pageContext.request.contextPath}/search" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="text" id="searchData" name="searchData" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Suche</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

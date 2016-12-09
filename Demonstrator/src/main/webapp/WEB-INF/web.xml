@@ -27,4 +27,12 @@
         <servlet-name>humhubregistration</servlet-name>
         <url-pattern>/users/humhub</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>search</servlet-name>
+        <servlet-class>de.fuberlin.kundenprojekt.friedrich.search.HumHubSearch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>search</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
 </web-app>
