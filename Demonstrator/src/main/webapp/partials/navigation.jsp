@@ -12,14 +12,14 @@
             <a href="${pageContext.request.contextPath}/conversations" class="nav-link">Nachrichten</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="http://humhub.local:8080">Humhub</a>
+            <a class="nav-link" href="http://humhub.local:8082">Humhub</a>
         </li>
         <li class="nav-item">
         <form action="${pageContext.request.contextPath}/search" method="post">
          <div class="form-group">
                 <form role="search" style="width: 15em; margin: 0.3em 2em;">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
+                        <input type="text" name="searchTerm" id="searchTerm" class="form-control" placeholder="Search" />
                         <button type="submit" class="btn btn-default"><img src="search.png" height="15"></button>
                     </div>
                 </form>

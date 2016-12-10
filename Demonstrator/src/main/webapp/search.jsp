@@ -19,6 +19,15 @@
 </head>
 <body class="search">
 <%@ include file="partials/navigation.jsp" %>
-
+<div class="container">
+    <div class="row">
+        <div class="col-xs">
+            <div class="jumbotron">
+                <h1 class="display-3">Suche</h1>
+                <p class="lead">Suchergebnisse</p>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
