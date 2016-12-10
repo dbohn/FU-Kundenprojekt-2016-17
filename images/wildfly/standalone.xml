@@ -368,7 +368,7 @@
                     <filter-ref name="x-powered-by-header"/>
                 </host>
             </server>
-            <servlet-container default-encoding="UTF-8" name="default">
+            <servlet-container default-encoding="UTF-8" name="default" stack-trace-on-error="all">
                 <jsp-config/>
                 <websockets/>
             </servlet-container>

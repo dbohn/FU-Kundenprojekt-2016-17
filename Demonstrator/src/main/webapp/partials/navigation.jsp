@@ -15,14 +15,16 @@
             <a class="nav-link" href="http://humhub.local:8080">Humhub</a>
         </li>
         <li class="nav-item">
-        <div class="form-group">
-            <form role="search" style="width: 15em; margin: 0.3em 2em;">
-                <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search">
-                <button type="submit" class="btn btn-default"><img src="search.png" height="15"></button>
-                </div>
-            </form>
-        </div>
+        <form action="${pageContext.request.contextPath}/search" method="post">
+         <div class="form-group">
+                <form role="search" style="width: 15em; margin: 0.3em 2em;">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                        <button type="submit" class="btn btn-default"><img src="search.png" height="15"></button>
+                    </div>
+                </form>
+         </div>
+        </form>
         </li>
     </ul>
     <ul class="nav navbar-nav float-xs-right">

@@ -6,4 +6,5 @@ package de.fuberlin.kundenprojekt.friedrich.search;
 public class HumHubSearch  {
 
 
+
 }
