@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-light navbar-fixed-top bg-faded">
     <a class="navbar-brand" href="#">Demonstrator</a>
     <ul class="nav navbar-nav">
@@ -18,7 +19,7 @@
             <form role="search" style="width: 15em; margin: 0.3em 2em;">
                 <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search">
-                <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                <button type="submit" class="btn btn-default"><img src="search.png" height="15"></button>
                 </div>
             </form>
         </div>
