@@ -22,8 +22,9 @@ public class SearchEndpoint extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         String searchTerm = req.getParameter("searchTerm");
+        req.setAttribute("status", "Suche gestartet");
+        //Weitergeschickt an search.jsp? Wie dort auslesen?
         req.getRequestDispatcher("./search.jsp").forward(req, resp);
-
     }
 
 }
