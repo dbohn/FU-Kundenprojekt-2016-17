@@ -12,7 +12,7 @@
             <a href="${pageContext.request.contextPath}/conversations" class="nav-link">Nachrichten</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="http://humhub.local:8082">Humhub</a>
+            <a class="nav-link" target="_blank" href="http://humhub.local:8082">Humhub</a>
         </li>
         <li class="nav-item">
         <form action="${pageContext.request.contextPath}/search" method="post">
