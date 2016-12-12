@@ -3,6 +3,7 @@ package de.fuberlin.kundenprojekt.friedrich.search;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequest;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.social.HumHubApiUtil;
 import org.json.JSONArray;
@@ -23,16 +24,23 @@ public class HumHubSearch  {
         this.bcsToken = bcsToken;
     }
 
-    public List<SearchEntry> fetchSearchResults(User user){
+    public List<SearchEntry> fetchSearchResults(User user,String query){
         List<SearchEntry> searchResults = new ArrayList<>();
         try {
-            HttpResponse<JsonNode> response = HumHubApiUtil.get(host, "/bcs/search", bcsToken)
+            HttpRequest request = HumHubApiUtil.get(host, "/bcs/search/search", bcsToken)
                     .queryString("bcs_id", user.getId())
-                    .asJson();
+                    .queryString("query",query);
+
+            System.out.println(request.getUrl());
+
+            HttpResponse<JsonNode> response = request.asJson();
+
             JSONArray searchRes = response.getBody().getObject().getJSONArray("message");
+            System.out.println(response.getBody().toString());
             for (int i = 0; i < searchRes.length(); i++) {
                 JSONObject message = searchRes.getJSONObject(i);
                 SearchEntry searchEntry = extractSearchEntry(message);
+                System.out.println(searchEntry.getMessage());
                 searchResults.add(searchEntry);
             }
         } catch (UnirestException e) {
@@ -41,6 +49,6 @@ public class HumHubSearch  {
         return searchResults;
     }
     private SearchEntry extractSearchEntry (JSONObject message) {
-        return null;
+        return new SearchEntry(message.getString("message"));
     }
 }

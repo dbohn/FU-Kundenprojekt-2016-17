@@ -24,7 +24,10 @@
         <div class="col-xs">
             <div class="jumbotron">
                 <h1 class="display-3">Suche</h1>
-                <p class="lead">Suchergebnisse</p>
+                <p class="lead">Suchergebnisse für ${term}</p>
+                <c:forEach var="u" items="${searchRes}">
+                        <li>${u.message}</li>
+                </c:forEach>
             </div>
         </div>
     </div>

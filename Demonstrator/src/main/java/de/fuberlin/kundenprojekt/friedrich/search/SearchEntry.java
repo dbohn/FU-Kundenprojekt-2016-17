@@ -6,5 +6,14 @@ package de.fuberlin.kundenprojekt.friedrich.search;
 public class SearchEntry {
     //Herausfinden, wie SearchEntry zusammengesetzt ist
     public long id;
-    public String content;
+    private String message;
+
+    public SearchEntry(String message){
+        this.message = message;
+    }
+
+    public String getMessage(){
+        return message;
+    }
+
 }
