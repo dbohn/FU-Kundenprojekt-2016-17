@@ -17,6 +17,10 @@ class BcsUserRepository
         $this->postgres = $postgres;
     }
 
+    /**
+     * @param $username
+     * @return array|false
+     */
     public function getUserByUsername($username)
     {
         return $this->postgres

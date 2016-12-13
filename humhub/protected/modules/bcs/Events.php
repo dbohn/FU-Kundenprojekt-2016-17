@@ -29,8 +29,6 @@ class Events extends \yii\base\Object
 
     public static function onUserDelete($event)
     {
-        foreach (UserBcs::findAll(['user_id' => $event->sender->id]) as $userBcs) {
-            $userBcs->delete();
-        }
+
     }
 }
