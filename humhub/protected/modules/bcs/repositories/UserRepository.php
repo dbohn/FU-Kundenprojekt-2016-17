@@ -15,14 +15,6 @@ class UserRepository
      */
     public function findByBcsId($bcsId)
     {
-        $userBcs = UserBcs::find()->where([
-            'bcs_id' => $bcsId
-        ])->one();
-
-        if (!$userBcs) {
-            return null;
-        }
-
-        return User::findIdentity($userBcs->user_id);
+        return User::findByGuid($bcsId);
     }
 }
