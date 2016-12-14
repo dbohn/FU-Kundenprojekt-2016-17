@@ -26,7 +26,7 @@
                 <h1 class="display-3">Suche</h1>
                 <p class="lead">Suchergebnisse für ${term}</p>
                 <c:forEach var="u" items="${searchRes}">
-                        <li>${u.message}</li>
+                        <li>${u.message} (${u.type})</li>
                 </c:forEach>
             </div>
         </div>

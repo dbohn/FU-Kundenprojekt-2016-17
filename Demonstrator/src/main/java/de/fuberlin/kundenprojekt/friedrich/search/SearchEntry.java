@@ -7,13 +7,18 @@ public class SearchEntry {
     //Herausfinden, wie SearchEntry zusammengesetzt ist
     public long id;
     private String message;
+    private String type;
 
-    public SearchEntry(String message){
+    public SearchEntry(String message, String type){
         this.message = message;
+        this.type = type;
     }
 
     public String getMessage(){
         return message;
     }
 
+    public String getType(){
+        return type;
+    }
 }
