@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Demonstrator  &mdash; Search</title>
+    <title>Demonstrator &mdash; Search</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap-flex.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
@@ -26,7 +26,12 @@
                 <h1 class="display-3">Suche</h1>
                 <p class="lead">Suchergebnisse für ${term}</p>
                 <c:forEach var="u" items="${searchRes}">
+                    <c:if test="${not empty u.url}">
+                        <li><a target="_blank" href="${u.url}">${u.message} (${u.type}) </a></li>
+                    </c:if>
+                    <c:if test="${empty u.url}">
                         <li>${u.message} (${u.type})</li>
+                    </c:if>
                 </c:forEach>
             </div>
         </div>

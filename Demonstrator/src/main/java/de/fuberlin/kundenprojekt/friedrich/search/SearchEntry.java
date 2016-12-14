@@ -8,10 +8,12 @@ public class SearchEntry {
     public long id;
     private String message;
     private String type;
+    private String url;
 
-    public SearchEntry(String message, String type){
+    public SearchEntry(String message, String type, String url){
         this.message = message;
         this.type = type;
+        this.url = url;
     }
 
     public String getMessage(){
@@ -20,5 +22,9 @@ public class SearchEntry {
 
     public String getType(){
         return type;
+    }
+
+    public String getUrl(){
+        return url;
     }
 }
