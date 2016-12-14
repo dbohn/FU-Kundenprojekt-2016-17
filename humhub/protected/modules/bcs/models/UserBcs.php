@@ -18,16 +18,14 @@ class UserBcs extends ActiveRecord
      */
     public static function idFor($user)
     {
-        if ($user instanceof User) {
-            $user = $user->id;
+        if (!($user instanceof User)) {
+            if (!isset(static::$bcsIdCache[$user])) {
+                static::$bcsIdCache[$user] = User::findIdentity($user);
+            }
+
+            $user = static::$bcsIdCache[$user];
         }
 
-        if (!isset(static::$bcsIdCache[$user])) {
-            static::$bcsIdCache[$user] = static::find()->where([
-                'user_id' => $user
-            ])->one()->bcs_id;
-        }
-
-        return static::$bcsIdCache[$user];
+        return $user->guid;
     }
 }
