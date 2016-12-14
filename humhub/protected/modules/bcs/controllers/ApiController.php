@@ -4,6 +4,7 @@ namespace humhub\modules\bcs\controllers;
 
 use humhub\components\Controller;
 use humhub\modules\bcs\models\BcsToken;
+use humhub\modules\user\models\User;
 use Yii;
 use yii\web\Response;
 
@@ -116,5 +117,23 @@ abstract class ApiController extends Controller
             print "Invalid method!";
             die();
         }
+    }
+
+    /**
+     * @param $id
+     * @param int $duration
+     * @return bool
+     */
+    protected function loginBcsUser($id, $duration = 0)
+    {
+        $user = User::findByGuid($id);
+
+        if (!$user) {
+            return false;
+        }
+
+        Yii::$app->user->login($user, $duration);
+
+        return true;
     }
 }
