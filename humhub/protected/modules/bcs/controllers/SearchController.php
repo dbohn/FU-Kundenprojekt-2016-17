@@ -15,17 +15,22 @@ use Yii;
 
 class SearchController extends ApiController
 {
-    public function actionSearch(){
+    public function actionSearch()
+    {
 
-        /*if ($error = $this->forceBcsAuthentication()) {
+        if ($error = $this->forceBcsAuthentication()) {
             return $error;
-        }*/
+        }
 
         $request = Yii::$app->request;
 
+        $bcsId = $request->get("bcs_id");
+        
+        $this->loginBcsUser($bcsId);
+
         $query = $request->get('query');
 
-        $searchResultSet = Yii::$app->search->find($query, ['checkPermissions' => false]);
+        $searchResultSet = Yii::$app->search->find($query, ['checkPermissions' => true]);
 
         $results = $searchResultSet->getResultInstances();
 
