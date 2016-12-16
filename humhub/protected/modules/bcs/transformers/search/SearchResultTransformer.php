@@ -32,11 +32,18 @@ class SearchResultTransformer extends AbstractTransformer
         }
         if ($data instanceof Space) {
             $message = $data->name;
-            $attributes = $data->description;
+            if (empty($data->tags)) {
+                $attributes = "Keine Beschreibung vorhanden";
+            } else {
+                $attributes = $data->description;
+            }
         } else if ($data instanceof User) {
-            //Tags darf nicht leer sein TODO: Abfangen
             $message = $data->username;
-            $attributes = $data->tags;
+            if (empty($data->tags)) {
+                $attributes = "";
+            } else {
+                $attributes = $data->tags;
+            }
         } else {
             $message = $data->message;
             $attributes = $data->created_at;
@@ -51,8 +58,8 @@ class SearchResultTransformer extends AbstractTransformer
     }
 
 
-
-    private function host(){
+    private function host()
+    {
         return \Yii::$app->settings->get('baseUrl');
     }
 

@@ -4,7 +4,6 @@ package de.fuberlin.kundenprojekt.friedrich.search;
  * Created by hanna on 09.12.2016.
  */
 public class SearchEntry {
-    //Herausfinden, wie SearchEntry zusammengesetzt ist
     public long id;
     private String message;
     private String type;
@@ -34,12 +33,12 @@ public class SearchEntry {
         return attributes;
     }
 
-    public String extractAttribute(String attributes){
-        if(this.type.equals("Post")){
+    public String extractAttribute(String attributes) {
+        if (this.type.equals("Post")) {
             String[] completeDate = attributes.split(" ");
-            String[] date = completeDate [0].split("-");
-            String[] time = completeDate [1].split(":");
-            return date[2]+"."+date[1]+"."+date[0]+"   "+time[0]+":"+time[1];
+            String[] date = completeDate[0].split("-");
+            String[] time = completeDate[1].split(":");
+            return date[2] + "." + date[1] + "." + date[0] + " " + time[0] + ":" + time[1];
         }
         return attributes;
 
