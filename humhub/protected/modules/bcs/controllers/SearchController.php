@@ -18,9 +18,9 @@ class SearchController extends ApiController
     public function actionSearch()
     {
 
-        if ($error = $this->forceBcsAuthentication()) {
-            return $error;
-        }
+      //  if ($error = $this->forceBcsAuthentication()) {
+       //     return $error;
+        //}
 
         $request = Yii::$app->request;
 
@@ -30,7 +30,8 @@ class SearchController extends ApiController
 
         $query = $request->get('query');
 
-        $searchResultSet = Yii::$app->search->find($query, ['checkPermissions' => true]);
+        //$searchResultSet = Yii::$app->search->find($query, ['checkPermissions' => true]);
+        $searchResultSet = Yii::$app->search->find($query, ['checkPermissions' => false]);
 
         $results = $searchResultSet->getResultInstances();
 

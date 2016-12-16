@@ -27,10 +27,13 @@
                 <p class="lead">Suchergebnisse für ${term}</p>
                 <c:forEach var="u" items="${searchRes}">
                     <c:if test="${not empty u.url}">
-                        <li><a target="_blank" href="${u.url}">${u.message} (${u.type}) </a></li>
+                        <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
+                        <SMALL>${u.url}</SMALL>
+                        <br>${u.attributes}<br><br>
                     </c:if>
                     <c:if test="${empty u.url}">
-                        <li>${u.message} (${u.type})</li>
+                        ${u.message} (${u.type})<br>
+                        ${u.attributes}<br><br>
                     </c:if>
                 </c:forEach>
             </div>

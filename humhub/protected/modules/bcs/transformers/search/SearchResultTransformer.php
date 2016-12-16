@@ -30,19 +30,22 @@ class SearchResultTransformer extends AbstractTransformer
         if ($data instanceof ContentContainerActiveRecord) {
             $url = $this->host() . $data->getUrl();
         }
-
         if ($data instanceof Space) {
             $message = $data->name;
-
+            $attributes = $data->description;
         } else if ($data instanceof User) {
+            //Tags darf nicht leer sein TODO: Abfangen
             $message = $data->username;
+            $attributes = $data->tags;
         } else {
             $message = $data->message;
+            $attributes = $data->created_at;
         }
         return [
             'message' => $message,
             'type' => $class,
             'url' => $url,
+            'attributes' => $attributes,
         ];
 
     }

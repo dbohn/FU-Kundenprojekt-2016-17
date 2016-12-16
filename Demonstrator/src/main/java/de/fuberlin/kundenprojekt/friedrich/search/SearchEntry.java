@@ -9,22 +9,39 @@ public class SearchEntry {
     private String message;
     private String type;
     private String url;
+    private String attributes;
 
-    public SearchEntry(String message, String type, String url){
+    public SearchEntry(String message, String type, String url, String attributes) {
         this.message = message;
         this.type = type;
         this.url = url;
+        this.attributes = extractAttribute(attributes);
     }
 
-    public String getMessage(){
+    public String getMessage() {
         return message;
     }
 
-    public String getType(){
+    public String getType() {
         return type;
     }
 
-    public String getUrl(){
+    public String getUrl() {
         return url;
+    }
+
+    public String getAttributes() {
+        return attributes;
+    }
+
+    public String extractAttribute(String attributes){
+        if(this.type.equals("Post")){
+            String[] completeDate = attributes.split(" ");
+            String[] date = completeDate [0].split("-");
+            String[] time = completeDate [1].split(":");
+            return date[2]+"."+date[1]+"."+date[0]+"   "+time[0]+":"+time[1];
+        }
+        return attributes;
+
     }
 }
