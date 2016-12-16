@@ -28,8 +28,11 @@
                 <c:forEach var="u" items="${searchRes}">
                     <c:if test="${not empty u.url}">
                         <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
-                        <SMALL>${u.url}</SMALL>
-                        <br>${u.attributes}<br><br>
+                        <SMALL>${u.url}</SMALL><br>
+                        <c:if test="${not empty u.attributes}">
+                            ${u.attributes}<br>
+                        </c:if>
+                        <br>
                     </c:if>
                     <c:if test="${empty u.url}">
                         ${u.message} (${u.type})<br>
