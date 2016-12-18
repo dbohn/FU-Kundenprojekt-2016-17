@@ -25,10 +25,40 @@
             <div class="jumbotron">
                 <h1 class="display-3">Suche</h1>
                 <p class="lead">Suchergebnisse für ${term}</p>
+                <a href="javascript:toggleLink('toggle')"> Erweiterte Suche </a>
+                <br/>
+                <div id="toggle" style="display: none">
+                    <div class="form-group">
+                        <label for="space">Nur im folgendem Space suchen: </label>
+                        <input type="text" name="Space:" id="space"/>
+                    </div>
+                    <a>Nur folgende Ergebnisse anzeigen:</a>
+                    <div class="form-group">
+                        <label for="user"> User </label>
+                        <input type="Checkbox" name="User" id="user"/>
+                        &emsp;
+                        <label for="spaces"> Spaces </label>
+                        <input type="Checkbox" name="Spaces" id="spaces"/>
+                        &emsp;
+                        <label for="post"> Posts </label>
+                        <input type="Checkbox" name="Post" id="post"/>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    function toggleLink(control) {
+                        var element = document.getElementById(control);
+                        if (element.style.display == "none") {
+                            element.style.display = "block";
+                        } else {
+                            element.style.display = "none";
+                        }
+                    }</script>
+                <hr /><br/>
                 <c:forEach var="u" items="${searchRes}">
                     <c:if test="${not empty u.url}">
                         <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
-                        <SMALL>${u.url}</SMALL><br>
+                        <SMALL>${u.url}</SMALL>
+                        <br>
                         <c:if test="${not empty u.attributes}">
                             ${u.attributes}<br>
                         </c:if>
