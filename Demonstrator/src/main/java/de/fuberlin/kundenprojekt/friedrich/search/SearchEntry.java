@@ -35,10 +35,11 @@ public class SearchEntry {
 
     public String extractAttribute(String attributes) {
         if (this.type.equals("Post")) {
-            String[] completeDate = attributes.split(" ");
-            String[] date = completeDate[0].split("-");
-            String[] time = completeDate[1].split(":");
-            return date[2] + "." + date[1] + "." + date[0] + " " + time[0] + ":" + time[1];
+            String[] completeAtrributes = attributes.split(" ");
+            String[] date = completeAtrributes[0].split("-");
+            String[] time = completeAtrributes[1].split(":");
+            String user = completeAtrributes[2];
+            return user + " " + date[2] + "." + date[1] + "." + date[0] + " " + time[0] + ":" + time[1];
         }
         return attributes;
 
