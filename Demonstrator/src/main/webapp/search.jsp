@@ -35,13 +35,13 @@
                     <a>Nur folgende Ergebnisse anzeigen:</a>
                     <div class="form-group">
                         <label for="user"> User </label>
-                        <input type="Checkbox" name="User" id="user"/>
+                        <input type="Checkbox" name="typeList[]" id="user" value="UsersChecked" ${(not empty typeList['UsersChecked']) ? 'checked' : ''} />
                         &emsp;
                         <label for="spaces"> Spaces </label>
-                        <input type="Checkbox" name="Spaces" id="spaces"/>
+                        <input type="Checkbox" name="typeList[]" id="spaces"value="SpacesChecked" ${spacesChecked == 'SpacesChecked' ? 'checked' : ''} checked/>
                         &emsp;
                         <label for="post"> Posts </label>
-                        <input type="Checkbox" name="Post" id="post"/>
+                        <input type="Checkbox" name="typeList[]" id="post"value="PostsChecked" ${postsChecked == 'PostsChecked' ? 'checked' : ''} checked/>
                     </div>
                 </div>
                 <script type="text/javascript">
@@ -54,20 +54,57 @@
                         }
                     }</script>
                 <hr /><br/>
+<c:forEach var="t" items="${typeList}">
+    ${t}
+</c:forEach>
                 <c:forEach var="u" items="${searchRes}">
-                    <c:if test="${not empty u.url}">
-                        <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
-                        <SMALL>${u.url}</SMALL>
-                        <br>
-                        <c:if test="${not empty u.attributes}">
-                            ${u.attributes}<br>
+                    <c:if test="${u.type == 'User' }">
+                        <c:if test="${not empty u.url}">
+                            <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
+                            <SMALL>${u.url}</SMALL>
+                            <br>
+                            <c:if test="${not empty u.attributes}">
+                                ${u.attributes}<br>
+                            </c:if>
+                            <br>
                         </c:if>
-                        <br>
+                        <c:if test="${empty u.url}">
+                            ${u.message} (${u.type})<br>
+                            ${u.attributes}<br><br>
+                        </c:if>
                     </c:if>
-                    <c:if test="${empty u.url}">
-                        ${u.message} (${u.type})<br>
-                        ${u.attributes}<br><br>
+                    <c:if test="${u.type == 'Space' }">
+                        <c:if test="${not empty u.url}">
+                            <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
+                            <SMALL>${u.url}</SMALL>
+                            <br>
+                            <c:if test="${not empty u.attributes}">
+                                ${u.attributes}<br>
+                            </c:if>
+                            <br>
+                        </c:if>
+                        <c:if test="${empty u.url}">
+                            ${u.message} (${u.type})<br>
+                            ${u.attributes}<br><br>
+                        </c:if>
                     </c:if>
+                    <c:if test="${u.type == 'Post' }">
+                        <c:if test="${not empty u.url}">
+                            <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
+                            <SMALL>${u.url}</SMALL>
+                            <br>
+                            <c:if test="${not empty u.attributes}">
+                                ${u.attributes}<br>
+                            </c:if>
+                            <br>
+                        </c:if>
+                        <c:if test="${empty u.url}">
+                            ${u.message} (${u.type})<br>
+                            ${u.attributes}<br><br>
+                        </c:if>
+                    </c:if>
+
+
                 </c:forEach>
             </div>
         </div>

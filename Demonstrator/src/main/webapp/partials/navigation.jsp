@@ -18,6 +18,9 @@
         <form action="${pageContext.request.contextPath}/search" method="post">
          <div class="form-group">
                 <form role="search" style="width: 15em; margin: 0.3em 2em;">
+                    <input type="hidden" name="typeList[]" value="UsersChecked">
+                    <input type="hidden" name="typeList[]" value="SpacesChecked">
+                    <input type="hidden" name="typeList[]" value="PostsChecked">
                     <div class="input-group">
                         <input type="text" name="searchTerm" id="searchTerm" class="form-control" placeholder="Search" />
                         <button type="submit" class="btn btn-default"><img src="search.png" height="15"></button>
