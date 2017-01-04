@@ -33,7 +33,7 @@ class SearchResultTransformer extends AbstractTransformer
         if ($data instanceof Space) {
             $message = $data->name;
             if (empty($data->tags)) {
-                $attributes = "Keine Beschreibung vorhanden";
+                $attributes = "Keine Space-Beschreibung vorhanden";
             } else {
                 $attributes = $data->description;
             }
@@ -46,7 +46,8 @@ class SearchResultTransformer extends AbstractTransformer
             }
         } else {
             $message = $data->message;
-            $attributes = $data->created_at;
+            $user = User::findOne($data->created_by);
+            $attributes = $data->created_at . " " . $user->username;
         }
         return [
             'message' => $message,

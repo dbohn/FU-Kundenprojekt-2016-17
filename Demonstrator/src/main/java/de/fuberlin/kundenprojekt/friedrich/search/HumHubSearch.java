@@ -15,21 +15,21 @@ import java.util.List;
 /**
  * Created by hanna on 09.12.2016.
  */
-public class HumHubSearch  {
+public class HumHubSearch {
     private String host;
     private String bcsToken;
 
-    public HumHubSearch( String host, String bcsToken) {
+    public HumHubSearch(String host, String bcsToken) {
         this.host = host;
         this.bcsToken = bcsToken;
     }
 
-    public List<SearchEntry> fetchSearchResults(User user,String query){
+    public List<SearchEntry> fetchSearchResults(User user, String query) {
         List<SearchEntry> searchResults = new ArrayList<>();
         try {
             HttpRequest request = HumHubApiUtil.get(host, "/bcs/search/search", bcsToken)
                     .queryString("bcs_id", user.getId())
-                    .queryString("query",query);
+                    .queryString("query", query);
 
             System.out.println(request.getUrl());
 
@@ -48,8 +48,9 @@ public class HumHubSearch  {
         }
         return searchResults;
     }
-    private SearchEntry extractSearchEntry (JSONObject message) {
-        return new SearchEntry(message.getString("message"), message.getString("type"), message.getString("url"),message.getString("attributes"));
+
+    private SearchEntry extractSearchEntry(JSONObject message) {
+        return new SearchEntry(message.getString("message"), message.getString("type"), message.getString("url"), message.getString("attributes"));
     }
 
 
