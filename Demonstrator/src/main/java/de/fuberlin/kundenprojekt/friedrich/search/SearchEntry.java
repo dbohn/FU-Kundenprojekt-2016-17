@@ -39,7 +39,7 @@ public class SearchEntry {
             String[] date = completeAttributes[0].split("-");
             String[] time = completeAttributes[1].split(":");
             String user = completeAttributes[2];
-            return user + " " + date[2] + "." + date[1] + "." + date[0] + " " + time[0] + ":" + time[1] ;
+            return user + " am " + date[2] + "." + date[1] + "." + date[0] + " um " + time[0] + ":" + time[1] ;
         }
         return attributes;
     }
