@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,10 +28,19 @@ public class SearchEndpoint extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         String searchTerm = req.getParameter("searchTerm");
+        String[] typesArray = req.getParameterValues("typeList[]");
+
+        List<String> types = new ArrayList<>();
+
+        if (typesArray != null) {
+            types = Arrays.asList(typesArray);
+        }
+
         HumHubSearch hs = new HumHubSearch(Configuration.getHost(),Configuration.getBcsToken());
         List<SearchEntry> searchRes = hs.fetchSearchResults((User) req.getSession().getAttribute("user"),searchTerm);
         req.setAttribute("searchRes", searchRes);
         req.setAttribute("term", searchTerm);
+        req.setAttribute("types", types);
         req.getRequestDispatcher("./search.jsp").forward(req, resp);
     }
 

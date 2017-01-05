@@ -39,7 +39,7 @@
                     <th>Full Name</th>
                     <th>E-Mail</th>
                     <th>Phone</th>
-                    <th>&nbsp;</th>
+                    <!--<th>&nbsp;</th>-->
                 </tr>
                 </thead>
                 <tbody>
@@ -49,7 +49,7 @@
                         <td>${u.fullName}</td>
                         <td>${u.email}</td>
                         <td>${u.phone}</td>
-                        <td>
+                        <!--<td>
                             <c:if test="${!u.isUserSynced}">
                             <form action="${pageContext.request.contextPath}/users/humhub" method="post">
                                 <input type="hidden" name="id" value="${u.id}">
@@ -59,7 +59,7 @@
                             <c:if test="${u.isUserSynced}">
                                 <button type="submit" class="btn btn-outline-primary" title="An HumHub melden" disabled>Synchronisiert</button>
                             </c:if>
-                        </td>
+                        </td>-->
                     </tr>
                 </c:forEach>
                 </tbody>

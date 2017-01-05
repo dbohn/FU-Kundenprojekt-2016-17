@@ -35,13 +35,13 @@
                     <a>Nur folgende Ergebnisse anzeigen:</a>
                     <div class="form-group">
                         <label for="user"> User </label>
-                        <input type="Checkbox" name="typeList[]" id="user" value="UsersChecked" ${(not empty typeList['UsersChecked']) ? 'checked' : ''} />
+                        <input type="Checkbox" name="typeList[]" id="user" value="UsersChecked" ${types.contains('UsersChecked') ? 'checked' : ''} />
                         &emsp;
                         <label for="spaces"> Spaces </label>
-                        <input type="Checkbox" name="typeList[]" id="spaces"value="SpacesChecked" ${spacesChecked == 'SpacesChecked' ? 'checked' : ''} checked/>
+                        <input type="Checkbox" name="typeList[]" id="spaces" value="SpacesChecked" ${types.contains('SpacesChecked') ? 'checked' : ''} />
                         &emsp;
                         <label for="post"> Posts </label>
-                        <input type="Checkbox" name="typeList[]" id="post"value="PostsChecked" ${postsChecked == 'PostsChecked' ? 'checked' : ''} checked/>
+                        <input type="Checkbox" name="typeList[]" id="post" value="PostsChecked" ${types.contains('PostsChecked') ? 'checked' : ''} />
                     </div>
                 </div>
                 <script type="text/javascript">
@@ -54,11 +54,8 @@
                         }
                     }</script>
                 <hr /><br/>
-<c:forEach var="t" items="${typeList}">
-    ${t}
-</c:forEach>
                 <c:forEach var="u" items="${searchRes}">
-                    <c:if test="${u.type == 'User' }">
+                    <c:if test="${u.type == 'User' && types.contains('UsersChecked') }">
                         <c:if test="${not empty u.url}">
                             <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
                             <SMALL>${u.url}</SMALL>
@@ -73,7 +70,7 @@
                             ${u.attributes}<br><br>
                         </c:if>
                     </c:if>
-                    <c:if test="${u.type == 'Space' }">
+                    <c:if test="${u.type == 'Space' && types.contains('SpacesChecked')}">
                         <c:if test="${not empty u.url}">
                             <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
                             <SMALL>${u.url}</SMALL>
@@ -88,7 +85,7 @@
                             ${u.attributes}<br><br>
                         </c:if>
                     </c:if>
-                    <c:if test="${u.type == 'Post' }">
+                    <c:if test="${u.type == 'Post' && types.contains('PostsChecked')}">
                         <c:if test="${not empty u.url}">
                             <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
                             <SMALL>${u.url}</SMALL>

@@ -3,7 +3,7 @@
     <a class="navbar-brand" href="#">Demonstrator</a>
     <ul class="nav navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" href="${pageContext.request.contextPath}">Home</a>
+            <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
         </li>
         <li class="nav-item${ (pageContext.request.servletPath.indexOf('users') > -1) ? " active" : "" }">
             <a class="nav-link" href="${pageContext.request.contextPath}/users">Users <span class="sr-only">(current)</span></a>
@@ -14,22 +14,14 @@
         <li class="nav-item">
             <a class="nav-link" target="_blank" href="http://humhub.local:8082">Humhub</a>
         </li>
-        <li class="nav-item">
-        <form action="${pageContext.request.contextPath}/search" method="post">
-         <div class="form-group">
-                <form role="search" style="width: 15em; margin: 0.3em 2em;">
-                    <input type="hidden" name="typeList[]" value="UsersChecked">
-                    <input type="hidden" name="typeList[]" value="SpacesChecked">
-                    <input type="hidden" name="typeList[]" value="PostsChecked">
-                    <div class="input-group">
-                        <input type="text" name="searchTerm" id="searchTerm" class="form-control" placeholder="Search" />
-                        <button type="submit" class="btn btn-default"><img src="search.png" height="15"></button>
-                    </div>
-                </form>
-         </div>
-        </form>
-        </li>
     </ul>
+    <form class="form-inline float-xs-left" style="margin-bottom:0;margin-left:5px;" action="${pageContext.request.contextPath}/search" method="post">
+        <input type="hidden" name="typeList[]" value="UsersChecked">
+        <input type="hidden" name="typeList[]" value="SpacesChecked">
+        <input type="hidden" name="typeList[]" value="PostsChecked">
+        <input type="text" name="searchTerm" id="searchTerm" class="form-control" placeholder="Search" />
+        <button class="btn btn-outline-secondary" type="submit"><img src="search.png" height="15"></button>
+    </form>
     <ul class="nav navbar-nav float-xs-right">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="supportedContentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${user.fullName}</a>

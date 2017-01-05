@@ -6,11 +6,11 @@ HUMHUB_DOCKER_USER=33
 COMPOSE_FILE=docker-compose.deploy.yml
 
 # Create possibly missing assets directory
-#if [ ! -d ./humhub/assets ]; then
-#    echo "Creating missing directory humhub/assets..."
-#    mkdir -p ./humhub/assets
-#    echo "[Done]\n"
-#fi
+if [ ! -d ./humhub/assets ]; then
+    echo "Creating missing directory humhub/assets..."
+    mkdir -p ./humhub/assets
+    echo "[Done]\n"
+fi
 
 # Get the OS Architecture
 os=$(uname -s)
@@ -36,7 +36,7 @@ mv build/Demonstrator.war images/wildfly_deploy/Demonstrator.war
 docker-compose --file $COMPOSE_FILE build --force-rm
 
 # Remove .war file
-rm images/wildfly_deploy/Demonstrator.war
+rm -f images/wildfly_deploy/Demonstrator.war
 
 # Start containers
 docker-compose --file $COMPOSE_FILE up -d

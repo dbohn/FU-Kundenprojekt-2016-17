@@ -1,5 +1,7 @@
 FROM php:7-fpm
 
+COPY php.ini /usr/local/etc/php/
+
 ARG workdir="/var/www/html"
 
 RUN apt-get update && apt-get install -y \
