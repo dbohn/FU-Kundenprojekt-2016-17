@@ -3,14 +3,11 @@ version: '2'
 services:
   demonstrator:
     build:
-      context: images/wildfly
-    volumes:
-      - ./build:/opt/jboss/wildfly/standalone/deployments/
+      context: images/wildfly_deploy
     networks:
       - humhub
     ports:
-      - "8182:8080"
-      - "9990:9990"
+      - "8002:8080"
   nginx:
     image: nginx
     volumes:
