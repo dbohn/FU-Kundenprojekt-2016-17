@@ -4,11 +4,7 @@
 <head>
     <title>Demonstrator &mdash; Users</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap-flex.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
-    <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/tether.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <%@ include file="partials/head.jsp" %>
 </head>
 <body>
 <%@ include file="partials/navigation.jsp" %>

@@ -11,11 +11,7 @@
 <head>
     <title>Demonstrator &mdash; Search</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap-flex.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/style.css">
-    <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/tether.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+    <%@ include file="partials/head.jsp" %>
 </head>
 <body class="search">
 <%@ include file="partials/navigation.jsp" %>
@@ -52,58 +48,57 @@
                         } else {
                             element.style.display = "none";
                         }
-                    }</script>
-                <hr /><br/>
-                <c:forEach var="u" items="${searchRes}">
-                    <c:if test="${u.type == 'User' && types.contains('UsersChecked') }">
-                        <c:if test="${not empty u.url}">
-                            <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
-                            <SMALL>${u.url}</SMALL>
-                            <br>
-                            <c:if test="${not empty u.attributes}">
-                                ${u.attributes}<br>
-                            </c:if>
-                            <br>
-                        </c:if>
-                        <c:if test="${empty u.url}">
-                            ${u.message} (${u.type})<br>
-                            ${u.attributes}<br><br>
-                        </c:if>
-                    </c:if>
-                    <c:if test="${u.type == 'Space' && types.contains('SpacesChecked')}">
-                        <c:if test="${not empty u.url}">
-                            <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
-                            <SMALL>${u.url}</SMALL>
-                            <br>
-                            <c:if test="${not empty u.attributes}">
-                                ${u.attributes}<br>
-                            </c:if>
-                            <br>
-                        </c:if>
-                        <c:if test="${empty u.url}">
-                            ${u.message} (${u.type})<br>
-                            ${u.attributes}<br><br>
-                        </c:if>
-                    </c:if>
-                    <c:if test="${u.type == 'Post' && types.contains('PostsChecked')}">
-                        <c:if test="${not empty u.url}">
-                            <a target="_blank" href="${u.url}">${u.message} (${u.type})</a><br>
-                            <SMALL>${u.url}</SMALL>
-                            <br>
-                            <c:if test="${not empty u.attributes}">
-                                ${u.attributes}<br>
-                            </c:if>
-                            <br>
-                        </c:if>
-                        <c:if test="${empty u.url}">
-                            ${u.message} (${u.type})<br>
-                            ${u.attributes}<br><br>
-                        </c:if>
-                    </c:if>
-
-
-                </c:forEach>
+                    }
+                </script>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs">
+            <c:forEach var="u" items="${searchRes}">
+                <c:if test="${u.type == 'User' && types.contains('UsersChecked') }">
+                    <div class="card card-block">
+                        <h4 class="card-title">${u.message} (${u.type})</h4>
+                        <p class="card-text">
+                            <c:if test="${not empty u.attributes}">
+                                ${u.attributes}<br>
+                            </c:if>
+                        </p>
+                        <c:if test="${not empty u.url}">
+                            <a class="card-link" target="_blank" href="${u.url}">Profil</a>
+                        </c:if>
+                    </div>
+                </c:if>
+                <c:if test="${u.type == 'Space' && types.contains('SpacesChecked')}">
+                    <div class="card card-block">
+                        <h4 class="card-title">${u.message} (${u.type})</h4>
+                        <p class="card-text">
+                            <c:if test="${not empty u.attributes}">
+                                ${u.attributes}<br>
+                            </c:if>
+                        </p>
+                        <c:if test="${not empty u.url}">
+                            <a class="card-link" target="_blank" href="${u.url}">Zum Space</a>
+                        </c:if>
+                    </div>
+                </c:if>
+                <c:if test="${u.type == 'Post' && types.contains('PostsChecked')}">
+                    <div class="card card-block">
+                        <h4 class="card-title">${u.message} (${u.type})</h4>
+                        <p class="card-text">
+                            <c:if test="${not empty u.attributes}">
+                                ${u.attributes}<br>
+                            </c:if>
+                        </p>
+                        <c:if test="${not empty u.url}">
+                            <a class="card-link" target="_blank" href="${u.url}">Zum Space</a>
+                        </c:if>
+                    </div>
+                </c:if>
+            </c:forEach>
+            <c:if test="${empty searchRes}">
+                <h3 style="text-align: center">Keine Suchergebnisse gefunden!</h3>
+            </c:if>
         </div>
     </div>
 </div>
