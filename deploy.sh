@@ -18,11 +18,11 @@ os=$(uname -s)
 # Set HumHub Directory Permissions
 if [ $os = "Linux" ]; then
     echo "Setting directory permissions for humhub..."
-    chmod -R 777 $HUMHUB_DOCKER_USER ./humhub
+    chmod -R 777 ./humhub
     echo "[Done]\n"
 
     echo "Setting directory permissions for maven build..."
-    chmod -R 777 $HUMHUB_DOCKER_USER ./build
+    chmod -R 777 ./build
     echo "[Done]\n"
 fi
 
