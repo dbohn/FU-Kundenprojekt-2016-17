@@ -6,11 +6,11 @@ HUMHUB_DOCKER_USER=33
 COMPOSE_FILE=docker-compose.deploy.yml
 
 # Create possibly missing assets directory
-if [ ! -d ./humhub/assets ]; then
-    echo "Creating missing directory humhub/assets..."
-    mkdir -p ./humhub/assets
-    echo "[Done]\n"
-fi
+#if [ ! -d ./humhub/assets ]; then
+#    echo "Creating missing directory humhub/assets..."
+#    mkdir -p ./humhub/assets
+#    echo "[Done]\n"
+#fi
 
 # Get the OS Architecture
 os=$(uname -s)
@@ -18,11 +18,11 @@ os=$(uname -s)
 # Set HumHub Directory Permissions
 if [ $os = "Linux" ]; then
     echo "Setting directory permissions for humhub..."
-    sudo chown -R $HUMHUB_DOCKER_USER ./humhub
+    chmod -R 777 $HUMHUB_DOCKER_USER ./humhub
     echo "[Done]\n"
 
     echo "Setting directory permissions for maven build..."
-    sudo chown -R $HUMHUB_DOCKER_USER ./build
+    chmod -R 777 $HUMHUB_DOCKER_USER ./build
     echo "[Done]\n"
 fi
 

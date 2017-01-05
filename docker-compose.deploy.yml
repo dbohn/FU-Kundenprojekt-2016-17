@@ -13,7 +13,6 @@ services:
     volumes:
       - ./humhub:/humhub
       - ./config/site.conf:/etc/nginx/conf.d/site.conf
-      - ./logs:/var/log/nginx
     networks:
       - humhub
     ports:
