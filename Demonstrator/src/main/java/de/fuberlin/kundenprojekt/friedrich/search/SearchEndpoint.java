@@ -28,13 +28,8 @@ public class SearchEndpoint extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");
         String searchTerm = req.getParameter("searchTerm");
-        String[] typesArray = req.getParameterValues("typeList[]");
 
-        List<String> types = new ArrayList<>();
-
-        if (typesArray != null) {
-            types = Arrays.asList(typesArray);
-        }
+        List<String> types = getSelectedTypes(req);
 
         HumHubSearch hs = new HumHubSearch(Configuration.getHost(),Configuration.getBcsToken());
         List<SearchEntry> searchRes = hs.fetchSearchResults((User) req.getSession().getAttribute("user"),searchTerm);
@@ -42,6 +37,17 @@ public class SearchEndpoint extends HttpServlet {
         req.setAttribute("term", searchTerm);
         req.setAttribute("types", types);
         req.getRequestDispatcher("./search.jsp").forward(req, resp);
+    }
+
+    private List<String> getSelectedTypes(HttpServletRequest req) {
+        List<String> types = new ArrayList<>();
+
+        String[] typesArray = req.getParameterValues("typeList[]");
+
+        if (typesArray != null) {
+            types = Arrays.asList(typesArray);
+        }
+        return types;
     }
 
 }
