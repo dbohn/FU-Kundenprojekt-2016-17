@@ -171,11 +171,6 @@ class MessagesController extends ApiController
 
         $model = new CreateMessage();
 
-        //$model->recipient = $user->guid;
-        //var_dump($model->load($request->post(), ''));
-
-        //var_dump($user);die();
-
         if ($model->load($request->post(), '') && $model->validate()) {
             // Create new Message
             $message = new Message();
