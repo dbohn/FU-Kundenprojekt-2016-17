@@ -25,6 +25,32 @@ class UserController extends ApiController
         parent::init();
     }
 
+    public function actionFriends()
+    {
+        $this->forceGetRequest();
+
+        if ($error = $this->forceBcsAuthentication()) {
+            return $error;
+        }
+
+        /** @var \humhub\components\Request $request */
+        $request = \Yii::$app->request;
+
+        $bcsId = $request->get('user_id');
+
+        $user = $this->userRepository->findByBcsId($bcsId);
+
+        $friends = $user->getFriends()->all();
+
+        return $this->responseSuccess([
+            'me' => $this->userTransformer->transform($user),
+            'friends' => $this->userTransformer->transformCollection(
+                $friends,
+                $this->userTransformer
+            )
+        ]);
+    }
+
     public function actionDelete()
     {
         $this->forcePostRequest();

@@ -7,8 +7,10 @@ use humhub\modules\bcs\repositories\UserRepository;
 use humhub\modules\bcs\transformers\messages\EntryTransformer;
 use humhub\modules\bcs\transformers\messages\MessageTransformer;
 use humhub\modules\bcs\transformers\messages\UserTransformer;
+use humhub\modules\mail\models\forms\CreateMessage;
 use humhub\modules\mail\models\Message;
 use humhub\modules\mail\models\MessageEntry;
+use humhub\modules\mail\models\UserMessage;
 
 class MessagesController extends ApiController
 {
@@ -157,5 +159,75 @@ class MessagesController extends ApiController
         $messageEntry->notify();
 
         return $this->responseSuccess('reply successful');
+    }
+
+    public function actionCreate()
+    {
+        /** @var \humhub\components\Request $request */
+        $request = \Yii::$app->request;
+
+        $userGuid = $request->post('user_id');
+        $user = $this->userRepository->findByBcsId($userGuid);
+
+        $model = new CreateMessage();
+
+        //$model->recipient = $user->guid;
+        //var_dump($model->load($request->post(), ''));
+
+        //var_dump($user);die();
+
+        if ($model->load($request->post(), '') && $model->validate()) {
+            // Create new Message
+            $message = new Message();
+            $message->title = $model->title;
+            $message->created_by = $user->id;
+            $message->save();
+
+            // Attach Message Entry
+            $messageEntry = new MessageEntry();
+            $messageEntry->message_id = $message->id;
+            $messageEntry->user_id = $user->id;
+            $messageEntry->content = $model->message;
+            $messageEntry->save();
+
+            // Attach also Recipients
+            foreach ($model->getRecipients() as $recipient) {
+                $userMessage = new UserMessage();
+                $userMessage->message_id = $message->id;
+                $userMessage->user_id = $recipient->id;
+                $userMessage->save();
+            }
+
+            // Inform recipients (We need to add all before)
+            foreach ($model->getRecipients() as $recipient) {
+                try {
+                    $message->notify($recipient);
+                } catch(\Exception $e) {
+                    Yii::error('Could not send notification e-mail to: '. $recipient->username.". Error:". $e->getMessage());
+                }
+            }
+
+            // Attach User Message
+            $userMessage = new UserMessage();
+            $userMessage->message_id = $message->id;
+            $userMessage->user_id = $user->id;
+            $userMessage->is_originator = 1;
+            $userMessage->last_viewed = new \yii\db\Expression('NOW()');
+            $userMessage->save();
+
+            return $this->responseSuccess([
+                'message' => $this->messageTransformer->transform($message),
+                'entries' => [
+                    $this->entryTransformer->transform($messageEntry)
+                ],
+                'users' => $this->userTransformer->transformCollection(
+                    $message->getUsers()->all(),
+                    $this->userTransformer
+                ),
+            ]);
+        }
+
+        //var_dump($model->validate(), $model->getErrors());
+
     }
 }
