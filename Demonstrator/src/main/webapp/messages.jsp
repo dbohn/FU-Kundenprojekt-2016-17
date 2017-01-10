@@ -29,7 +29,7 @@
 <script>
     const Settings = {
         me: "${user.id}",
-        thisUrl: "${pageContext.request.contextPath}/conversations",
+        thisUrl: "${pageContext.request.contextPath}",
     };
 </script>
     <script src="${pageContext.request.contextPath}/app.js"></script>

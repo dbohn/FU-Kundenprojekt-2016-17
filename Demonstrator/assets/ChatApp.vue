@@ -1,23 +1,13 @@
 <template>
     <div class="row" id="messenger">
-        <div class="col-xs-4">
-            <div class="list-group">
-                <a href="#" v-for="conversation in conversations" @click.prevent="loadConversation(conversation.id)"
-                   class="list-group-item list-group-item-action"
-                   :class="{active: activeConversation != null && activeConversation.id == conversation.id}">
 
-                    <h5 class="list-group-item-heading">{{conversation.title}}</h5>
-                    <p class="list-group-item-text">
-                        <!--{{conversation.lastMessage.content}}<br>-->
-                        <em>
-                            <span v-for="participant in conversation.participants" v-if="me != participant.user.id">
-                                {{ participant.displayName }} -
-                            </span>
-                            {{conversation.updatedAt | date }}
-                        </em>
-                    </p>
-                </a>
-            </div>
+        <div class="col-xs-4">
+            <create-conversation @done="updateConversationList"></create-conversation>
+            <conversation-list
+                    :me="me" :conversations="conversations"
+                    :active="activeConversation"
+                    @select="loadConversation($event)">
+            </conversation-list>
         </div>
         <div class="col-xs-8 message-view">
             <div v-if="activeConversation != null">
@@ -30,7 +20,7 @@
                          v-for="message in messages">
                         <div class="message-box col-xs-6"
                              :class="{'from-me': mine(message), 'from-them': !mine(message)}">
-                            <div class="author">{{ message.user.displayName }}</div>
+                            <div class="author">{{ message.user.displayname }}</div>
                             <div class="message">{{ message.content }}</div>
                             <div class="time">{{ format(message.createdAt) }}</div>
                         </div>
@@ -60,10 +50,8 @@
 </template>
 <script>
     import Vue from 'vue';
-
-    import moment from 'moment';
-
-    moment.locale('de');
+    import ConversationList from './chat/ConversationList.vue';
+    import CreateConversation from './chat/CreateConversation.vue';
 
     export default {
         data() {
@@ -73,20 +61,12 @@
                 activeConversation: null,
                 message: "",
                 pendingMessages: {},
-                conversations: {}
+                conversations: {},
             };
         },
 
         mounted() {
-            $.get('?conversations=1').then((data) => {
-                this.conversations = data;
-            });
-        },
-
-        filters: {
-           date(value) {
-               return moment(value).fromNow();
-           }
+            this.updateConversationList();
         },
 
         computed: {
@@ -129,6 +109,12 @@
                 });
             },
 
+            updateConversationList() {
+                $.get('?conversations=1').then((data) => {
+                    this.conversations = data;
+                });
+            },
+
             postMessage() {
                 let id = this.activeConversation.id;
                 let message = this.message;
@@ -144,7 +130,7 @@
                     this.scrollToBottom();
                 });
 
-                $.post(this.thisUrl, {
+                $.post(this.thisUrl + "/conversations", {
                     conversation: id,
                     message: message,
                 }).then((response) => {
@@ -168,6 +154,11 @@
                 let messageContainer = this.$refs.messages;
                 messageContainer.scrollTop = messageContainer.scrollHeight;
             }
+        },
+
+        components: {
+            ConversationList,
+            CreateConversation
         }
     }
 </script>
