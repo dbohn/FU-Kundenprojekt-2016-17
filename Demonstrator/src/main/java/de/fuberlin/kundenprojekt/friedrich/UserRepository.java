@@ -104,4 +104,16 @@ public class UserRepository {
 
         session.close();
     }
+
+    public void deleteUser(User user) {
+        Session session = Database.getSession();
+
+        session.beginTransaction();
+
+        session.delete(user);
+
+        session.getTransaction().commit();
+
+        session.close();
+    }
 }

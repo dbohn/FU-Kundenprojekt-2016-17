@@ -17,4 +17,9 @@ class UserRepository
     {
         return User::findByGuid($bcsId);
     }
+
+    public function deleteUser(User $user)
+    {
+        return $user->delete();
+    }
 }

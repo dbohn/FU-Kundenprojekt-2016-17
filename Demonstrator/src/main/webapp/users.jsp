@@ -26,34 +26,33 @@
     </c:if>
     <div class="row">
         <div class="col-xs">
-            <table class="table">
+            <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>Username</th>
-                    <th>Full Name</th>
+                    <th>Benutzername</th>
+                    <th>Vollständiger Name</th>
                     <th>E-Mail</th>
-                    <th>Phone</th>
-                    <!--<th>&nbsp;</th>-->
+                    <th>Telefon</th>
+                    <th>&nbsp;</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="u" items="${userList}">
                     <tr${(u.id == user.id) ? " class=\"table-info\"" : ""}>
-                        <td>${u.username}</td>
+                        <td>${u.username}
+                            <c:if test="${u.id == user.id}">
+                                <span class="tag tag-pill tag-info">Ich</span>
+                            </c:if>
+                        </td>
                         <td>${u.fullName}</td>
                         <td>${u.email}</td>
                         <td>${u.phone}</td>
-                        <!--<td>
-                            <c:if test="${!u.isUserSynced}">
-                            <form action="${pageContext.request.contextPath}/users/humhub" method="post">
-                                <input type="hidden" name="id" value="${u.id}">
-                                <button type="submit" class="btn btn-outline-primary" title="An HumHub melden">HumHub</button>
+                        <td>
+                            <form action="${pageContext.request.contextPath}/user/delete" method="post">
+                                <input type="hidden" name="user_id" value="${u.id}">
+                                <button type="submit" class="btn btn-danger" title="Benutzer löschen"><i class="fa fa-trash-o"></i></button>
                             </form>
-                            </c:if>
-                            <c:if test="${u.isUserSynced}">
-                                <button type="submit" class="btn btn-outline-primary" title="An HumHub melden" disabled>Synchronisiert</button>
-                            </c:if>
-                        </td>-->
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
