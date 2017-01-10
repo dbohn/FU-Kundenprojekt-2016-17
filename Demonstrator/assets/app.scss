@@ -1,3 +1,5 @@
+$brand-primary: #1abc9c;
+
 @import "node_modules/bootstrap/scss/bootstrap-flex.scss";
 
 $fa-font-path: "../fonts";
@@ -8,8 +10,17 @@ html.chat, html.chat body {
   height: 100%;
 }
 
+.main-header {
+  background: $brand-primary;
+  color: #fff;
+
+  & .jumbotron {
+    background: transparent;
+  }
+}
+
 body {
-  padding-top: 70px;
+  padding-top: 50px;
 }
 
 .login {
@@ -42,12 +53,12 @@ body {
   position: relative;
   padding: 10px 20px;
   color: white;
-  background: #0275d8;
+  background: $brand-primary;
   border-radius: 25px;
 }
 
 .from-me .message.pending {
-  background: #9AC8EF;
+  background: #8DDECE;
 }
 
 .from-me .message:before {
@@ -57,13 +68,13 @@ body {
   bottom: -2px;
   right: -7px;
   height: 20px;
-  border-right: 20px solid #0275d8;
+  border-right: 20px solid $brand-primary;
   border-bottom-left-radius: 16px 14px;
   -webkit-transform: translate(0, -2px);
 }
 
 .from-me .message.pending:before {
-  border-right-color: #9AC8EF;
+  border-right-color: #8DDECE;
 }
 
 .from-me .message:after {

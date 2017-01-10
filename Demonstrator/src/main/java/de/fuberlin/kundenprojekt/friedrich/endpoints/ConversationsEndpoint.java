@@ -10,6 +10,7 @@ import de.fuberlin.kundenprojekt.friedrich.social.messages.Conversation;
 import de.fuberlin.kundenprojekt.friedrich.storage.UserTypeAdapter;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,8 +34,12 @@ public class ConversationsEndpoint extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String conversationId = req.getParameter("conversation");
 
+        String conversationList = req.getParameter("conversations");
+
         if (conversationId != null) {
             loadConversation(conversationId, req, resp);
+        } else if (conversationList != null) {
+            jsonConversationList(req, resp);
         } else {
             listConversations(req, resp);
         }
@@ -79,6 +84,20 @@ public class ConversationsEndpoint extends HttpServlet {
         //resp(resp, "List conversations: " + conversationList.size());
         req.setAttribute("conversations", conversationList);
         req.getRequestDispatcher("./messages.jsp").forward(req, resp);
+    }
+
+    private void jsonConversationList(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+
+        HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
+        List<Conversation> conversationList = humHubMessages.fetchConversations((User) request.getSession().getAttribute("user"));
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (localDateTime, type, jsonSerializationContext) -> new JsonPrimitive(localDateTime.format(DateTimeFormatter.ISO_DATE_TIME)))
+                .registerTypeAdapter(User.class, new UserTypeAdapter()).create();
+
+        out.print(gson.toJson(conversationList));
     }
 
     private void resp(HttpServletResponse resp, String msg) throws IOException {

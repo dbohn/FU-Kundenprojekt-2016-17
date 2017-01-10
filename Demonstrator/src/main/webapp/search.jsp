@@ -15,15 +15,19 @@
 </head>
 <body class="search">
 <%@ include file="partials/navigation.jsp" %>
+<div class="main-header">
+    <div class="jumbotron">
+        <h1 class="display-4">Suche</h1>
+        <p class="lead">Suchergebnisse für ${term}</p>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-xs">
-            <div class="jumbotron">
-                <h1 class="display-3">Suche</h1>
-                <p class="lead">Suchergebnisse für ${term}</p>
-                <a href="javascript:toggleLink('toggle')"> Erweiterte Suche </a>
-                <br/>
-                <div id="toggle" style="display: none">
+            <div class="card">
+                <div class="card-header"><a href="javascript:toggleLink('toggle')">Erweiterte Suche</a></div>
+                <!--<a href="javascript:toggleLink('toggle')"> Erweiterte Suche </a>-->
+                <div class="card-block" id="toggle" style="display: none">
                     <div class="form-group">
                         <label for="space">Nur im folgendem Space suchen: </label>
                         <input type="text" name="Space:" id="space"/>

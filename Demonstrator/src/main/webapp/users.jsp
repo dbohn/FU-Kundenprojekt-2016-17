@@ -8,15 +8,13 @@
 </head>
 <body>
 <%@ include file="partials/navigation.jsp" %>
-<div class="container">
-    <div class="row">
-        <div class="col-xs">
-            <div class="jumbotron">
-                <h1 class="display-3">Users</h1>
-                <p class="lead">Benutzer anlegen, ändern, entfernen.</p>
-            </div>
-        </div>
+<div class="main-header">
+    <div class="jumbotron">
+        <h1 class="display-4">Users</h1>
+        <p class="lead">Benutzer anlegen, ändern, entfernen.</p>
     </div>
+</div>
+<div class="container">
     <c:if test="${not empty status}">
         <div class="row">
             <div class="col-xs">
