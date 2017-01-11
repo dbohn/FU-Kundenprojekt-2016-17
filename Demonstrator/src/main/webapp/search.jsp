@@ -77,7 +77,7 @@
                             </c:if>
                         </p>
                         <c:if test="${not empty u.url}">
-                            <a class="card-link" target="_blank" href="${u.url}">Profil</a>
+                            <a class="card-link" target="_blank" href="${u.url}">Zum Profil</a>
                         </c:if>
                     </div>
                 </c:if>
@@ -103,7 +103,7 @@
                             </c:if>
                         </p>
                         <c:if test="${not empty u.url}">
-                            <a class="card-link" target="_blank" href="${u.url}">Zum Space</a>
+                            <a class="card-link" target="_blank" href="${u.url}">Zum Benutzer-Profil</a>
                         </c:if>
                     </div>
                 </c:if>
