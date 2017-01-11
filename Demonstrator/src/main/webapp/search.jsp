@@ -28,21 +28,29 @@
                 <div class="card-header"><a href="javascript:toggleLink('toggle')">Erweiterte Suche</a></div>
                 <!--<a href="javascript:toggleLink('toggle')"> Erweiterte Suche </a>-->
                 <div class="card-block" id="toggle" style="display: none">
-                    <div class="form-group">
-                        <label for="space">Nur im folgendem Space suchen: </label>
-                        <input type="text" name="Space:" id="space"/>
-                    </div>
-                    <a>Nur folgende Ergebnisse anzeigen:</a>
-                    <div class="form-group">
-                        <label for="user"> User </label>
-                        <input type="Checkbox" name="typeList[]" id="user" value="UsersChecked" ${types.contains('UsersChecked') ? 'checked' : ''} />
-                        &emsp;
-                        <label for="spaces"> Spaces </label>
-                        <input type="Checkbox" name="typeList[]" id="spaces" value="SpacesChecked" ${types.contains('SpacesChecked') ? 'checked' : ''} />
-                        &emsp;
-                        <label for="post"> Posts </label>
-                        <input type="Checkbox" name="typeList[]" id="post" value="PostsChecked" ${types.contains('PostsChecked') ? 'checked' : ''} />
-                    </div>
+                    <form action="${pageContext.request.contextPath}/search" method="post">
+                        <div class="form-group">
+                            <label for="space">Nur im folgendem Space suchen: </label>
+                            <input type="text" name="Space:" id="space"/>
+                        </div>
+                        <a>Nur folgende Ergebnisse anzeigen:</a>
+
+                        <div class="form-group">
+                            <label for="user"> User </label>
+                            <input type="Checkbox" name="typeList[]" id="user"
+                                   value="UsersChecked" ${types.contains('UsersChecked') ? 'checked' : ''} />
+                            &emsp;
+                            <label for="spaces"> Spaces </label>
+                            <input type="Checkbox" name="typeList[]" id="spaces"
+                                   value="SpacesChecked" ${types.contains('SpacesChecked') ? 'checked' : ''} />
+                            &emsp;
+                            <label for="post"> Posts </label>
+                            <input type="Checkbox" name="typeList[]" id="post"
+                                   value="PostsChecked" ${types.contains('PostsChecked') ? 'checked' : ''} />
+                        </div>
+                        <input type="text" name="searchTerm" value="${term}" id="searchTerm" class="form-control" placeholder="Search"/>
+                        <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+                    </form>
                 </div>
                 <script type="text/javascript">
                     function toggleLink(control) {
