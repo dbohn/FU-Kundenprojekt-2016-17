@@ -31,7 +31,7 @@
                     <form action="${pageContext.request.contextPath}/search" method="post">
                         <div class="form-group">
                             <label for="space">Nur im folgendem Space suchen: </label>
-                            <input type="text" name="Space:" id="space"/>
+                            <input type="text" name="space:" id="space"/>
                         </div>
                         <a>Nur folgende Ergebnisse anzeigen:</a>
 
@@ -48,7 +48,8 @@
                             <input type="Checkbox" name="typeList[]" id="post"
                                    value="PostsChecked" ${types.contains('PostsChecked') ? 'checked' : ''} />
                         </div>
-                        <input type="text" name="searchTerm" value="${term}" id="searchTerm" class="form-control" placeholder="Search"/>
+                        <input type="text" name="searchTerm" value="${term}" id="searchTerm" class="form-control"
+                               placeholder="Search"/>
                         <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
@@ -82,17 +83,19 @@
                     </div>
                 </c:if>
                 <c:if test="${u.type == 'Space' && types.contains('SpacesChecked')}">
-                    <div class="card card-block">
-                        <h4 class="card-title">${u.message} (${u.type})</h4>
-                        <p class="card-text">
-                            <c:if test="${not empty u.attributes}">
-                                ${u.attributes}<br>
+                    <c:if test="${space == u.message || empty space}">
+                        <div class="card card-block">
+                            <h4 class="card-title">${u.message} (${u.type})</h4>
+                            <p class="card-text">
+                                <c:if test="${not empty u.attributes}">
+                                    ${u.attributes}<br>
+                                </c:if>
+                            </p>
+                            <c:if test="${not empty u.url}">
+                                <a class="card-link" target="_blank" href="${u.url}">Zum Space</a>
                             </c:if>
-                        </p>
-                        <c:if test="${not empty u.url}">
-                            <a class="card-link" target="_blank" href="${u.url}">Zum Space</a>
-                        </c:if>
-                    </div>
+                        </div>
+                    </c:if>
                 </c:if>
                 <c:if test="${u.type == 'Post' && types.contains('PostsChecked')}">
                     <div class="card card-block">
