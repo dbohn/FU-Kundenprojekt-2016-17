@@ -47,6 +47,7 @@ class SearchResultTransformer extends AbstractTransformer
         } else {
             $message = $data->message;
             $user = User::findOne($data->created_by);
+            $url = $this->host() . "/u/" . $user->username;
             $attributes = $data->created_at . " " . $user->username;
         }
         return [
