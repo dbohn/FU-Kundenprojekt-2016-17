@@ -26,7 +26,9 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" @click.prevent="postConversation">Konversation starten</button>
+                        <button type="button" class="btn btn-primary" @click.prevent="postConversation">
+                            <i class="fa fa-circle-o-notch fa-spin fa-fw" v-if="creating"></i> Konversation starten
+                        </button>
                         <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Close</button>
                     </div>
                 </div>
@@ -36,6 +38,9 @@
     </div>
 </template>
 <script>
+
+    import Dispatcher from '../Dispatcher';
+
     export default {
         data() {
             return {
@@ -45,6 +50,7 @@
                     recipients: [],
                     message: ""
                 },
+                creating: false,
                 friends: {},
                 errors: {},
             };
@@ -81,8 +87,11 @@
                 }
 
                 if (!this.anyError()) {
+                    this.creating = true;
                     $.post(this.settings.thisUrl + "/conversations/create", this.createForm).then(data => {
+                        this.creating = false;
                         this.$emit('done');
+                        Dispatcher.$emit('conversation.created');
                         this.closeModal();
                     });
                 }

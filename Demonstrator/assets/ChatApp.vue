@@ -1,33 +1,33 @@
 <template>
     <div class="row" id="messenger">
 
-        <div class="col-xs-4">
-            <create-conversation @done="updateConversationList"></create-conversation>
+        <div class="col-4">
+            <create-conversation></create-conversation>
             <conversation-list
-                    :me="me" :conversations="conversations"
-                    :active="activeConversation"
-                    @select="loadConversation($event)">
+                    :me="me"
+                    :value="activeConversation"
+                    @input="loadConversation($event)">
             </conversation-list>
         </div>
-        <div class="col-xs-8 message-view">
+        <div class="col-8 message-view">
             <div v-if="activeConversation != null">
                 <div class="header">
                     <h3>{{ activeConversation.title }}</h3>
                     <h4>Gestartet am {{ createdAtDate }} um {{ createdAtTime }}</h4>
                 </div>
                 <div class="messages" ref="messages">
-                    <div class="row" :class="{'flex-items-xs-right': mine(message)}"
+                    <div class="row"
                          v-for="message in messages">
-                        <div class="message-box col-xs-6"
-                             :class="{'from-me': mine(message), 'from-them': !mine(message)}">
-                            <div class="author">{{ message.user.displayname }}</div>
+                        <div class="message-box col-6"
+                             :class="{'from-me': mine(message), 'offset-6': mine(message), 'from-them': !mine(message)}">
+                            <div class="author">{{ message.user.displayName }}</div>
                             <div class="message">{{ message.content }}</div>
                             <div class="time">{{ format(message.createdAt) }}</div>
                         </div>
                     </div>
-                    <div class="row flex-items-xs-right"
+                    <div class="row"
                          v-for="message in pendingMessages">
-                        <div class="message-box col-xs-6 from-me">
+                        <div class="message-box col-6 from-me offset-6">
                             <div class="message pending">{{ message.content }}</div>
                         </div>
                     </div>
@@ -35,10 +35,10 @@
                 <div class="message-editor">
                     <form @submit.prevent="postMessage">
                         <div class="form-group row">
-                            <div class="col-xs-10">
+                            <div class="col-10">
                                 <textarea class="form-control" placeholder="Antworten..." name="editor" id="editor" cols="30" rows="5" v-model="message"></textarea>
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-2">
                                 <button class="btn btn-primary">Senden</button>
                             </div>
                         </div>
@@ -52,6 +52,7 @@
     import Vue from 'vue';
     import ConversationList from './chat/ConversationList.vue';
     import CreateConversation from './chat/CreateConversation.vue';
+    import Dispatcher from './Dispatcher'
 
     export default {
         data() {
@@ -61,12 +62,8 @@
                 activeConversation: null,
                 message: "",
                 pendingMessages: {},
-                conversations: {},
+                conversations: [],
             };
-        },
-
-        mounted() {
-            this.updateConversationList();
         },
 
         computed: {
@@ -98,6 +95,7 @@
             loadConversation(conversationId, pendingId = null) {
                 $.get('?conversation=' + conversationId).then((data) => {
                     this.activeConversation = data;
+                    Dispatcher.$emit('conversation.loaded', data);
 
                     if (pendingId != null) {
                         Vue.delete(this.pendingMessages, pendingId);
@@ -106,12 +104,6 @@
                     Vue.nextTick(() => {
                         this.scrollToBottom();
                     });
-                });
-            },
-
-            updateConversationList() {
-                $.get('?conversations=1').then((data) => {
-                    this.conversations = data;
                 });
             },
 

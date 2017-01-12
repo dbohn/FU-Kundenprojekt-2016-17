@@ -1,7 +1,7 @@
 
-<nav class="navbar navbar-light navbar-fixed-top bg-faded">
+<nav class="navbar navbar-light navbar-toggleable-md fixed-top bg-faded">
     <a class="navbar-brand" href="#">Demonstrator</a>
-    <ul class="nav navbar-nav">
+    <ul class="navbar-nav mr-auto">
         <li class="nav-item">
             <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
         </li>

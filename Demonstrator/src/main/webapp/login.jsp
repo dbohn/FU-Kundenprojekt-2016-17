@@ -8,11 +8,11 @@
 </head>
 <body class="login">
 <div class="container">
-    <div class="row flex-items-xs-middle flex-items-xs-center">
-        <div class="col-xs-7 flex-xs-middle">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-7 align-self-center">
             <h3 class="display-4">Login</h3>
         </div>
-        <div class="col-xs-7 flex-xs-middle login-box">
+        <div class="col-7 align-self-center login-box">
             <c:if test="${not empty error}">
                 <div class="alert alert-danger">
                         Die angegebenen Nutzerdaten wurden nicht gefunden.

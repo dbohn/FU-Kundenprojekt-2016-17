@@ -1,6 +1,6 @@
 $brand-primary: #1abc9c;
 
-@import "node_modules/bootstrap/scss/bootstrap-flex.scss";
+@import "node_modules/bootstrap/scss/bootstrap.scss";
 
 $fa-font-path: "../fonts";
 
@@ -39,6 +39,10 @@ body {
   overflow: scroll;
   border: 1px solid #E5E5EA;
   padding: 10px;
+}
+
+.conversation-info {
+  margin-bottom: 0;
 }
 
 .message-box {

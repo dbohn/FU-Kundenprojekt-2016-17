@@ -50,7 +50,7 @@
                     <tr${(u.id == user.id) ? " class=\"table-info\"" : ""}>
                         <td>${u.username}
                             <c:if test="${u.id == user.id}">
-                                <span class="tag tag-pill tag-info">Ich</span>
+                                <span class="badge badge-pill badge-info">Ich</span>
                             </c:if>
                         </td>
                         <td>${u.fullName}</td>
