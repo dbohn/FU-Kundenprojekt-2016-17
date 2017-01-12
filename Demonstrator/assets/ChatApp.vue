@@ -95,7 +95,8 @@
             loadConversation(conversationId, pendingId = null) {
                 $.get('?conversation=' + conversationId).then((data) => {
                     this.activeConversation = data;
-                    Dispatcher.$emit('conversation.loaded', data);
+
+                    console.log(pendingId);
 
                     if (pendingId != null) {
                         Vue.delete(this.pendingMessages, pendingId);
@@ -104,6 +105,8 @@
                     Vue.nextTick(() => {
                         this.scrollToBottom();
                     });
+
+                    Dispatcher.$emit('conversation.loaded', data);
                 });
             },
 

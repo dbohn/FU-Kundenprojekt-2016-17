@@ -17,7 +17,7 @@
 <div class="container">
     <c:if test="${not empty status}">
         <div class="row">
-            <div class="col-xs">
+            <div class="col">
                 <div class="alert alert-success">
                         ${status}
                 </div>
@@ -26,7 +26,7 @@
     </c:if>
     <c:if test="${not empty error}">
         <div class="row">
-            <div class="col-xs">
+            <div class="col">
                 <div class="alert alert-danger">
                         ${error}
                 </div>
@@ -34,7 +34,7 @@
         </div>
     </c:if>
     <div class="row">
-        <div class="col-xs">
+        <div class="col">
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -70,7 +70,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs">
+        <div class="col">
             <hr>
             <div class="card">
                 <div class="card-header">
@@ -89,7 +89,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs">
+        <div class="col">
             <hr>
             <div class="card">
                 <div class="card-header">

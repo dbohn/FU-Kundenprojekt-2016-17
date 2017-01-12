@@ -17,10 +17,10 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-xs">
+        <div class="col">
             <p>Diese Seite basiert auf <a href="http://v4-alpha.getbootstrap.com">Bootstrap</a>, um eine Grundoptik zu bieten</p>
         </div>
-        <div class="col-xs">
+        <div class="col">
             <p>Test 2</p>
         </div>
     </div>

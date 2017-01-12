@@ -23,10 +23,9 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-xs">
-            <div class="card">
+        <div class="col">
+            <div class="card advanced-search">
                 <div class="card-header"><a href="javascript:toggleLink('toggle')">Erweiterte Suche</a></div>
-                <!--<a href="javascript:toggleLink('toggle')"> Erweiterte Suche </a>-->
                 <div class="card-block" id="toggle" style="display: none">
                     <form action="${pageContext.request.contextPath}/search" method="post">
                         <div class="form-group">
@@ -67,7 +66,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs">
+        <div class="col">
             <c:forEach var="u" items="${searchRes}">
                 <c:if test="${u.type == 'User' && types.contains('UsersChecked') }">
                     <div class="card card-block">

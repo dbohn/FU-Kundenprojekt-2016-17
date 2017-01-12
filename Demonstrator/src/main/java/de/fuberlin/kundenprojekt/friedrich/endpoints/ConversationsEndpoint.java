@@ -51,13 +51,13 @@ public class ConversationsEndpoint extends BaseServlet {
         String message = req.getParameter("message");
         String conversationId = req.getParameter("conversation");
 
-        User user = (User) req.getSession().getAttribute("user");
+        User user = user(req);
 
         HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
 
         try {
             humHubMessages.postMessage(conversationId, message, user);
-            replyAsJson(resp, "message submitted");
+            replyAsJson(resp, "{\"message\":\"message submitted\"}");
         } catch (MessageReplyException e) {
             replyAsJsonError(resp, e.getMessage());
             e.printStackTrace();
