@@ -14,9 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by hanna on 09.12.2016.
+ * @author Team Friedrich
  */
-
 @WebServlet("/search")
 public class SearchEndpoint extends HttpServlet {
 

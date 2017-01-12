@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 @WebServlet("/friends")
 public class FriendsEndpoint extends HttpServlet {

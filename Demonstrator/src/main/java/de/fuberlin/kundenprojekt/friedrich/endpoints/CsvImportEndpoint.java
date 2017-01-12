@@ -1,12 +1,15 @@
 package de.fuberlin.kundenprojekt.friedrich.endpoints;
 
+import de.fuberlin.kundenprojekt.friedrich.PasswordHasher;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +26,12 @@ import java.util.stream.StreamSupport;
  * @author Team Friedrich
  */
 @MultipartConfig
+@WebServlet("/csvimport")
 public class CsvImportEndpoint extends HttpServlet {
+
+    @Inject
+    PasswordHasher passwordHasher;
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -51,11 +59,13 @@ public class CsvImportEndpoint extends HttpServlet {
                 .withRecordSeparator("\n").withFirstRecordAsHeader()
                 .parse(new StringReader(content));
         return StreamSupport.stream(parser.spliterator(), false)
-                .map((record) -> new User(record.get("E-Mail"), record.get("Nachname"), record.get("E-Mail"), "password", record.get("Telefon"))).collect(Collectors.toList());
-    }
-
-    private String toUTF8(String input) throws UnsupportedEncodingException {
-        return new String(input.getBytes(StandardCharsets.UTF_8), "UTF-8");
+                .map((record) -> new User(
+                        record.get("E-Mail"),
+                        record.get("Nachname"),
+                        record.get("E-Mail"),
+                        passwordHasher.hash("password"),
+                        record.get("Telefon")
+                )).collect(Collectors.toList());
     }
 
     private String uploadFile(HttpServletRequest req, String baseDir) throws IOException, ServletException {
@@ -70,7 +80,6 @@ public class CsvImportEndpoint extends HttpServlet {
                 byte[] buffer = new byte[bufferSize];
 
                 String partHeader = p.getHeader("content-disposition");
-
 
                 isr.read(buffer);
 

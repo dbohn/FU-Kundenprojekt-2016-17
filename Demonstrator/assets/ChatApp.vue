@@ -136,8 +136,6 @@
                 }).then((response) => {
                     this.loadConversation(id, key);
                 });
-
-                console.log(this.message);
             },
 
             format(date) {

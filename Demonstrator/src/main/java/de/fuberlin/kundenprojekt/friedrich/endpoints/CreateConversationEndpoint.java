@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 @WebServlet("conversations/create")
 public class CreateConversationEndpoint extends HttpServlet {

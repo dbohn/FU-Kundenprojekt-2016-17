@@ -2,10 +2,10 @@ package de.fuberlin.kundenprojekt.friedrich.social;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
-import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.exceptions.MessageReplyException;
+import de.fuberlin.kundenprojekt.friedrich.exceptions.NoConversationsException;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.social.messages.Conversation;
 import de.fuberlin.kundenprojekt.friedrich.social.messages.Message;
@@ -49,13 +49,20 @@ public class HumHubMessages {
         return null;
     }
 
-    public List<Conversation> fetchConversations(User user) {
+    public List<Conversation> fetchConversations(User user) throws NoConversationsException {
         List<Conversation> conversations = new ArrayList<>();
         try {
             HttpResponse<JsonNode> response = HumHubApiUtil.get(host, "/bcs/messages", bcsToken)
                     .queryString("bcs_id", user.getId())
                     .asJson();
-            JSONArray messages = response.getBody().getObject().getJSONArray("message");
+            JSONObject body = response.getBody().getObject();
+
+            if (!body.has("message")) {
+                throw new NoConversationsException("No conversations found");
+            }
+
+            JSONArray messages = body.getJSONArray("message");
+
             for (int i = 0; i < messages.length(); i++) {
                 JSONObject message = messages.getJSONObject(i);
                 Conversation conversation = extractConversation(message);
@@ -63,6 +70,7 @@ public class HumHubMessages {
             }
         } catch (UnirestException e) {
             e.printStackTrace();
+            throw new NoConversationsException("Unable to call HumHub API");
         }
         return conversations;
     }

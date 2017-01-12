@@ -6,7 +6,7 @@ import org.hibernate.cfg.Configuration;
 import java.util.logging.Level;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 public class Database {
     public static SessionFactory sessionFactory;
@@ -16,8 +16,6 @@ public class Database {
             java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
 
             sessionFactory = new Configuration().configure("/hibernate.cfg.xml").buildSessionFactory();
-
-            //mainSession = sessionFactory.openSession();
         }
 
         return sessionFactory.openSession();

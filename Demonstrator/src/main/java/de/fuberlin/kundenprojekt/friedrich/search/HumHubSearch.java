@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by hanna on 09.12.2016.
+ * @author Team Friedrich
  */
 public class HumHubSearch {
     private String host;
@@ -31,16 +31,13 @@ public class HumHubSearch {
                     .queryString("bcs_id", user.getId())
                     .queryString("query", query);
 
-            System.out.println(request.getUrl());
-
             HttpResponse<JsonNode> response = request.asJson();
 
             JSONArray searchRes = response.getBody().getObject().getJSONArray("message");
-            System.out.println(response.getBody().toString());
+
             for (int i = 0; i < searchRes.length(); i++) {
                 JSONObject message = searchRes.getJSONObject(i);
                 SearchEntry searchEntry = extractSearchEntry(message);
-                System.out.println(searchEntry.getMessage());
                 searchResults.add(searchEntry);
             }
         } catch (UnirestException e) {

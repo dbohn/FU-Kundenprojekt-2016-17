@@ -1,7 +1,7 @@
 package de.fuberlin.kundenprojekt.friedrich.search;
 
 /**
- * Created by hanna on 09.12.2016.
+ * @author Team Friedrich
  */
 public class SearchEntry {
     public long id;

@@ -7,6 +7,7 @@ import de.fuberlin.kundenprojekt.friedrich.models.Userinfo;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 /**
  * @author Team Friedrich
  */
+@WebServlet("/users")
 public class UsersEndpoint extends HttpServlet {
 
     @Inject

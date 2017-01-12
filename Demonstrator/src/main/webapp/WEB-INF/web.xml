@@ -3,29 +3,5 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <servlet>
-        <servlet-name>user</servlet-name>
-        <servlet-class>de.fuberlin.kundenprojekt.friedrich.endpoints.UsersEndpoint</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>user</servlet-name>
-        <url-pattern>/users</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>csvimport</servlet-name>
-        <servlet-class>de.fuberlin.kundenprojekt.friedrich.endpoints.CsvImportEndpoint</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>csvimport</servlet-name>
-        <url-pattern>/csvimport</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>humhubregistration</servlet-name>
-        <servlet-class>de.fuberlin.kundenprojekt.friedrich.endpoints.HumhubRegistrationEndpoint</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>humhubregistration</servlet-name>
-        <url-pattern>/users/humhub</url-pattern>
-    </servlet-mapping>
 
 </web-app>

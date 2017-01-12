@@ -3,6 +3,7 @@ package de.fuberlin.kundenprojekt.friedrich.endpoints;
 import com.google.gson.*;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.exceptions.MessageReplyException;
+import de.fuberlin.kundenprojekt.friedrich.exceptions.NoConversationsException;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.social.Configuration;
 import de.fuberlin.kundenprojekt.friedrich.social.HumHubMessages;
@@ -79,10 +80,10 @@ public class ConversationsEndpoint extends HttpServlet {
     }
 
     private void listConversations(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
-        List<Conversation> conversationList = humHubMessages.fetchConversations((User) req.getSession().getAttribute("user"));
+        //HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
+        //List<Conversation> conversationList = humHubMessages.fetchConversations((User) req.getSession().getAttribute("user"));
         //resp(resp, "List conversations: " + conversationList.size());
-        req.setAttribute("conversations", conversationList);
+        //req.setAttribute("conversations", conversationList);
         req.getRequestDispatcher("./messages.jsp").forward(req, resp);
     }
 
@@ -91,13 +92,18 @@ public class ConversationsEndpoint extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
-        List<Conversation> conversationList = humHubMessages.fetchConversations((User) request.getSession().getAttribute("user"));
+        List<Conversation> conversationList = null;
+        try {
+            conversationList = humHubMessages.fetchConversations((User) request.getSession().getAttribute("user"));
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (localDateTime, type, jsonSerializationContext) -> new JsonPrimitive(localDateTime.format(DateTimeFormatter.ISO_DATE_TIME)))
+                    .registerTypeAdapter(User.class, new UserTypeAdapter()).create();
 
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (localDateTime, type, jsonSerializationContext) -> new JsonPrimitive(localDateTime.format(DateTimeFormatter.ISO_DATE_TIME)))
-                .registerTypeAdapter(User.class, new UserTypeAdapter()).create();
-
-        out.print(gson.toJson(conversationList));
+            out.print(gson.toJson(conversationList));
+        } catch (NoConversationsException e) {
+            respJsonError(response, e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void resp(HttpServletResponse resp, String msg) throws IOException {
@@ -109,6 +115,13 @@ public class ConversationsEndpoint extends HttpServlet {
     private void respJson(HttpServletResponse resp, String msg) throws IOException {
         PrintWriter out = resp.getWriter();
         out.println("{\"message\":\"" + msg + "\"}");
+        out.close();
+    }
+
+    private void respJsonError(HttpServletResponse resp, String msg) throws IOException {
+        PrintWriter out = resp.getWriter();
+        resp.setStatus(500);
+        out.println("{\"error\":\"" + msg + "\"}");
         out.close();
     }
 }
