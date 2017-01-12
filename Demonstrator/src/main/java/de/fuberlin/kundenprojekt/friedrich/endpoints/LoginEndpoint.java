@@ -31,8 +31,6 @@ public class LoginEndpoint extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
 
-        // TODO: Add validation
-
         try {
             User user = userRepository.validateCredentials(email, password);
             req.getSession().setAttribute("user", user);

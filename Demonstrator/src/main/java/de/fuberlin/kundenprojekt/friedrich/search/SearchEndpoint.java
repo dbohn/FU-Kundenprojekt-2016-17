@@ -1,5 +1,6 @@
 package de.fuberlin.kundenprojekt.friedrich.search;
 
+import de.fuberlin.kundenprojekt.friedrich.endpoints.BaseServlet;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.social.Configuration;
 
@@ -17,7 +18,7 @@ import java.util.List;
  * @author Team Friedrich
  */
 @WebServlet("/search")
-public class SearchEndpoint extends HttpServlet {
+public class SearchEndpoint extends BaseServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("./search.jsp").forward(req, resp);
@@ -25,13 +26,14 @@ public class SearchEndpoint extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json");
         String searchTerm = req.getParameter("searchTerm");
 
         List<String> types = getSelectedTypes(req);
 
+        User user = user(req);
+
         HumHubSearch hs = new HumHubSearch(Configuration.getHost(),Configuration.getBcsToken());
-        List<SearchEntry> searchRes = hs.fetchSearchResults((User) req.getSession().getAttribute("user"),searchTerm);
+        List<SearchEntry> searchRes = hs.fetchSearchResults(user, searchTerm);
         req.setAttribute("searchRes", searchRes);
         req.setAttribute("term", searchTerm);
         req.setAttribute("types", types);

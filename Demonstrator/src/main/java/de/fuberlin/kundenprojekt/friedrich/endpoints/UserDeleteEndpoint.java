@@ -26,7 +26,6 @@ public class UserDeleteEndpoint extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //PrintWriter out = resp.getWriter();
         String id = req.getParameter("user_id");
 
         User user = userRepository.getUserById(id);
@@ -38,14 +37,12 @@ public class UserDeleteEndpoint extends HttpServlet {
             HumHubApiUtil.post(Configuration.getHost(), "/bcs/user/delete", Configuration.getBcsToken())
                 .field("user_id", id)
                 .asJson();
+            req.setAttribute("status", "The User was removed");
         } catch (UnirestException e) {
             e.printStackTrace();
+            req.setAttribute("error", "User could not be removed");
         }
 
-        //out.println("Anfrage erhalten von " + id);
-        //out.close();
-
         resp.sendRedirect(req.getContextPath() + "/users");
-
     }
 }

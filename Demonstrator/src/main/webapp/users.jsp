@@ -24,6 +24,15 @@
             </div>
         </div>
     </c:if>
+    <c:if test="${not empty error}">
+        <div class="row">
+            <div class="col-xs">
+                <div class="alert alert-danger">
+                        ${error}
+                </div>
+            </div>
+        </div>
+    </c:if>
     <div class="row">
         <div class="col-xs">
             <table class="table table-hover">

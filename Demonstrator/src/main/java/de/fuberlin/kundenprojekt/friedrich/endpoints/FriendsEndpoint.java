@@ -19,26 +19,22 @@ import java.io.PrintWriter;
  * @author Team Friedrich
  */
 @WebServlet("/friends")
-public class FriendsEndpoint extends HttpServlet {
+public class FriendsEndpoint extends BaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        resp.setContentType("application/json");
+        User user = user(req);
 
-        //String id = req.getParameter("user_id");
-        User user = (User) req.getSession().getAttribute("user");
-
-        try (PrintWriter out = resp.getWriter()) {
+        try {
             HttpResponse<String> response = HumHubApiUtil.get(Configuration.getHost(), "/bcs/user/friends", Configuration.getBcsToken())
                     .queryString("user_id", user.getId())
                     .asString();
 
-            if (response.getStatus() == 200) {
-                out.print(response.getBody());
-            }
+            replyAsJson(resp, response.getBody(), response.getStatus());
         } catch (UnirestException e) {
             e.printStackTrace();
+            replyAsJsonError(resp, e.getMessage());
         }
     }
 }

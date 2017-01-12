@@ -21,13 +21,13 @@ import java.util.List;
  * @author Team Friedrich
  */
 @WebServlet("conversations/create")
-public class CreateConversationEndpoint extends HttpServlet {
+public class CreateConversationEndpoint extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String title = req.getParameter("title");
         String message = req.getParameter("message");
 
-        User user = (User) req.getSession().getAttribute("user");
+        User user = user(req);
 
         List<String> recipientsList = this.getRecipients(req);
 

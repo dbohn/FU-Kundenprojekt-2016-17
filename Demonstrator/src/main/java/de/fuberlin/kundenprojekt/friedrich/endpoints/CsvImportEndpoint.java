@@ -38,11 +38,8 @@ public class CsvImportEndpoint extends HttpServlet {
             String fileName = uploadFile(req, "/tmp");
 
             String content = new String(Files.readAllBytes(Paths.get("/tmp/" + fileName)), StandardCharsets.ISO_8859_1);
-            //content = toUTF8(content);
             List<User> users = parseCSV(content);
             users.forEach(UserRepository::storeUser);
-
-            //resp(resp, content);
 
         } catch (Exception e) {
             e.printStackTrace();

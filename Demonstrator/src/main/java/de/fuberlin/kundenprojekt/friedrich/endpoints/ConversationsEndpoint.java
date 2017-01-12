@@ -27,7 +27,7 @@ import java.util.List;
  * @author Team Friedrich
  */
 @WebServlet("/conversations")
-public class ConversationsEndpoint extends HttpServlet {
+public class ConversationsEndpoint extends BaseServlet {
     @Inject
     private UserRepository userRepository;
 
@@ -48,7 +48,6 @@ public class ConversationsEndpoint extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json");
         String message = req.getParameter("message");
         String conversationId = req.getParameter("conversation");
 
@@ -58,17 +57,14 @@ public class ConversationsEndpoint extends HttpServlet {
 
         try {
             humHubMessages.postMessage(conversationId, message, user);
-            respJson(resp, "message submitted");
+            replyAsJson(resp, "message submitted");
         } catch (MessageReplyException e) {
-            resp.setStatus(500);
-            respJson(resp, e.getMessage());
+            replyAsJsonError(resp, e.getMessage());
             e.printStackTrace();
         }
     }
 
     private void loadConversation(String conversation, HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.setContentType("application/json");
-        PrintWriter out = resp.getWriter();
 
         HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
         Conversation conv = humHubMessages.fetchConversation(new Long(conversation), (User) req.getSession().getAttribute("user"));
@@ -76,52 +72,27 @@ public class ConversationsEndpoint extends HttpServlet {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (localDateTime, type, jsonSerializationContext) -> new JsonPrimitive(localDateTime.format(DateTimeFormatter.ISO_DATE_TIME))).registerTypeAdapter(User.class, new UserTypeAdapter()).create();
 
-        out.print(gson.toJson(conv));
+        replyAsJson(resp, gson.toJson(conv));
     }
 
     private void listConversations(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        //HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
-        //List<Conversation> conversationList = humHubMessages.fetchConversations((User) req.getSession().getAttribute("user"));
-        //resp(resp, "List conversations: " + conversationList.size());
-        //req.setAttribute("conversations", conversationList);
         req.getRequestDispatcher("./messages.jsp").forward(req, resp);
     }
 
     private void jsonConversationList(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
 
         HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
-        List<Conversation> conversationList = null;
         try {
-            conversationList = humHubMessages.fetchConversations((User) request.getSession().getAttribute("user"));
+            List<Conversation> conversationList = humHubMessages.fetchConversations(user(request));
+
             GsonBuilder builder = new GsonBuilder();
             Gson gson = builder.registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (localDateTime, type, jsonSerializationContext) -> new JsonPrimitive(localDateTime.format(DateTimeFormatter.ISO_DATE_TIME)))
                     .registerTypeAdapter(User.class, new UserTypeAdapter()).create();
 
-            out.print(gson.toJson(conversationList));
+            replyAsJson(response, gson.toJson(conversationList));
         } catch (NoConversationsException e) {
-            respJsonError(response, e.getMessage());
+            replyAsJsonError(response, e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    private void resp(HttpServletResponse resp, String msg) throws IOException {
-        PrintWriter out = resp.getWriter();
-        out.println("<p>" + msg + "</p>");
-        out.close();
-    }
-
-    private void respJson(HttpServletResponse resp, String msg) throws IOException {
-        PrintWriter out = resp.getWriter();
-        out.println("{\"message\":\"" + msg + "\"}");
-        out.close();
-    }
-
-    private void respJsonError(HttpServletResponse resp, String msg) throws IOException {
-        PrintWriter out = resp.getWriter();
-        resp.setStatus(500);
-        out.println("{\"error\":\"" + msg + "\"}");
-        out.close();
     }
 }
