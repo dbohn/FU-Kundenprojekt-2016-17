@@ -47,7 +47,7 @@ public class CsvImportEndpoint extends HttpServlet {
 
         req.setAttribute("status", "CSV file imported!");
 
-        req.getRequestDispatcher("./users.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/users.jsp").forward(req, resp);
     }
 
     private List<User> parseCSV(String content) throws IOException {

@@ -4,10 +4,10 @@
 <head>
     <title>Demonstrator &mdash; Users</title>
     <meta charset="utf-8">
-    <%@ include file="partials/head.jsp" %>
+    <%@ include file="../partials/head.jsp" %>
 </head>
 <body>
-<%@ include file="partials/navigation.jsp" %>
+<%@ include file="../partials/navigation.jsp" %>
 <div class="main-header">
     <div class="jumbotron">
         <h1 class="display-4">Nachrichten</h1>

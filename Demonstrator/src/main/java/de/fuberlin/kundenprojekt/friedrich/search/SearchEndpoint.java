@@ -21,14 +21,14 @@ import java.util.List;
 public class SearchEndpoint extends BaseServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("./search.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/search.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String searchTerm = req.getParameter("searchTerm");
 
-        List<String> types = getSelectedTypes(req);
+        List<String> types = getParameterList("typeList", req);
 
         User user = user(req);
 
@@ -37,18 +37,7 @@ public class SearchEndpoint extends BaseServlet {
         req.setAttribute("searchRes", searchRes);
         req.setAttribute("term", searchTerm);
         req.setAttribute("types", types);
-        req.getRequestDispatcher("./search.jsp").forward(req, resp);
-    }
-
-    private List<String> getSelectedTypes(HttpServletRequest req) {
-        List<String> types = new ArrayList<>();
-
-        String[] typesArray = req.getParameterValues("typeList[]");
-
-        if (typesArray != null) {
-            types = Arrays.asList(typesArray);
-        }
-        return types;
+        req.getRequestDispatcher("WEB-INF/search.jsp").forward(req, resp);
     }
 
 }

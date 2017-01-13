@@ -29,7 +29,7 @@ public class CreateConversationEndpoint extends BaseServlet {
 
         User user = user(req);
 
-        List<String> recipientsList = this.getRecipients(req);
+        List<String> recipientsList = getParameterList("recipients", req);
 
         String recipients = String.join(",", recipientsList);
         try (PrintWriter out = resp.getWriter()) {
@@ -46,16 +46,5 @@ public class CreateConversationEndpoint extends BaseServlet {
             e.printStackTrace();
             resp.setStatus(500);
         }
-    }
-
-    private List<String> getRecipients(HttpServletRequest req) {
-        List<String> types = new ArrayList<>();
-
-        String[] typesArray = req.getParameterValues("recipients[]");
-
-        if (typesArray != null) {
-            types = Arrays.asList(typesArray);
-        }
-        return types;
     }
 }

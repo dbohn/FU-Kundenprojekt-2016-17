@@ -4,7 +4,7 @@
 <head>
     <title>Demonstrator</title>
     <meta charset="utf-8">
-    <%@ include file="partials/head.jsp" %>
+    <%@ include file="../partials/head.jsp" %>
 </head>
 <body class="login">
 <div class="container">

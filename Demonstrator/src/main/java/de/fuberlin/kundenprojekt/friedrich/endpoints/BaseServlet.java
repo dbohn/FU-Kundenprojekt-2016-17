@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Team Friedrich
@@ -35,5 +38,17 @@ public class BaseServlet extends HttpServlet {
         int status = 500;
 
         replyAsJson(resp, message, status);
+    }
+
+    protected List<String> getParameterList(String parameter, HttpServletRequest req) {
+        List<String> types = new ArrayList<>();
+
+        String[] typesArray = req.getParameterValues(parameter + "[]");
+
+        if (typesArray != null) {
+            types = Arrays.asList(typesArray);
+        }
+
+        return types;
     }
 }

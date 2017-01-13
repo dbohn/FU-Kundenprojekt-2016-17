@@ -76,7 +76,7 @@ public class ConversationsEndpoint extends BaseServlet {
     }
 
     private void listConversations(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.getRequestDispatcher("./messages.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/messages.jsp").forward(req, resp);
     }
 
     private void jsonConversationList(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

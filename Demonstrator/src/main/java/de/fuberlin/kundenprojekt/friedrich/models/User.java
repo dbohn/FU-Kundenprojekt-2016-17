@@ -6,6 +6,7 @@ import javax.inject.Named;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 /**
  * @author Team Friedrich
@@ -27,6 +28,9 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Userinfo userinfo;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    private Set<Project> projects;
 
     public User() {
 
@@ -104,8 +108,16 @@ public class User {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof User) {
-            return this.id.equals(((User) obj).getId());
+            return this.username.equals(((User) obj).getUsername());
         }
         return super.equals(obj);
+    }
+
+    public Set<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<Project> projects) {
+        this.projects = projects;
     }
 }

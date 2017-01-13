@@ -23,7 +23,7 @@ public class LoginEndpoint extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("./login.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/login.jsp").forward(req, resp);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class LoginEndpoint extends HttpServlet {
             resp.sendRedirect(req.getContextPath());
         } catch (AuthenticationException e) {
             req.setAttribute("error", "failed");
-            req.getRequestDispatcher("./login.jsp").forward(req, resp);
+            req.getRequestDispatcher("WEB-INF/login.jsp").forward(req, resp);
         }
     }
 }

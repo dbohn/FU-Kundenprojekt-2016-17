@@ -26,7 +26,7 @@ public class UsersEndpoint extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.getRequestDispatcher("./users.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/users.jsp").forward(request, response);
     }
 
     @Override
@@ -46,6 +46,6 @@ public class UsersEndpoint extends HttpServlet {
 
         req.setAttribute("status", "User successfully added!");
 
-        req.getRequestDispatcher("./users.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/users.jsp").forward(req, resp);
     }
 }

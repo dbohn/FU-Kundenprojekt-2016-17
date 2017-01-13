@@ -55,6 +55,18 @@ public class UserRepository {
         return user;
     }
 
+    public List<User> getUserByIdList(List<String> ids) {
+        Session session = Database.getSession();
+
+        TypedQuery<User> userQuery = session.createQuery("from User where id in (:ids)", User.class)
+                .setParameterList("ids", ids);
+        List<User> userList = userQuery.getResultList();
+
+        session.close();
+
+        return userList;
+    }
+
     public User validateCredentials(String email, String password) throws AuthenticationException {
         Session session = Database.getSession();
         TypedQuery<User> userQuery = session.createQuery("from User where email=:email", User.class)
