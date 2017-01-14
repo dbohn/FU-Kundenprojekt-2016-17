@@ -29,8 +29,18 @@
                 <div class="card-block" id="toggle" style="display: none">
                     <form action="${pageContext.request.contextPath}/search" method="post">
                         <div class="form-group">
-                            <label for="space">Nur im folgendem Space suchen: </label>
-                            <input type="text" name="space:" id="space"/>
+                            <label for="searchTerm">Suchbegriff: </label>
+                            <input type="text" name="searchTerm" value="${term}" id="searchTerm" class="form-control"
+                                   placeholder="Search"/>
+                        </div>
+                        <div class="form-group">
+                            <form action="${pageContext.request.contextPath}/spaces" method="post">
+                                <label for="space">Nur im folgendem Space suchen: </label>
+                                <input type="text" name="space:" id="space" class="form-control"/>
+                                <c:forEach var="u" items="${spacesList}">
+                                    ${u.name}
+                                </c:forEach>
+                            </form>
                         </div>
                         <a>Nur folgende Ergebnisse anzeigen:</a>
 
@@ -47,8 +57,6 @@
                             <input type="Checkbox" name="typeList[]" id="post"
                                    value="PostsChecked" ${types.contains('PostsChecked') ? 'checked' : ''} />
                         </div>
-                        <input type="text" name="searchTerm" value="${term}" id="searchTerm" class="form-control"
-                               placeholder="Search"/>
                         <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                 </div>
