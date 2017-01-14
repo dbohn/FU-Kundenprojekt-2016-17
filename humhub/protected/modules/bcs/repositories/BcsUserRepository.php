@@ -28,4 +28,11 @@ class BcsUserRepository
             ->bindParam(":username", $username)
             ->queryOne();
     }
+
+    public function getGroups()
+    {
+        return $this->postgres
+        ->createCommand("SELECT * FROM roles")
+        ->queryAll();
+    }
 }
