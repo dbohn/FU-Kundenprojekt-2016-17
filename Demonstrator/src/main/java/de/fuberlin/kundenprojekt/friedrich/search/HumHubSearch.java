@@ -18,14 +18,15 @@ import java.util.List;
 public class HumHubSearch {
     private String host;
     private String bcsToken;
+    private List<SearchEntry> searchResults = new ArrayList<>();
+    private List<SpaceEntry> spacesList = new ArrayList<>();
 
     public HumHubSearch(String host, String bcsToken) {
         this.host = host;
         this.bcsToken = bcsToken;
     }
 
-    public List<SearchEntry> fetchSearchResults(User user, String query) {
-        List<SearchEntry> searchResults = new ArrayList<>();
+    public void fetchSearchResults(User user, String query) {
         try {
             HttpRequest request = HumHubApiUtil.get(host, "/bcs/search/search", bcsToken)
                     .queryString("bcs_id", user.getId())
@@ -40,15 +41,40 @@ public class HumHubSearch {
                 SearchEntry searchEntry = extractSearchEntry(message);
                 searchResults.add(searchEntry);
             }
+
+
+            HttpRequest spacesRequest = HumHubApiUtil.get(host, "/bcs/spaces", bcsToken)
+                    .queryString("bcs_id", user.getId())
+                    .queryString("query", query);
+
+            HttpResponse<JsonNode> spacesResponse = spacesRequest.asJson();
+
+            JSONArray spacesRes = spacesResponse.getBody().getObject().getJSONArray("message");
+
+            for (int i = 0; i < spacesRes.length(); i++) {
+                JSONObject message = spacesRes.getJSONObject(i);
+                SpaceEntry spaceEntry = extractSpaceEntry(message);
+                spacesList.add(spaceEntry);
+            }
+
         } catch (UnirestException e) {
             e.printStackTrace();
         }
-        return searchResults;
+    }
+
+    public List<SearchEntry> getSearchResults(){
+        return this.searchResults;
+    }
+
+    public List<SpaceEntry> getSpaceResults(){
+        return this.spacesList;
     }
 
     private SearchEntry extractSearchEntry(JSONObject message) {
         return new SearchEntry(message.getString("message"), message.getString("type"), message.getString("url"), message.getString("attributes"));
     }
 
-
+    private SpaceEntry extractSpaceEntry (JSONObject message) {
+        return new SpaceEntry(message.getInt("id"), message.getString("name"), message.getString("desc"));
+    }
 }

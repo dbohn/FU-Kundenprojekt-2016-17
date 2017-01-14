@@ -34,9 +34,13 @@
                                    placeholder="Search"/>
                         </div>
                         <div class="form-group">
-                            <label for="space">Nur im folgendem Space suchen: </label>
-                            <input type="text" name="space:" id="space" class="form-control"/>
-                        </div>
+                            <label for="selectSpace">Nur im folgenden Space suchen: </label>
+                            <select id="selectSpace" class="form-control">
+                                <c:forEach var="u" items="${spaceRes}">
+                                    <option value="${u.name}">
+                                        <c:out value="${u.name}"/>
+                                    </option>                                </c:forEach>
+                            </select></div>
                         <a>Nur folgende Ergebnisse anzeigen:</a>
                         <div class="form-group">
                             <label for="user"> User </label>

@@ -33,10 +33,15 @@ public class SearchEndpoint extends BaseServlet {
         User user = user(req);
 
         HumHubSearch hs = new HumHubSearch(Configuration.getHost(),Configuration.getBcsToken());
-        List<SearchEntry> searchRes = hs.fetchSearchResults(user, searchTerm);
+        hs.fetchSearchResults(user, searchTerm);
+        List<SearchEntry> searchRes = hs.getSearchResults();
+        List<SpaceEntry> spaceRes = hs.getSpaceResults();
+
         req.setAttribute("searchRes", searchRes);
         req.setAttribute("term", searchTerm);
         req.setAttribute("types", types);
+        req.setAttribute("spaceRes", spaceRes);
+
         req.getRequestDispatcher("WEB-INF/search.jsp").forward(req, resp);
     }
 
