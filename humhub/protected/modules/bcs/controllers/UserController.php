@@ -25,6 +25,20 @@ class UserController extends ApiController
         parent::init();
     }
 
+    public function actionAvatar()
+    {
+        $this->forceGetRequest();
+
+        /** @var \humhub\components\Request $request */
+        $request = \Yii::$app->request;
+
+        $bcsId = $request->get('user_id');
+
+        $user = $this->userRepository->findByBcsId($bcsId);
+
+        return $this->redirect($user->getProfileImage()->getUrl());
+    }
+
     public function actionFriends()
     {
         $this->forceGetRequest();
