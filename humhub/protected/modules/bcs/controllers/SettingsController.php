@@ -4,9 +4,17 @@ namespace humhub\modules\bcs\controllers;
 
 use humhub\modules\admin\components\Controller;
 use humhub\modules\bcs\models\BcsToken;
+use humhub\modules\bcs\repositories\BcsUserRepository;
+use humhub\modules\user\models\Group;
+use yii\db\Connection;
 
 class SettingsController extends Controller
 {
+
+    public $dsn = "";
+    public $username = "";
+    public $password = "";
+    public $charset = "utf-8";
 
     public function init()
     {
@@ -24,7 +32,23 @@ class SettingsController extends Controller
     {
         $tokens = BcsToken::find()->all();
 
-        return $this->render('/settings/index', compact('tokens'));
+        $connection = $this->getConnection();
+
+        $repository = new BcsUserRepository($connection);
+
+        $bcsGroups = $repository->getGroups();
+
+        $connection->close();
+
+        $groups = [];
+        foreach ($bcsGroups as $bcsGroup) {
+            $groups[] = (object)[
+                'bcs' => (object)$bcsGroup,
+                'humhub' => Group::findOne(['name' => $bcsGroup['name']]),
+            ];
+        }
+
+        return $this->render('/settings/index', compact('tokens', 'groups'));
     }
 
 
@@ -68,5 +92,39 @@ class SettingsController extends Controller
             $str .= $keyspace[random_int(0, $max)];
         }
         return $str;
+    }
+
+    /**
+     * Connect to the Postgres Database
+     * @return Connection
+     */
+    protected function getConnection()
+    {
+        //TODO: this should not stay here!
+
+        return new Connection([
+            'dsn' => 'pgsql:host=database;port=5432;dbname=humhub',
+            'username' => 'humhub',
+            'password' => '1234',
+            'charset' => 'utf8',
+        ]);
+    }
+
+    public function actionSync()
+    {
+        /** @var \humhub\components\Request $request */
+        $request = \Yii::$app->request;
+
+        $groupName = $request->get('group');
+
+        $group = new Group();
+
+        $group->setAttribute('name', $groupName);
+
+        $group->setAttribute('description', 'BCS auto sync');
+
+        $group->save();
+
+        return $this->redirect('/bcs/settings/index');
     }
 }
