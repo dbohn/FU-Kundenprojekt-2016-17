@@ -34,16 +34,10 @@
                                    placeholder="Search"/>
                         </div>
                         <div class="form-group">
-                            <form action="${pageContext.request.contextPath}/spaces" method="post">
-                                <label for="space">Nur im folgendem Space suchen: </label>
-                                <input type="text" name="space:" id="space" class="form-control"/>
-                                <c:forEach var="u" items="${spacesList}">
-                                    ${u.name}
-                                </c:forEach>
-                            </form>
+                            <label for="space">Nur im folgendem Space suchen: </label>
+                            <input type="text" name="space:" id="space" class="form-control"/>
                         </div>
                         <a>Nur folgende Ergebnisse anzeigen:</a>
-
                         <div class="form-group">
                             <label for="user"> User </label>
                             <input type="Checkbox" name="typeList[]" id="user"
@@ -73,6 +67,9 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        var noResults = 0;
+    </script>
     <div class="row">
         <div class="col">
             <c:forEach var="u" items="${searchRes}">
@@ -82,6 +79,9 @@
                         <p class="card-text">
                             <c:if test="${not empty u.attributes}">
                                 ${u.attributes}<br>
+                                <script type="text/javascript">
+                                    noResults = 1;
+                                </script>
                             </c:if>
                         </p>
                         <c:if test="${not empty u.url}">
@@ -96,6 +96,9 @@
                             <p class="card-text">
                                 <c:if test="${not empty u.attributes}">
                                     ${u.attributes}<br>
+                                    <script type="text/javascript">
+                                        noResults = 1;
+                                    </script>
                                 </c:if>
                             </p>
                             <c:if test="${not empty u.url}">
@@ -110,6 +113,9 @@
                         <p class="card-text">
                             <c:if test="${not empty u.attributes}">
                                 ${u.attributes}<br>
+                                <script type="text/javascript">
+                                    noResults = 1;
+                                </script>
                             </c:if>
                         </p>
                         <c:if test="${not empty u.url}">
@@ -118,9 +124,12 @@
                     </div>
                 </c:if>
             </c:forEach>
-            <c:if test="${empty searchRes}">
-                <h3 style="text-align: center">Keine Suchergebnisse gefunden!</h3>
-            </c:if>
+            <script type="text/javascript">
+                if (noResults == 0 ||${empty searchRes}) {
+                    document.write("<br><h3> Keine Suchergebnisse gefunden!</h3>");
+                }
+            </script>
+
         </div>
     </div>
 </div>
