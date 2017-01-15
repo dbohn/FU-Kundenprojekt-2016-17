@@ -15,7 +15,11 @@
                 if (typeof this.user == 'string') {
                     id = this.user;
                 } else {
-                    id = this.user.id;
+                    if (typeof this.user.user != 'undefined') {
+                        id = this.user.user.id;
+                    } else {
+                        id = this.user.id;
+                    }
                 }
                 return `http://humhub.local:8082/bcs/user/avatar?user_id=${id}`;
             },
@@ -25,7 +29,11 @@
                 if (typeof this.user == 'string') {
                     name = this.user;
                 } else {
-                    name = this.user.displayname;
+                    if (typeof this.user.user != 'undefined') {
+                        name = this.user.displayName;
+                    } else {
+                        name = this.user.displayname;
+                    }
                 }
 
                 return `Profilbild von ${name}`;

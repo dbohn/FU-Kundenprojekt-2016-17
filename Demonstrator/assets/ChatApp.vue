@@ -1,6 +1,5 @@
 <template>
     <div class="row" id="messenger">
-
         <div class="col-4">
             <create-conversation></create-conversation>
             <conversation-list
@@ -12,8 +11,14 @@
         <div class="col-8 message-view">
             <div v-if="activeConversation != null">
                 <div class="header">
+                    <small>Gestartet: {{ createdAtDate }}, {{ createdAtTime }}</small>
                     <h3>{{ activeConversation.title }}</h3>
-                    <h4>Gestartet am {{ createdAtDate }} um {{ createdAtTime }}</h4>
+                    <div class="participants d-flex w-100 m-2">
+                        <div class="d-flex align-items-center mr-2" v-for="participant in activeConversation.participants">
+                            <avatar :user="participant" class="mr-1"></avatar>
+                            <small>{{ participant.displayName }}</small>
+                        </div>
+                    </div>
                 </div>
                 <div class="messages" ref="messages">
                     <div class="row"
@@ -52,7 +57,8 @@
     import Vue from 'vue';
     import ConversationList from './chat/ConversationList.vue';
     import CreateConversation from './chat/CreateConversation.vue';
-    import Dispatcher from './Dispatcher'
+    import Avatar from './Avatar.vue';
+    import Dispatcher from './Dispatcher';
 
     export default {
         data() {
@@ -149,7 +155,8 @@
 
         components: {
             ConversationList,
-            CreateConversation
+            CreateConversation,
+            Avatar
         }
     }
 </script>

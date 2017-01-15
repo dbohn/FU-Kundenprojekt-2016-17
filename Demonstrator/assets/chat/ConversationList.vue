@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="conversation-list">
         <ul class="list-group" v-if="isLoadingConversations">
             <li class="list-group-item list-group-item-info"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Lade
                 Konversationen...

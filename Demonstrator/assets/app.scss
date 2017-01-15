@@ -66,12 +66,22 @@ $container-height: 3.5 * $box-height;
   &:last-child {
     border-bottom: 1px solid $gray-lighter;
   }
+}
 
-  & img {
-    width: 36px;
-    height: 36px;
-    margin-right: 10px;
-  }
+.friend img {
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+}
+
+.participants img {
+  width: 28px;
+  height: 28px;
+}
+
+.conversation-list {
+  max-height: 50vh;
+  overflow-y: auto;
 }
 
 .messages {

@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group" :class="{'has-danger': hasError('message')}">
                             <label for="message">Nachricht:</label>
-                            <textarea class="form-control" name="message" id="message" cols="30" rows="10" placeholder="Hier Nachricht eingeben..." v-model="createForm.message"></textarea>
+                            <textarea class="form-control" name="message" id="message" cols="30" rows="7" placeholder="Hier Nachricht eingeben..." v-model="createForm.message"></textarea>
                             <small id="messageHelp" class="form-control-feedback" v-if="hasError('message')">{{ errors.message }}</small>
                         </div>
                     </div>
