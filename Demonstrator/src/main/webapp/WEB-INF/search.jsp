@@ -35,7 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="selectSpace">Nur im folgenden Space suchen: </label>
-                            <select id="selectSpace" class="form-control">
+                            <select id="selectSpace" name=selectSpace class="form-control">
                                 <option value="All">
                                     <c:out value="All"/>
                                 </option>
@@ -98,7 +98,6 @@
                     </div>
                 </c:if>
                 <c:if test="${u.type == 'Space' && types.contains('SpacesChecked')}">
-                    <c:if test="${space == u.message || empty space}">
                         <div class="card card-block">
                             <h4 class="card-title">${u.message} (${u.type})</h4>
                             <p class="card-text">
@@ -114,7 +113,6 @@
                             </c:if>
                         </div>
                     </c:if>
-                </c:if>
                 <c:if test="${u.type == 'Post' && types.contains('PostsChecked')}">
                     <div class="card card-block">
                         <h4 class="card-title">${u.message} (${u.type})</h4>
