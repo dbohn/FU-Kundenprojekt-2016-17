@@ -1,29 +1,36 @@
 <template>
-    <div class="list-group" v-if="conversations.length > 0">
-        <a href="#" v-for="conversation in conversations" @click.prevent="loadConversation(conversation.id)"
-           class="list-group-item list-group-item-action"
-           :class="{active: value != null && value.id == conversation.id}">
-
-            <div class="d-flex w-100 justify-content-between">
-                <h5 class="list-group-item-heading">{{conversation.title}}</h5>
-                <span v-if="isLoading(conversation.id)"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></span>
-            </div>
-            <p class="list-group-item-text conversation-info">
-                <em>
-                    <span v-for="participant in conversation.participants" v-if="me != participant.user.id">
-                        {{ participant.displayName }} -
-                    </span>
-                    {{conversation.updatedAt | date }}
-                </em>
-            </p>
-        </a>
+    <div>
+        <ul class="list-group" v-if="isLoadingConversations">
+            <li class="list-group-item list-group-item-info"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Lade
+                Konversationen...
+            </li>
+        </ul>
+        <div class="list-group" v-if="conversations.length > 0">
+            <a href="#" v-for="conversation in conversations" @click.prevent="loadConversation(conversation.id)"
+               class="list-group-item list-group-item-action"
+               :class="{active: value != null && value.id == conversation.id}">
+                <p class="m-0">
+                    <small>
+                        {{ displayParticipants(conversation.participants) }}
+                    </small>
+                </p>
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="list-group-item-heading">{{conversation.title}}</h5>
+                    <span v-if="isLoading(conversation.id)"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></span>
+                </div>
+                <div class="list-group-item-text conversation-info">
+                    <p class="m-0">
+                        <small>
+                            Zuletzt aktiv: {{conversation.updatedAt | date }}
+                        </small>
+                    </p>
+                </div>
+            </a>
+        </div>
+        <ul class="list-group" v-if="conversations.length == 0 && !isLoadingConversations">
+            <li class="list-group-item list-group-item-info">Keine Konversation vorhanden.</li>
+        </ul>
     </div>
-    <ul class="list-group" v-else-if="conversations.length == 0 && !isLoadingConversations">
-        <li class="list-group-item list-group-item-info">Keine Konversation vorhanden.</li>
-    </ul>
-    <ul class="list-group" v-else-if="isLoadingConversations">
-        <li class="list-group-item list-group-item-info"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Lade Konversationen...</li>
-    </ul>
 </template>
 <script>
     import moment from 'moment';
@@ -76,6 +83,13 @@
 
             isLoading(id) {
                 return this.loadingConversation.includes(id);
+            },
+
+            displayParticipants(participants) {
+                return participants
+                    .filter((participant) => this.me != participant.user.id)
+                    .map((participant) => participant.displayName)
+                    .join(", ");
             }
         }
     }

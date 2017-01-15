@@ -96,8 +96,6 @@
                 $.get('?conversation=' + conversationId).then((data) => {
                     this.activeConversation = data;
 
-                    console.log(pendingId);
-
                     if (pendingId != null) {
                         Vue.delete(this.pendingMessages, pendingId);
                     }

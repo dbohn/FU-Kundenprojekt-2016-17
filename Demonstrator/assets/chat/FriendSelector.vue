@@ -1,13 +1,15 @@
 <template>
     <div class="friends">
         <div class="d-flex friend align-items-center justify-content-start" :class="{'active': isSelected(friend)}" @click="selectFriend(friend)" v-for="friend in friends">
-            <img :src="avatar(friend.id)" :alt="'Avatar von ' + friend.displayname">
+            <avatar :user="friend"></avatar>
             <span>{{ friend.displayname }}</span>
             <i class="ml-auto mr-2 fa checkbox" :class="{'fa-check-square-o': isSelected(friend), 'fa-square-o': !isSelected(friend)}"></i>
         </div>
     </div>
 </template>
 <script>
+    import Avatar from '../Avatar.vue';
+
     export default {
         data() {
             return {
@@ -28,7 +30,6 @@
         },
 
         mounted() {
-            console.log(this.value);
             this.selected = this.value;
         },
 
@@ -49,6 +50,10 @@
             isSelected(friend) {
                 return this.selected.includes(friend.id);
             }
+        },
+
+        components: {
+            Avatar
         }
     }
 </script>
