@@ -34,6 +34,46 @@ body {
   border-radius: 3px;
 }
 
+$box-height: 36px + 2*3px + 2px;
+$container-height: 3.5 * $box-height;
+
+.friends {
+  max-height: $container-height;
+  overflow-y: auto;
+}
+
+.friend {
+
+  padding: 3px;
+  border: 1px solid $gray-lighter;
+  border-bottom: none;
+  border-radius: 1px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: $gray-lightest;
+  }
+
+  &.active {
+    background-color: $gray-lighter;
+  }
+
+  & .checkbox {
+    width: 16px;
+  }
+
+  &:last-child {
+    border-bottom: 1px solid $gray-lighter;
+  }
+
+  & img {
+    width: 36px;
+    height: 36px;
+    margin-right: 10px;
+  }
+}
+
 .messages {
   max-height: 50vh;
   overflow: scroll;

@@ -14,9 +14,10 @@
                         </div>
                         <div class="form-group" :class="{'has-danger': hasError('recipients')}">
                             <label for="friends">Empfänger:</label>
-                            <select name="friends" id="friends" class="form-control" multiple v-model="createForm.recipients">
+                            <!--<select name="friends" id="friends" class="form-control" multiple v-model="createForm.recipients">
                                 <option v-for="friend in friends" :value="friend.id">{{ friend.displayname }}</option>
-                            </select>
+                            </select>-->
+                            <friends :friends="friends" v-model="createForm.recipients"></friends>
                             <small id="friendsHelp" class="form-control-feedback" v-if="hasError('recipients')">{{ errors.recipients }}</small>
                         </div>
                         <div class="form-group" :class="{'has-danger': hasError('message')}">
@@ -40,6 +41,7 @@
 <script>
 
     import Dispatcher from '../Dispatcher';
+    import FriendSelector from './FriendSelector.vue';
 
     export default {
         data() {
@@ -104,6 +106,10 @@
             anyError() {
                 return Object.keys(this.errors).length > 0;
             }
+        },
+
+        components: {
+            'friends': FriendSelector
         }
     }
 </script>

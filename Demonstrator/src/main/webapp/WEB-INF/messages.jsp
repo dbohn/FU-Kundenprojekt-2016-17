@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html class="chat">
 <head>
-    <title>Demonstrator &mdash; Users</title>
+    <title>Demonstrator &mdash; Nachrichten</title>
     <meta charset="utf-8">
     <%@ include file="../partials/head.jsp" %>
 </head>
