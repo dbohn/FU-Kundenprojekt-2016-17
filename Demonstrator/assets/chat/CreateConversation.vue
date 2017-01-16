@@ -14,15 +14,12 @@
                         </div>
                         <div class="form-group" :class="{'has-danger': hasError('recipients')}">
                             <label for="friends">Empfänger:</label>
-                            <!--<select name="friends" id="friends" class="form-control" multiple v-model="createForm.recipients">
-                                <option v-for="friend in friends" :value="friend.id">{{ friend.displayname }}</option>
-                            </select>-->
                             <friends :friends="friends" v-model="createForm.recipients"></friends>
                             <small id="friendsHelp" class="form-control-feedback" v-if="hasError('recipients')">{{ errors.recipients }}</small>
                         </div>
                         <div class="form-group" :class="{'has-danger': hasError('message')}">
                             <label for="message">Nachricht:</label>
-                            <textarea class="form-control" name="message" id="message" cols="30" rows="7" placeholder="Hier Nachricht eingeben..." v-model="createForm.message"></textarea>
+                            <message-editor name="message" id="message" v-model="createForm.message"></message-editor>
                             <small id="messageHelp" class="form-control-feedback" v-if="hasError('message')">{{ errors.message }}</small>
                         </div>
                     </div>
@@ -30,7 +27,7 @@
                         <button type="button" class="btn btn-primary" @click.prevent="postConversation">
                             <i class="fa fa-circle-o-notch fa-spin fa-fw" v-if="creating"></i> Konversation starten
                         </button>
-                        <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Close</button>
+                        <button type="button" class="btn btn-secondary" @click.prevent="closeModal">Schließen</button>
                     </div>
                 </div>
             </div>
@@ -42,6 +39,7 @@
 
     import Dispatcher from '../Dispatcher';
     import FriendSelector from './FriendSelector.vue';
+    import MessageEditor from './MessageEditor.vue';
 
     export default {
         data() {
@@ -62,6 +60,12 @@
             createConversation() {
                 $('#createModal').modal();
                 this.loadFriends();
+            },
+
+            reset() {
+                this.createForm.title = "";
+                this.createForm.message = "";
+                this.createForm.recipients = [];
             },
 
             loadFriends() {
@@ -92,6 +96,7 @@
                     this.creating = true;
                     $.post(this.settings.thisUrl + "/conversations/create", this.createForm).then(data => {
                         this.creating = false;
+                        this.reset();
                         this.$emit('done');
                         Dispatcher.$emit('conversation.created');
                         this.closeModal();
@@ -109,7 +114,8 @@
         },
 
         components: {
-            'friends': FriendSelector
+            'friends': FriendSelector,
+            'message-editor': MessageEditor
         }
     }
 </script>

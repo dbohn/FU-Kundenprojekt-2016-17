@@ -5,6 +5,7 @@ $brand-primary: #1abc9c;
 $fa-font-path: "../fonts";
 
 @import "node_modules/font-awesome/scss/font-awesome.scss";
+@import "node_modules/simplemde/dist/simplemde.min";
 
 html.chat, html.chat body {
   height: 100%;
@@ -193,4 +194,24 @@ $container-height: 3.5 * $box-height;
 
 .advanced-search {
   margin-bottom: 10px;
+}
+
+.modal {
+  .CodeMirror {
+    z-index: $zindex-modal + 1;
+  }
+
+  .CodeMirror-fullscreen, .editor-toolbar.fullscreen, .editor-preview-side {
+    z-index: $zindex-modal + 9;
+  }
+
+  .editor-preview {
+    z-index: $zindex-modal + 7;
+  }
+}
+
+
+.CodeMirror {
+  min-height: 150px;
+  height: 150px;
 }

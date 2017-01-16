@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html class="chat">
+<html class="chat" lang="de">
 <head>
     <title>Demonstrator &mdash; Nachrichten</title>
     <meta charset="utf-8">

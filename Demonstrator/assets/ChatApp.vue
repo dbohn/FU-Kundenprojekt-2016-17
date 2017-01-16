@@ -41,7 +41,8 @@
                     <form @submit.prevent="postMessage">
                         <div class="form-group row">
                             <div class="col-10">
-                                <textarea class="form-control" placeholder="Antworten..." name="editor" id="editor" cols="30" rows="5" v-model="message"></textarea>
+                                <message-editor v-model="message"></message-editor>
+                                <!--<textarea class="form-control" placeholder="Antworten..." name="editor" id="editor" cols="30" rows="5" v-model="message"></textarea>-->
                             </div>
                             <div class="col-2">
                                 <button class="btn btn-primary">Senden</button>
@@ -58,6 +59,7 @@
     import ConversationList from './chat/ConversationList.vue';
     import CreateConversation from './chat/CreateConversation.vue';
     import Avatar from './Avatar.vue';
+    import MessageEditor from './chat/MessageEditor.vue';
     import Dispatcher from './Dispatcher';
 
     export default {
@@ -156,7 +158,8 @@
         components: {
             ConversationList,
             CreateConversation,
-            Avatar
+            Avatar,
+            'message-editor': MessageEditor
         }
     }
 </script>
