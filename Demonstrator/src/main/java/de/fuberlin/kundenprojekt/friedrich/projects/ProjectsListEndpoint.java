@@ -1,9 +1,11 @@
 package de.fuberlin.kundenprojekt.friedrich.projects;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.endpoints.BaseServlet;
 import de.fuberlin.kundenprojekt.friedrich.models.Project;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
+import de.fuberlin.kundenprojekt.friedrich.social.Configuration;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -31,9 +33,21 @@ public class ProjectsListEndpoint extends BaseServlet {
         req.getRequestDispatcher("WEB-INF/projects.jsp").forward(req, resp);
     }
 
+    /**
+     * Create a new project
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Project project = new Project(req.getParameter("name"), req.getParameter("description"));
+
+        User user = user(req);
+
+        HumHubSpaces humHubSpaces = new HumHubSpaces(Configuration.getHost(), Configuration.getBcsToken());
 
         List<String> selectedUserIds = getParameterList("users", req);
 
@@ -45,7 +59,16 @@ public class ProjectsListEndpoint extends BaseServlet {
 
         projectsRepository.storeProject(project);
 
-        req.setAttribute("status", "Project successfully added!");
+        try {
+            if (humHubSpaces.create(project.getName(), project.getDescription(), user)) {
+                req.setAttribute("status", "Project successfully added!");
+            } else {
+                req.setAttribute("error", "Unable to sync to HumHub!");
+            }
+        } catch (UnirestException e) {
+            req.setAttribute("error", "Unable to sync to HumHub!");
+            e.printStackTrace();
+        }
 
         req.getRequestDispatcher("WEB-INF/projects.jsp").forward(req, resp);
     }

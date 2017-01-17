@@ -3,7 +3,9 @@
 namespace humhub\modules\bcs\controllers;
 
 use humhub\modules\bcs\repositories\SpacesRepository;
+use humhub\modules\bcs\repositories\UserRepository;
 use humhub\modules\space\models\Space;
+use Yii;
 
 class SpacesController extends ApiController
 {
@@ -13,9 +15,15 @@ class SpacesController extends ApiController
      */
     protected $spaces;
 
+    /**
+     * @var UserRepository
+     */
+    protected $users;
+
     public function init()
     {
         $this->spaces = new SpacesRepository();
+        $this->users = new UserRepository();
 
         parent::init();
     }
@@ -41,5 +49,31 @@ class SpacesController extends ApiController
                 'desc' => $space->description,
             ];
         }, $spaces));
+    }
+
+    public function actionCreate()
+    {
+        $this->forcePostRequest();
+
+        if ($error = $this->forceBcsAuthentication()) {
+            return $error;
+        }
+
+        /** @var \humhub\components\Request $request */
+        $request = \Yii::$app->request;
+
+        $name = $request->post('name');
+        $description = $request->post('description');
+
+        // The creator is the admin user of this space
+        $creator = $this->users->findByBcsId($request->post('user_id'));
+
+        $space = $this->spaces->create($name, $creator, $description);
+
+        return $this->responseSuccess([
+            'id' => $space->id,
+            'name' => $space->name,
+            'desc' => $space->description
+        ]);
     }
 }

@@ -42,7 +42,6 @@
                         <div class="form-group row">
                             <div class="col-10">
                                 <message-editor v-model="message"></message-editor>
-                                <!--<textarea class="form-control" placeholder="Antworten..." name="editor" id="editor" cols="30" rows="5" v-model="message"></textarea>-->
                             </div>
                             <div class="col-2">
                                 <button class="btn btn-primary">Senden</button>
