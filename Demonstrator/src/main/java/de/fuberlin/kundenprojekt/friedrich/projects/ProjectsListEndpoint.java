@@ -28,6 +28,14 @@ public class ProjectsListEndpoint extends BaseServlet {
     @Inject
     UserRepository userRepository;
 
+    /**
+     * List all projects and provide form to create a new one.
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("WEB-INF/projects.jsp").forward(req, resp);

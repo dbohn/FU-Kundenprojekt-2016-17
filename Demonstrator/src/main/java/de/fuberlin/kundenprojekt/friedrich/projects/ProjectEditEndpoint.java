@@ -26,6 +26,14 @@ public class ProjectEditEndpoint extends BaseServlet {
     @Inject
     UserRepository userRepository;
 
+    /**
+     * Render the form to edit a project.
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String projectId = req.getParameter("project_id");
@@ -37,6 +45,14 @@ public class ProjectEditEndpoint extends BaseServlet {
         req.getRequestDispatcher("../WEB-INF/editProject.jsp").forward(req, resp);
     }
 
+    /**
+     * Save an updated project to the database.
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String projectId = req.getParameter("project_id");

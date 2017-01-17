@@ -31,7 +31,7 @@ public class HumHubSearch {
             HttpRequest request = HumHubApiUtil.get(host, "/bcs/search/search", bcsToken)
                     .queryString("bcs_id", user.getId())
                     .queryString("query", query)
-                    .queryString("space", "All")
+                    .queryString("space", limitedSpaces)
                     ;
 
             HttpResponse<JsonNode> response = request.asJson();
@@ -75,6 +75,6 @@ public class HumHubSearch {
     }
 
     private SpaceEntry extractSpaceEntry (JSONObject message) {
-        return new SpaceEntry(message.getInt("id"), message.getString("name"), message.getString("desc"));
+        return new SpaceEntry(message.getInt("id"), message.getString("guid"), message.getString("name"), message.getString("desc"));
     }
 }

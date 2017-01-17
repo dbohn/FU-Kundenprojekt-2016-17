@@ -13,6 +13,16 @@
         <function-class>de.fuberlin.kundenprojekt.friedrich.CustomTagLibrary</function-class>
         <function-signature>boolean contains(java.util.Set,java.lang.Object)</function-signature>
     </function>
+    <function>
+        <name>inList</name>
+        <function-class>de.fuberlin.kundenprojekt.friedrich.CustomTagLibrary</function-class>
+        <function-signature>boolean contains(java.util.List,java.lang.Object)</function-signature>
+    </function>
+    <function>
+        <name>listToString</name>
+        <function-class>de.fuberlin.kundenprojekt.friedrich.CustomTagLibrary</function-class>
+        <function-signature>java.lang.String listToString(java.util.List)</function-signature>
+    </function>
 
 
     <!-- Invoke 'Generate' action to add tags or functions -->

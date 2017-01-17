@@ -5,11 +5,13 @@ package de.fuberlin.kundenprojekt.friedrich.search;
  */
 public class SpaceEntry {
     int id;
+    String guid;
     String name;
     String description;
 
-    public SpaceEntry(int id, String name, String description){
+    public SpaceEntry(int id, String guid, String name, String description){
         this.id = id;
+        this.guid = guid;
         this.name = name;
         this.description = description;
     }
@@ -22,5 +24,8 @@ public class SpaceEntry {
     }
     public int getId() {
         return id;
+    }
+    public String getGuid() {
+        return guid;
     }
 }

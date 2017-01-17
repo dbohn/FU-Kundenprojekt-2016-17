@@ -11,6 +11,7 @@ namespace humhub\modules\bcs\controllers;
 
 use humhub\modules\bcs\controllers\ApiController;
 use humhub\modules\bcs\transformers\search\SearchResultTransformer;
+use humhub\modules\space\models\Space;
 use Yii;
 
 class SearchController extends ApiController
@@ -30,36 +31,16 @@ class SearchController extends ApiController
 
         $query = $request->get('query');
         $limitedToSpace = $request->get("space");
-        //var_dump($limitedToSpace);
 
+        $options = ['checkPermissions' => false];
 
-       // if ($limitedToSpace == "All"){
-            $searchResultSet = Yii::$app->search->find($query, ['checkPermissions' => false]);
-        //}
-        //else{
+        if ($limitedToSpace !== null && $limitedToSpace !== 'All') {
+            $space = Space::findOne(['guid' => $limitedToSpace]);
 
-            //hier als option limitedToSpace übergeben
-           // $limitSpaceGuids = Yii::$app->request->get('limitSpaceGuids', "");
-           // $limitSpaces = array();
-           // if ($limitSpaceGuids !== "") {
-             // foreach (explode(",", $limitSpaceGuids) as $guid) {
-            //    $guid = trim($guid);
-            //       if ($guid != "") {
-             //     $space = Space::findOne(['guid' => trim($guid)]);
-             //           if ($space !== null) {
-              //              $limitSpaces[] = $space;
-               //         }
-                 // }
-               // }
-          //  }
+            $options['limitSpaces'] = [$space];
+        }
 
-           // var_dump($limitedToSpace);
-
-           // $array = [
-           //     "space" => $limitedToSpace,
-           // ];
-           // $searchResultSet = Yii::$app->search->find($query, ['checkPermissions' => false,'limitSpaceGuids' => $array]);
-        //}
+        $searchResultSet = Yii::$app->search->find($query, $options);
 
         $results = $searchResultSet->getResultInstances();
 

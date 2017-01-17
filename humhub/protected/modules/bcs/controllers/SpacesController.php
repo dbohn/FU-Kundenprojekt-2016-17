@@ -45,6 +45,7 @@ class SpacesController extends ApiController
 
             return [
                 'id' => $space->id,
+                'guid' => $space->guid,
                 'name' => $space->name,
                 'desc' => $space->description,
             ];

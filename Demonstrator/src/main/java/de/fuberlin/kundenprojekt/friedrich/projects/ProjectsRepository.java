@@ -14,6 +14,11 @@ import java.util.List;
  */
 public class ProjectsRepository {
 
+    /**
+     * Retrieve a list of all projects.
+     *
+     * @return The project list
+     */
     @Produces
     @Named
     public List<Project> getProjectsList() {

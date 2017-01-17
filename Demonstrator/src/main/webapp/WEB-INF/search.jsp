@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="/WEB-INF/custom-functions.tld" prefix="fn" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -18,7 +19,7 @@
 <div class="main-header">
     <div class="jumbotron">
         <h1 class="display-4">Suche</h1>
-        <p class="lead">Suchergebnisse für ${term}</p>
+        <p class="lead">Suchergebnisse für ${term} ${fn:listToString(selectSpace)}</p>
     </div>
 </div>
 <div class="container">
@@ -36,13 +37,24 @@
                         <div class="form-group">
                             <label for="selectSpace">Nur im folgenden Space suchen: </label>
                             <select id="selectSpace" name="selectSpace[]" class="form-control">
-                                <option value="All">
-                                    <c:out value="All"/>
-                                </option>
+                                <c:if test="${  fn:inList( selectSpace, 'All' ) }">
+                                    <option value="All" selected>All</option>
+                                </c:if>
+                                <c:if test="${ not fn:inList( selectSpace, 'All' ) }">
+                                    <option value="All">All</option>
+                                </c:if>
+
                                 <c:forEach var="u" items="${spaceRes}">
-                                    <option value="${u.name}">
-                                        <c:out value="${u.name}"/>
-                                    </option>
+                                    <c:if test="${  fn:inList( selectSpace, u.guid ) }">
+                                        <option value="${u.guid}" selected>
+                                            <c:out value="${u.name}"/>
+                                        </option>
+                                    </c:if>
+                                    <c:if test="${ not fn:inList( selectSpace, u.guid ) }">
+                                        <option value="${u.guid}">
+                                            <c:out value="${u.name}"/>
+                                        </option>
+                                    </c:if>
                                 </c:forEach>
                             </select>
                         </div>
