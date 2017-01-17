@@ -49,9 +49,9 @@
                         <td>${project.name}</td>
                         <td>${project.description}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/projects/edit?project_id=${project.id}"
-                               class="btn btn-secondary"><i class="fa fa-pencil"></i></a>
                             <form action="${pageContext.request.contextPath}/projects/delete" method="post">
+                                <a href="${pageContext.request.contextPath}/projects/edit?project_id=${project.id}"
+                                   class="btn btn-secondary"><i class="fa fa-pencil"></i></a>
                                 <input type="hidden" name="project_id" value="${project.id}">
                                 <button type="submit" class="btn btn-danger" title="Projekt löschen">
                                     <i class="fa fa-trash-o"></i>

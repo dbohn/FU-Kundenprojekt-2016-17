@@ -23,12 +23,13 @@
                 <div class="messages" ref="messages">
                     <div class="row"
                          v-for="message in messages">
-                        <div class="message-box col-6"
+                        <message :message="message" :class="{'from-me': mine(message), 'offset-6': mine(message), 'from-them': !mine(message)}"></message>
+                        <!--<div class="message-box col-6"
                              :class="{'from-me': mine(message), 'offset-6': mine(message), 'from-them': !mine(message)}">
                             <div class="author">{{ message.user.displayName }}</div>
-                            <div class="message">{{ message.content }}</div>
+                            <div class="message" v-html="this.$options.filters.markdown(message.content)"></div>
                             <div class="time">{{ format(message.createdAt) }}</div>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="row"
                          v-for="message in pendingMessages">
@@ -59,6 +60,7 @@
     import CreateConversation from './chat/CreateConversation.vue';
     import Avatar from './Avatar.vue';
     import MessageEditor from './chat/MessageEditor.vue';
+    import Message from './chat/Message.vue';
     import Dispatcher from './Dispatcher';
 
     export default {
@@ -158,7 +160,8 @@
             ConversationList,
             CreateConversation,
             Avatar,
-            'message-editor': MessageEditor
+            'message-editor': MessageEditor,
+            Message
         }
     }
 </script>

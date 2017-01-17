@@ -104,6 +104,10 @@ $container-height: 3.5 * $box-height;
   padding: 10px;
 }
 
+.message p {
+  margin-bottom: 0;
+}
+
 .from-me .message {
   position: relative;
   padding: 10px 20px;
