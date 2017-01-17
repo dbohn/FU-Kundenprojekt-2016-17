@@ -19,7 +19,7 @@
 <div class="main-header">
     <div class="jumbotron">
         <h1 class="display-4">Suche</h1>
-        <p class="lead">Suchergebnisse für ${term} ${fn:listToString(selectSpace)}</p>
+        <p class="lead">Suchergebnisse für ${term}</p>
     </div>
 </div>
 <div class="container">
