@@ -29,13 +29,40 @@ class SearchController extends ApiController
         $this->loginBcsUser($bcsId);
 
         $query = $request->get('query');
+        $limitedToSpace = $request->get("space");
+        //var_dump($limitedToSpace);
 
-        //$searchResultSet = Yii::$app->search->find($query, ['checkPermissions' => true]);
-        $searchResultSet = Yii::$app->search->find($query, ['checkPermissions' => false]);
+
+       // if ($limitedToSpace == "All"){
+            $searchResultSet = Yii::$app->search->find($query, ['checkPermissions' => false]);
+        //}
+        //else{
+
+            //hier als option limitedToSpace übergeben
+           // $limitSpaceGuids = Yii::$app->request->get('limitSpaceGuids', "");
+           // $limitSpaces = array();
+           // if ($limitSpaceGuids !== "") {
+             // foreach (explode(",", $limitSpaceGuids) as $guid) {
+            //    $guid = trim($guid);
+            //       if ($guid != "") {
+             //     $space = Space::findOne(['guid' => trim($guid)]);
+             //           if ($space !== null) {
+              //              $limitSpaces[] = $space;
+               //         }
+                 // }
+               // }
+          //  }
+
+           // var_dump($limitedToSpace);
+
+           // $array = [
+           //     "space" => $limitedToSpace,
+           // ];
+           // $searchResultSet = Yii::$app->search->find($query, ['checkPermissions' => false,'limitSpaceGuids' => $array]);
+        //}
 
         $results = $searchResultSet->getResultInstances();
 
-        //var_dump($results); die();
 
         $searchTransformer = new SearchResultTransformer();
 

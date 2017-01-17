@@ -27,6 +27,7 @@
         <input type="hidden" name="typeList[]" value="UsersChecked">
         <input type="hidden" name="typeList[]" value="SpacesChecked">
         <input type="hidden" name="typeList[]" value="PostsChecked">
+        <input type="hidden" name="selectSpace[]" value="All">
         <input type="text" name="searchTerm" id="searchTerm" class="form-control" placeholder="Search" />
         <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
     </form>

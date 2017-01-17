@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,13 +29,15 @@ public class SearchEndpoint extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String searchTerm = req.getParameter("searchTerm");
-
+        List<String> limitedSpaces= getParameterList("selectSpace",req);
         List<String> types = getParameterList("typeList", req);
 
         User user = user(req);
 
         HumHubSearch hs = new HumHubSearch(Configuration.getHost(),Configuration.getBcsToken());
-        hs.fetchSearchResults(user, searchTerm);
+        hs.fetchSearchResults(user, searchTerm,"All");
+
+
         List<SearchEntry> searchRes = hs.getSearchResults();
         List<SpaceEntry> spaceRes = hs.getSpaceResults();
 
