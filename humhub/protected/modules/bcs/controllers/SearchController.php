@@ -44,7 +44,6 @@ class SearchController extends ApiController
 
         $results = $searchResultSet->getResultInstances();
 
-
         $searchTransformer = new SearchResultTransformer();
 
         return $this->responseSuccess($searchTransformer->transformCollection($results, $searchTransformer));
