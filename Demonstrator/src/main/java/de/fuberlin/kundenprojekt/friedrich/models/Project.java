@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * @author davidbohn
+ * @author Team Friedrich
  */
 @Entity
 @Table(name = "projects")

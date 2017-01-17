@@ -36,6 +36,13 @@ public class HumHubMessages {
         this.bcsToken = bcsToken;
     }
 
+    /**
+     * Load the messages and participants in a conversation
+     *
+     * @param conversationId The numerical id of the conversation
+     * @param user           The user, that requests the conversation
+     * @return Conversation object, that contains participants and messages
+     */
     public Conversation fetchConversation(Long conversationId, User user) {
         try {
             HttpResponse<JsonNode> response = HumHubApiUtil.get(host, "/bcs/messages/show", bcsToken)
@@ -49,6 +56,13 @@ public class HumHubMessages {
         return null;
     }
 
+    /**
+     * Get all conversation, the given user is participating in.
+     *
+     * @param user The user, that requests the conversation
+     * @return List of conversations
+     * @throws NoConversationsException If no conversations could be loaded
+     */
     public List<Conversation> fetchConversations(User user) throws NoConversationsException {
         List<Conversation> conversations = new ArrayList<>();
         try {
@@ -75,6 +89,13 @@ public class HumHubMessages {
         return conversations;
     }
 
+    /**
+     * Add a new message to the given conversation
+     * @param conversationId The conversation context
+     * @param message The new message
+     * @param user The sending user
+     * @throws MessageReplyException If the reply could not be posted
+     */
     public void postMessage(String conversationId, String message, User user) throws MessageReplyException {
         try {
             HttpResponse<JsonNode> response = HumHubApiUtil.post(this.host, "/bcs/messages/add", this.bcsToken)
@@ -93,6 +114,12 @@ public class HumHubMessages {
         }
     }
 
+    /**
+     * Parse the Conversation from the Request response.
+     *
+     * @param message The JSON response from HumHub
+     * @return The parsed Conversation
+     */
     private Conversation extractConversation(JSONObject message) {
         JSONArray participantArray = message.getJSONArray("users");
         JSONObject messageInfo = message.getJSONObject("message");
@@ -124,6 +151,12 @@ public class HumHubMessages {
                 messages);
     }
 
+    /**
+     * Parse a message object from the response data
+     * @param participants The participants of a conversation
+     * @param entry The JSON entry
+     * @return The parsed message
+     */
     private Message parseMessage(List<Participant> participants, JSONObject entry) {
         Participant lastParticipant = getMessageAuthor(participants, entry);
 
@@ -135,6 +168,12 @@ public class HumHubMessages {
         );
     }
 
+    /**
+     * Find the author of a message in the participants list
+     * @param participants The participants of a conversation
+     * @param lastEntry The JSON entry
+     * @return A participant
+     */
     private Participant getMessageAuthor(List<Participant> participants, JSONObject lastEntry) {
         Optional<Participant> participantOptional = participants
                 .stream()
@@ -148,6 +187,14 @@ public class HumHubMessages {
         return lastParticipant;
     }
 
+    /**
+     * Go through all participants in the list of participants and convert them to
+     * Participant objects.
+     *
+     * @param participantArray The raw JSON participant data
+     * @return The list of Participants
+     *
+     */
     private List<Participant> mapParticipants(JSONArray participantArray) {
         List<Participant> participants = new ArrayList<>();
         for (int i = 0; i < participantArray.length(); i++) {

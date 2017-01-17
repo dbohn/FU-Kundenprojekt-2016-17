@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
+ * This filter is responsible to check, if the user is authenticated.
+ *
  * @author Team Friedrich
  */
 @WebFilter("/*")
@@ -26,6 +28,7 @@ public class AuthFilter implements Filter {
 
         String loginURL = request.getContextPath() + "/login";
 
+        // Exclude static assets from protection
         if(request.getServletPath().matches(".*(css|jpg|png|gif|js)$")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;

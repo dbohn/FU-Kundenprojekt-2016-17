@@ -29,6 +29,11 @@ public class UserRepository {
     public UserRepository() {
     }
 
+    /**
+     * Retrieve a list of all users.
+     *
+     * @return The list of users
+     */
     @Produces
     @Named
     public List<User> getUserList() {
@@ -42,6 +47,11 @@ public class UserRepository {
         return userList;
     }
 
+    /**
+     * Find a user by it's id in the demonstrator
+     * @param id The user id (a UUID)
+     * @return The user or null, if none found
+     */
     public User getUserById(String id) {
         Session session = Database.getSession();
 
@@ -55,6 +65,11 @@ public class UserRepository {
         return user;
     }
 
+    /**
+     * Fetch multiple users by their ids
+     * @param ids The ids of the users
+     * @return The list of found users
+     */
     public List<User> getUserByIdList(List<String> ids) {
         Session session = Database.getSession();
 
@@ -67,6 +82,13 @@ public class UserRepository {
         return userList;
     }
 
+    /**
+     * Validate the given credentials and resolve them into a user
+     * @param email The login e-mail
+     * @param password The login password
+     * @return The successfully logged in user.
+     * @throws AuthenticationException If there is no user with the given credentials
+     */
     public User validateCredentials(String email, String password) throws AuthenticationException {
         Session session = Database.getSession();
         TypedQuery<User> userQuery = session.createQuery("from User where email=:email", User.class)
@@ -99,6 +121,11 @@ public class UserRepository {
         return user;
     }
 
+    /**
+     * Save the given user in the database.
+     *
+     * @param user The user, that should be saved
+     */
     public static void storeUser(User user) {
 
         if (user.getUserinfo() == null) {
@@ -117,6 +144,10 @@ public class UserRepository {
         session.close();
     }
 
+    /**
+     * Remove a user from the Postgres database
+     * @param user The user to delete
+     */
     public void deleteUser(User user) {
         Session session = Database.getSession();
 
