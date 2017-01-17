@@ -24,8 +24,8 @@ public class HumHubSpaces {
      * @param name        The name that is displayed in the Space-Selector
      * @param description The description that could also be queried
      * @param user        The user, that should be assigned as the originator. Must be known to HumHub
-     * @return
-     * @throws UnirestException
+     * @return true if the space has been created, false otherwise
+     * @throws UnirestException if the request to HumHub failed
      */
     public boolean create(String name, String description, User user) throws UnirestException {
         HttpResponse<String> response = HumHubApiUtil.post(this.host, "/bcs/spaces/create", this.bcsToken)

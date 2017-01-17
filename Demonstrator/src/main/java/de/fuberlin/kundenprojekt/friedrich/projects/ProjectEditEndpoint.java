@@ -29,10 +29,10 @@ public class ProjectEditEndpoint extends BaseServlet {
     /**
      * Render the form to edit a project.
      *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * @param req  The incoming request
+     * @param resp The outgoing response
+     * @throws ServletException If the servlet encounters difficulty
+     * @throws IOException      If writing or reading the response/request fails
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,10 +48,10 @@ public class ProjectEditEndpoint extends BaseServlet {
     /**
      * Save an updated project to the database.
      *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * @param req The incoming request
+     * @param resp The outgoing response
+     * @throws ServletException If the servlet encounters difficulty
+     * @throws IOException      If writing or reading the response/request fails
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

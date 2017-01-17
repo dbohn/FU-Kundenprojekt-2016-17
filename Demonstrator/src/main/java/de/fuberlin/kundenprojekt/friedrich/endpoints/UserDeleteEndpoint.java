@@ -13,9 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
+ * Endpoint to handle user delete requests.
+ *
  * @author Team Friedrich
  */
 @WebServlet("user/delete")
@@ -24,6 +25,14 @@ public class UserDeleteEndpoint extends HttpServlet {
     @Inject
     private UserRepository userRepository;
 
+    /**
+     * Delete a user and trigger HumHub to delete him as well.
+     *
+     * @param req  The incoming request
+     * @param resp The outgoing response
+     * @throws ServletException If the servlet encounters difficulty
+     * @throws IOException      If writing or reading the response/request fails
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("user_id");
@@ -35,8 +44,8 @@ public class UserDeleteEndpoint extends HttpServlet {
         try {
             // Tell HumHub to delete the user
             HumHubApiUtil.post(Configuration.getHost(), "/bcs/user/delete", Configuration.getBcsToken())
-                .field("user_id", id)
-                .asJson();
+                    .field("user_id", id)
+                    .asJson();
             req.setAttribute("status", "The User was removed");
         } catch (UnirestException e) {
             e.printStackTrace();

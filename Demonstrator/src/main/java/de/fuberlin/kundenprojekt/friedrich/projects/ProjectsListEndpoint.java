@@ -31,10 +31,10 @@ public class ProjectsListEndpoint extends BaseServlet {
     /**
      * List all projects and provide form to create a new one.
      *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * @param req  The incoming request
+     * @param resp The outgoing response
+     * @throws ServletException If the servlet encounters difficulty
+     * @throws IOException      If writing or reading the response/request fails
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,12 +42,16 @@ public class ProjectsListEndpoint extends BaseServlet {
     }
 
     /**
-     * Create a new project
+     * Create a new project with the provided request data.
+     * <p>
+     * The currently authenticated user will be set as the
+     * creator of the space, that is linked with this
+     * project.
      *
-     * @param req
-     * @param resp
-     * @throws ServletException
-     * @throws IOException
+     * @param req  The incoming request
+     * @param resp The outgoing response
+     * @throws ServletException If the servlet encounters difficulty
+     * @throws IOException      If writing or reading the response/request fails
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

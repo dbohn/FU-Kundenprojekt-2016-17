@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 /**
+ * Endpoint to handle CSV import.
+ *
  * @author Team Friedrich
  */
 @MultipartConfig
@@ -32,6 +34,14 @@ public class CsvImportEndpoint extends HttpServlet {
     @Inject
     PasswordHasher passwordHasher;
 
+    /**
+     * Import a CSV user list as exported from the BCS.
+     *
+     * @param req  The incoming request
+     * @param resp The outgoing response
+     * @throws ServletException If the servlet encounters difficulty
+     * @throws IOException      If writing or reading the response/request fails
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
@@ -50,6 +60,13 @@ public class CsvImportEndpoint extends HttpServlet {
         req.getRequestDispatcher("WEB-INF/users.jsp").forward(req, resp);
     }
 
+    /**
+     * Parse the contents of the uploaded CSV file
+     *
+     * @param content The contents of the uploaded CSV file
+     * @return the created users
+     * @throws IOException if reading the csv data fails
+     */
     private List<User> parseCSV(String content) throws IOException {
         CSVParser parser = CSVFormat.DEFAULT
                 .withDelimiter(';').withQuote('"')
@@ -65,6 +82,15 @@ public class CsvImportEndpoint extends HttpServlet {
                 )).collect(Collectors.toList());
     }
 
+    /**
+     * Store an uploaded file on the server filesystem
+     *
+     * @param req     The incoming request
+     * @param baseDir Where to put the uploaded file
+     * @return The file path of the uploaded file
+     * @throws IOException      if write fails
+     * @throws ServletException if something with reading the request fails
+     */
     private String uploadFile(HttpServletRequest req, String baseDir) throws IOException, ServletException {
         InputStream isr = null;
         FileOutputStream outputStream = null;
@@ -109,11 +135,5 @@ public class CsvImportEndpoint extends HttpServlet {
         }
 
         return fileName;
-    }
-
-    private void resp(HttpServletResponse resp, String msg) throws IOException {
-        PrintWriter out = resp.getWriter();
-        out.println("<p>" + msg + "</p>");
-        out.close();
     }
 }

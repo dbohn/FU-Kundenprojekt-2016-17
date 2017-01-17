@@ -5,6 +5,8 @@ import com.mashape.unirest.request.GetRequest;
 import com.mashape.unirest.request.HttpRequestWithBody;
 
 /**
+ * Provides handy methods to create a request to HumHub.
+ *
  * @author Team Friedrich
  */
 public class HumHubApiUtil {

@@ -11,19 +11,18 @@ import de.fuberlin.kundenprojekt.friedrich.social.messages.Conversation;
 import de.fuberlin.kundenprojekt.friedrich.storage.UserTypeAdapter;
 
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
+ * Handling of requests for the chat view.
+ *
  * @author Team Friedrich
  */
 @WebServlet("/conversations")
@@ -31,6 +30,14 @@ public class ConversationsEndpoint extends BaseServlet {
     @Inject
     private UserRepository userRepository;
 
+    /**
+     * Handle an incoming request for a conversation or a list of all conversations.
+     *
+     * @param req  The incoming request
+     * @param resp The outgoing response
+     * @throws ServletException If the servlet encounters difficulty
+     * @throws IOException      If writing or reading the response/request fails
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String conversationId = req.getParameter("conversation");
@@ -46,6 +53,14 @@ public class ConversationsEndpoint extends BaseServlet {
         }
     }
 
+    /**
+     * Handle post of a new message to a conversation.
+     *
+     * @param req  The incoming request
+     * @param resp The outgoing response
+     * @throws ServletException If the servlet encounters difficulty
+     * @throws IOException      If writing or reading the response/request fails
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String message = req.getParameter("message");
@@ -64,6 +79,14 @@ public class ConversationsEndpoint extends BaseServlet {
         }
     }
 
+    /**
+     * Request a given conversation from HumHub and return the data as a JSON response.
+     *
+     * @param conversation The ID of the conversation
+     * @param req          The incoming request
+     * @param resp         The outgoing response
+     * @throws IOException If anything goes wrong when writing the response
+     */
     private void loadConversation(String conversation, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
@@ -75,10 +98,26 @@ public class ConversationsEndpoint extends BaseServlet {
         replyAsJson(resp, gson.toJson(conv));
     }
 
+    /**
+     * Return the messages view.
+     *
+     * @param req  The incoming request
+     * @param resp The outgoing response
+     * @throws IOException      If anything goes wrong when writing the response
+     * @throws ServletException If the servlet stuff fails
+     */
     private void listConversations(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.getRequestDispatcher("WEB-INF/messages.jsp").forward(req, resp);
     }
 
+    /**
+     * Fetch the list of conversations and return them as a JSON response
+     *
+     * @param request  The incoming request
+     * @param response The outgoing response
+     * @throws IOException      If anything goes wrong when writing the response
+     * @throws ServletException If the servlet stuff fails
+     */
     private void jsonConversationList(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());

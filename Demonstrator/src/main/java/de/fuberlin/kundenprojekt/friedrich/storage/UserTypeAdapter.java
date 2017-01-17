@@ -9,6 +9,7 @@ import de.fuberlin.kundenprojekt.friedrich.models.User;
 import java.lang.reflect.Type;
 
 /**
+ * Get around the proxy objects of Hibernate to serialize a user to JSON.
  * @author Team Friedrich
  */
 public class UserTypeAdapter implements JsonSerializer<User> {

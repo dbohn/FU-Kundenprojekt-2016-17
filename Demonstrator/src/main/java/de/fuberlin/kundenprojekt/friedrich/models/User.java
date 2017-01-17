@@ -1,5 +1,6 @@
 package de.fuberlin.kundenprojekt.friedrich.models;
 
+import de.fuberlin.kundenprojekt.friedrich.PasswordHasher;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.inject.Named;
@@ -9,6 +10,12 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
+ * Representation of a user. A user is identified
+ * by a uuid. Additionally we save a username,
+ * email, phone and full name. The password
+ * should be saved as a bcrypt hashed password.
+ * See {@link PasswordHasher} for hashing.
+ *
  * @author Team Friedrich
  */
 @Entity
