@@ -32,7 +32,7 @@ class SearchResultTransformer extends AbstractTransformer
         }
         if ($data instanceof Space) {
             $message = $data->name;
-            if (empty($data->tags)) {
+            if (empty($data->description)) {
                 $attributes = "Keine Space-Beschreibung vorhanden";
             } else {
                 $attributes = $data->description;
