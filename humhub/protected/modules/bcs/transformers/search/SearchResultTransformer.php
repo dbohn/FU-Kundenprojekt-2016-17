@@ -27,10 +27,12 @@ class SearchResultTransformer extends AbstractTransformer
         $classParts = explode("\\", get_class($data));
         $class = array_pop($classParts);
         $url = "";
+        $id = null;
         if ($data instanceof ContentContainerActiveRecord) {
             $url = $this->host() . $data->getUrl();
         }
         if ($data instanceof Space) {
+            $id = $data->guid;
             $message = $data->name;
             if (empty($data->description)) {
                 $attributes = "Keine Space-Beschreibung vorhanden";
@@ -38,6 +40,7 @@ class SearchResultTransformer extends AbstractTransformer
                 $attributes = $data->description;
             }
         } else if ($data instanceof User) {
+            $id = $data->guid;
             $message = $data->username;
             if (empty($data->tags)) {
                 $attributes = "";
@@ -45,12 +48,15 @@ class SearchResultTransformer extends AbstractTransformer
                 $attributes = $data->tags;
             }
         } else {
+            //$id = $data->guid;
             $message = $data->message;
             $user = User::findOne($data->created_by);
+            $id = $user->guid;
             $url = $this->host() . "/u/" . $user->username;
             $attributes = $data->created_at . " " . $user->username;
         }
         return [
+            'id' => $id,
             'message' => $message,
             'type' => $class,
             'url' => $url,
