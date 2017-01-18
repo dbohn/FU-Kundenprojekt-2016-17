@@ -33,100 +33,163 @@
             </div>
         </div>
     </c:if>
-    <div class="row">
-        <div class="col">
-            <table class="table table-hover">
-                <thead>
-                <tr>
-                    <th>Benutzername</th>
-                    <th>Vollständiger Name</th>
-                    <th>E-Mail</th>
-                    <th>Telefon</th>
-                    <th>&nbsp;</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach var="u" items="${userList}">
-                    <tr${(u.id == user.id) ? " class=\"table-info\"" : ""}>
-                        <td>${u.username}
-                            <c:if test="${u.id == user.id}">
-                                <span class="badge badge-pill badge-info">Ich</span>
-                            </c:if>
-                        </td>
-                        <td>${u.fullName}</td>
-                        <td>${u.email}</td>
-                        <td>${u.phone}</td>
-                        <td>
-                            <form action="${pageContext.request.contextPath}/user/delete" method="post">
-                                <input type="hidden" name="user_id" value="${u.id}">
-                                <button type="submit" class="btn btn-danger" title="Benutzer löschen"><i class="fa fa-trash-o"></i></button>
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#users" role="tab">Benutzer</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#roles" role="tab">Rollen</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="users">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Benutzername</th>
+                            <th>Vollständiger Name</th>
+                            <th>E-Mail</th>
+                            <th>Telefon</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="u" items="${userList}">
+                            <tr${(u.id == user.id) ? " class=\"table-info\"" : ""}>
+                                <td>${u.username}
+                                    <c:if test="${u.id == user.id}">
+                                        <span class="badge badge-pill badge-info">Ich</span>
+                                    </c:if>
+                                </td>
+                                <td>${u.fullName}</td>
+                                <td>${u.email}</td>
+                                <td>${u.phone}</td>
+                                <td>
+                                    <form action="${pageContext.request.contextPath}/user/delete" method="post">
+                                        <input type="hidden" name="user_id" value="${u.id}">
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Benutzer löschen"><i
+                                                class="fa fa-trash-o"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
 
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <hr>
-            <div class="card">
-                <div class="card-header">
-                    Massenimport
                 </div>
-                <div class="card-block">
-                    <form action="${pageContext.request.contextPath}/csvimport" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="csvfile">CSV-Datei:</label>
-                            <input type="file" id="csvfile" name="csvfile" class="form-control-file">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            Massenimport
                         </div>
-                        <button type="submit" class="btn btn-primary">Import</button>
-                    </form>
+                        <div class="card-block">
+                            <form action="${pageContext.request.contextPath}/csvimport" method="post"
+                                  enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label for="csvfile">CSV-Datei:</label>
+                                    <input type="file" id="csvfile" name="csvfile" class="form-control-file">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Import</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            Neuen Nutzer anlegen
+                        </div>
+                        <div class="card-block">
+                            <form action="${pageContext.request.contextPath}/users" method="post">
+                                <div class="form-group">
+                                    <label for="username">Username: </label>
+                                    <input type="text" name="username" id="username" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">E-Mail: </label>
+                                    <input type="text" name="email" id="email" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="first_name">Vorname: </label>
+                                    <input type="text" name="first_name" id="first_name" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="last_name">Nachname: </label>
+                                    <input type="text" name="last_name" id="last_name" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Passwort: </label>
+                                    <input type="password" name="password" id="password" class="form-control"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Telefon: </label>
+                                    <input type="text" name="phone" id="phone" class="form-control"/>
+                                </div>
+                                <button class="btn btn-primary">Neuen Nutzer anlegen</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <hr>
-            <div class="card">
-                <div class="card-header">
-                    Neuen Nutzer anlegen
+        <div class="tab-pane" id="roles">
+            <div class="row">
+                <div class="col">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>&nbsp;</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="r" items="${roles}">
+                            <tr>
+                                <td>${r.name}</td>
+                                <td>
+                                    <form action="${pageContext.request.contextPath}/role/delete" method="post">
+                                        <input type="hidden" name="user_id" value="${r.id}">
+                                        <button type="submit" class="btn btn-danger btn-sm" title="Rolle löschen"><i
+                                                class="fa fa-trash-o"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+
                 </div>
-                <div class="card-block">
-                    <form action="${pageContext.request.contextPath}/users" method="post">
-                        <div class="form-group">
-                            <label for="username">Username: </label>
-                            <input type="text" name="username" id="username" class="form-control" />
+            </div>
+            <div class="row">
+                <div class="col">
+                    <hr>
+                    <div class="card">
+                        <div class="card-header">
+                            Neue Rolle anlegen
                         </div>
-                        <div class="form-group">
-                            <label for="email">E-Mail: </label>
-                            <input type="text" name="email" id="email" class="form-control" />
+                        <div class="card-block">
+                            <form action="${pageContext.request.contextPath}/roles" method="post">
+                                <div class="form-group">
+                                    <label for="username">Name: </label>
+                                    <input type="text" name="name" id="name" class="form-control" />
+                                </div>
+                                <button class="btn btn-primary">Neue Rolle anlegen</button>
+                            </form>
                         </div>
-                        <div class="form-group">
-                            <label for="first_name">Vorname: </label>
-                            <input type="text" name="first_name" id="first_name" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label for="last_name">Nachname: </label>
-                            <input type="text" name="last_name" id="last_name" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Passwort: </label>
-                            <input type="password" name="password" id="password" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Telefon: </label>
-                            <input type="text" name="phone" id="phone" class="form-control" />
-                        </div>
-                        <button class="btn btn-primary">Neuen Nutzer anlegen</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script src="${pageContext.request.contextPath}/app.js"></script>
 </body>
 </html>

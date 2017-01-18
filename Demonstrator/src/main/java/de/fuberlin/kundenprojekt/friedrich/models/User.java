@@ -39,6 +39,9 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
     private Set<Project> projects;
 
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    private Set<Role> roles;
+
     public User() {
 
     }
@@ -126,5 +129,13 @@ public class User {
 
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
