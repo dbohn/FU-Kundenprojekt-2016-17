@@ -63,16 +63,18 @@ class SpacesController extends ApiController
         /** @var \humhub\components\Request $request */
         $request = \Yii::$app->request;
 
+        $guid = $request->post('guid');
         $name = $request->post('name');
         $description = $request->post('description');
 
         // The creator is the admin user of this space
         $creator = $this->users->findByBcsId($request->post('user_id'));
 
-        $space = $this->spaces->create($name, $creator, $description);
+        $space = $this->spaces->create($guid, $name, $creator, $description);
 
         return $this->responseSuccess([
             'id' => $space->id,
+            'guid' => $space->guid,
             'name' => $space->name,
             'desc' => $space->description
         ]);

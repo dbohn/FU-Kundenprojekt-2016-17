@@ -72,7 +72,7 @@ public class ProjectsListEndpoint extends BaseServlet {
         projectsRepository.storeProject(project);
 
         try {
-            if (humHubSpaces.create(project.getName(), project.getDescription(), user)) {
+            if (humHubSpaces.create(project.getId(), project.getName(), project.getDescription(), user)) {
                 req.setAttribute("status", "Project successfully added!");
             } else {
                 req.setAttribute("error", "Unable to sync to HumHub!");

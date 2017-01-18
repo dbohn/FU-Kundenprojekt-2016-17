@@ -78,6 +78,7 @@ class BcsAuthClient extends BaseFormAuth implements PrimaryClient
         if ($passwordChecker->validatePassword($result, $password)) {
             // Map the attributes of the bcs user to the humhub user
             $this->setUserAttributes($result);
+
             return true;
         }
 

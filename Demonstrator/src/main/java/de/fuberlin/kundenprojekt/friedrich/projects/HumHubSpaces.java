@@ -27,8 +27,9 @@ public class HumHubSpaces {
      * @return true if the space has been created, false otherwise
      * @throws UnirestException if the request to HumHub failed
      */
-    public boolean create(String name, String description, User user) throws UnirestException {
+    public boolean create(Long id, String name, String description, User user) throws UnirestException {
         HttpResponse<String> response = HumHubApiUtil.post(this.host, "/bcs/spaces/create", this.bcsToken)
+                .field("guid", id.toString())
                 .field("name", name)
                 .field("description", description)
                 .field("user_id", user.getId())

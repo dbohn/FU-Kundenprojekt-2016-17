@@ -14,23 +14,31 @@ class SpacesRepository
     }
 
     /**
-     * @param        $name
+     * @param $guid
+     * @param $name
+     * @param User $originator
      * @param string $description
-     * @param User   $originator
      * @param string $color
-     * @param int    $visibility
-     * @param int    $joinPolicy
-     *
+     * @param int $visibility
+     * @param int $joinPolicy
      * @return Space
      */
-    public function create($name, User $originator, $description = "", $color="#27ae60", $visibility = Space::VISIBILITY_NONE, $joinPolicy = Space::JOIN_POLICY_NONE)
-    {
+    public function create(
+        $guid,
+        $name,
+        User $originator,
+        $description = "",
+        $color = "#27ae60",
+        $visibility = Space::VISIBILITY_NONE,
+        $joinPolicy = Space::JOIN_POLICY_NONE
+    ) {
         $model = new Space();
 
         $model->scenario = 'create';
         $model->visibility = $visibility;
         $model->join_policy = $joinPolicy;
 
+        $model->guid = $guid;
         $model->name = $name;
         $model->description = $description;
         $model->color = $color;
