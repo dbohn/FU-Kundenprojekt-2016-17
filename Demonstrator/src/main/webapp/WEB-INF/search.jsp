@@ -95,19 +95,25 @@
         <div class="col">
             <c:forEach var="u" items="${searchRes}">
                 <c:if test="${u.type == 'User' && types.contains('UsersChecked') }">
-                    <div class="card card-block">
-                        <h4 class="card-title">${u.message} (${u.type})</h4>
-                        <p class="card-text">
-                            <c:if test="${not empty u.attributes}">
-                                ${u.attributes}<br>
-                                <script type="text/javascript">
-                                    noResults = 1;
-                                </script>
-                            </c:if>
-                        </p>
-                        <c:if test="${not empty u.url}">
-                            <a class="card-link" target="_blank" href="${u.url}">Zum Profil</a>
-                        </c:if>
+                    <div class="card">
+                        <div class="d-flex p-2">
+                            <img class="d-inline-flex p-2" alt="Profilbild" src="${u.avatarUrl}">
+                            <div class="d-flex p-2">
+                                <h4 class="d-inline-flex card-title p-2">${u.message} (${u.type}) </h4>
+                                <p class="d-inline-flex card-text p-2">
+                                    <c:if test="${not empty u.attributes}">
+                                        ${u.attributes}<br>
+                                        <script type="text/javascript">
+                                            noResults = 1;
+                                        </script>
+                                    </c:if>
+                                </p>
+                                <c:if test="${not empty u.url}">
+                                    <a class="d-inline-flex card-link p-2" target="_blank" href="${u.url}">Zum
+                                        Profil</a>
+                                </c:if>
+                            </div>
+                        </div>
                     </div>
                 </c:if>
                 <c:if test="${u.type == 'Space' && types.contains('SpacesChecked')}">
