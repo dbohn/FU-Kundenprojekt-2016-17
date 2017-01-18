@@ -32,6 +32,12 @@ public class ProjectsRepository {
         return projectList;
     }
 
+    /**
+     * Get a project by the project id
+     *
+     * @param id the project id
+     * @return the project, null if none found.
+     */
     public Project getProjectById(String id) {
         Session session = Database.getSession();
 
@@ -45,6 +51,11 @@ public class ProjectsRepository {
         return project;
     }
 
+    /**
+     * Persist a project entity.
+     *
+     * @param project The project
+     */
     public void storeProject(Project project) {
         Session session = Database.getSession();
 

@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * Endpoint to create a new role.
+ *
  * @author Team Friedrich
  */
 @WebServlet("roles")

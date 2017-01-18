@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * Manage HumHub requests and transform results regarding the chat.
+ *
  * @author Team Friedrich
  */
 public class HumHubMessages {
@@ -91,9 +93,10 @@ public class HumHubMessages {
 
     /**
      * Add a new message to the given conversation
+     *
      * @param conversationId The conversation context
-     * @param message The new message
-     * @param user The sending user
+     * @param message        The new message
+     * @param user           The sending user
      * @throws MessageReplyException If the reply could not be posted
      */
     public void postMessage(String conversationId, String message, User user) throws MessageReplyException {
@@ -153,8 +156,9 @@ public class HumHubMessages {
 
     /**
      * Parse a message object from the response data
+     *
      * @param participants The participants of a conversation
-     * @param entry The JSON entry
+     * @param entry        The JSON entry
      * @return The parsed message
      */
     private Message parseMessage(List<Participant> participants, JSONObject entry) {
@@ -170,8 +174,9 @@ public class HumHubMessages {
 
     /**
      * Find the author of a message in the participants list
+     *
      * @param participants The participants of a conversation
-     * @param lastEntry The JSON entry
+     * @param lastEntry    The JSON entry
      * @return A participant
      */
     private Participant getMessageAuthor(List<Participant> participants, JSONObject lastEntry) {
@@ -193,7 +198,6 @@ public class HumHubMessages {
      *
      * @param participantArray The raw JSON participant data
      * @return The list of Participants
-     *
      */
     private List<Participant> mapParticipants(JSONArray participantArray) {
         List<Participant> participants = new ArrayList<>();

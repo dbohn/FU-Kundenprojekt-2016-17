@@ -3,12 +3,15 @@ package de.fuberlin.kundenprojekt.friedrich;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
+ * Create a secure hash of passwords and verify inputs against them.
+ *
  * @author Team Friedrich
  */
 public class PasswordHasher {
 
     /**
      * Encrypt the provided password using BCrypt
+     *
      * @param password The raw password
      * @return The encrypted hash
      */
@@ -18,8 +21,9 @@ public class PasswordHasher {
 
     /**
      * Verify a provided password against a hash from the database
+     *
      * @param password The entered password
-     * @param hash The saved hash
+     * @param hash     The saved hash
      * @return true if the password matches the hash, false otherwise.
      */
     public boolean verify(String password, String hash) {

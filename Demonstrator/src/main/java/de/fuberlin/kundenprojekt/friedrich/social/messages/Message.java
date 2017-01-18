@@ -3,6 +3,9 @@ package de.fuberlin.kundenprojekt.friedrich.social.messages;
 import java.time.LocalDateTime;
 
 /**
+ * Representation of a single message. Has a author (see {@link Participant}),
+ * id, content and timestamp.
+ *
  * @author Team Friedrich
  */
 public class Message {

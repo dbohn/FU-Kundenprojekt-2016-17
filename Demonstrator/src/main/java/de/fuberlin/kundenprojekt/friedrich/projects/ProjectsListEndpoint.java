@@ -17,6 +17,8 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
+ * Servlet endpoint to list all projects and create a new project.
+ *
  * @author Team Friedrich
  */
 @WebServlet("/projects")
