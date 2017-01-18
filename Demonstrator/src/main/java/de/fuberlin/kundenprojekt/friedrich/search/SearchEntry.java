@@ -1,6 +1,8 @@
 package de.fuberlin.kundenprojekt.friedrich.search;
 
 /**
+ * Representation of a single search result.
+ *
  * @author Team Friedrich
  */
 public class SearchEntry {
@@ -54,6 +56,12 @@ public class SearchEntry {
         return attributes;
     }
 
+    /**
+     * For a post, this method will extract and format the date.
+     *
+     * @param attributes The attribute field of the HumHub response
+     * @return the date formatted string.
+     */
     public String extractAttribute(String attributes) {
         if (this.type.equals("Post")) {
             String[] completeAttributes = attributes.split(" ");

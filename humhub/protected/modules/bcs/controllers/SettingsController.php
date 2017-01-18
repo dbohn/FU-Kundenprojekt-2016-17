@@ -120,8 +120,7 @@ class SettingsController extends Controller
         $group = new Group();
 
         $group->setAttribute('name', $groupName);
-
-        $group->setAttribute('description', 'BCS auto sync');
+        $group->setAttribute('description', 'bcs_group');
 
         $group->save();
 

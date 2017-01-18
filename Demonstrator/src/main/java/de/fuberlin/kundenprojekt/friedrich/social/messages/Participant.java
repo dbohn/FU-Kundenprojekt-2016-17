@@ -3,6 +3,9 @@ package de.fuberlin.kundenprojekt.friedrich.social.messages;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 
 /**
+ * A participant wraps a HumHub user in a conversation.
+ * If possible, it will be attached to a user.
+ *
  * @author Team Friedrich
  */
 public class Participant {

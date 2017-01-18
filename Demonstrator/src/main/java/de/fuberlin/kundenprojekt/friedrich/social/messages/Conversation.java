@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
+ * A representation of a single chat conversation.
+ * Consists of participants (see {@link Participant}) and messages (see {@link Message}).
+ *
  * @author Team Friedrich
  */
 public class Conversation {

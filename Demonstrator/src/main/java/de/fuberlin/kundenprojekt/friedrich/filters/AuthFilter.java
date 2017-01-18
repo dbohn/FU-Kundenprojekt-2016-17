@@ -21,15 +21,15 @@ public class AuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest)servletRequest;
-        HttpServletResponse response = (HttpServletResponse)servletResponse;
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         HttpSession session = request.getSession(false);
 
         String loginURL = request.getContextPath() + "/login";
 
         // Exclude static assets from protection
-        if(request.getServletPath().matches(".*(css|jpg|png|gif|js)$")) {
+        if (request.getServletPath().matches(".*(css|jpg|png|gif|js)$")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }

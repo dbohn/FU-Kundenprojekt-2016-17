@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * Collection of persistence logic regarding users
+ *
  * @author Team Friedrich
  */
 @Named
@@ -49,6 +51,7 @@ public class UserRepository {
 
     /**
      * Find a user by it's id in the demonstrator
+     *
      * @param id The user id (a UUID)
      * @return The user or null, if none found
      */
@@ -67,6 +70,7 @@ public class UserRepository {
 
     /**
      * Fetch multiple users by their ids
+     *
      * @param ids The ids of the users
      * @return The list of found users
      */
@@ -84,7 +88,8 @@ public class UserRepository {
 
     /**
      * Validate the given credentials and resolve them into a user
-     * @param email The login e-mail
+     *
+     * @param email    The login e-mail
      * @param password The login password
      * @return The successfully logged in user.
      * @throws AuthenticationException If there is no user with the given credentials
@@ -146,6 +151,7 @@ public class UserRepository {
 
     /**
      * Remove a user from the Postgres database
+     *
      * @param user The user to delete
      */
     public void deleteUser(User user) {
