@@ -21,4 +21,10 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-enable apcu --ini-name 20-docker-php-ext-apcu.ini \
     && docker-php-ext-enable apc --ini-name 21-docker-php-ext-apc.ini
 
+RUN docker-php-ext-install opcache
+
+RUN apt-get update \
+    && apt-get install -y cron \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR "$workdir"
