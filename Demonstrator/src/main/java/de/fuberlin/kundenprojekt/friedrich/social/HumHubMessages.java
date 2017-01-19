@@ -45,11 +45,12 @@ public class HumHubMessages {
      * @param user           The user, that requests the conversation
      * @return Conversation object, that contains participants and messages
      */
-    public Conversation fetchConversation(Long conversationId, User user) {
+    public Conversation fetchConversation(Long conversationId, User user, String since) {
         try {
             HttpResponse<JsonNode> response = HumHubApiUtil.get(host, "/bcs/messages/show", bcsToken)
                     .queryString("bcs_id", user.getId())
                     .queryString("message", conversationId)
+                    .queryString("since", since)
                     .asJson();
             return extractConversation(response.getBody().getObject().getJSONObject("message"));
         } catch (UnirestException e) {

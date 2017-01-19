@@ -110,7 +110,7 @@ class MessagesController extends ApiController
         $entries = $message->getEntries();
 
         if (($since = $request->get('since')) !== null) {
-            $entries->andWhere('message_entry.created_at >= :since', array(':since' => $since));
+            $entries->andWhere('message_entry.created_at > :since', [':since' => $since]);
         }
 
         return $this->responseSuccess([

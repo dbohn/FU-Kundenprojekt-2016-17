@@ -28,7 +28,6 @@
 
         computed: {
             content() {
-                console.log(converter.makeHtml(this.message.content));
                 return converter.makeHtml(this.message.content);
             }
         },
