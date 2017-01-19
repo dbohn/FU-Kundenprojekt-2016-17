@@ -74,7 +74,7 @@ public class HumHubSearch {
 
 
     private SearchEntry extractSearchEntry(JSONObject message) {
-        return new SearchEntry(message.getString("message"), message.getString("type"), message.getString("url"), message.getString("attributes"));
+        return new SearchEntry(message.getString("guid"), message.getString("message"), message.getString("type"), message.getString("url"), message.getString("attributes"));
     }
 
     private SpaceEntry extractSpaceEntry(JSONObject message) {
