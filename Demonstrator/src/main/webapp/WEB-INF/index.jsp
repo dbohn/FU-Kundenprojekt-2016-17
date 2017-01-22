@@ -15,7 +15,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="row">
+    <div class="row mb-2">
         <div class="col">
             <div class="card card-block">
                 <h4 class="card-title"> Letzte Nachricht: </h4>
@@ -59,7 +59,7 @@
         </div>
 
     </div>
-    <div class="row">
+    <div class="row mb-2">
         <div class="col">
             <div class="card card-block">
                 <h4 class="card-title"> Freundesliste: </h4>
