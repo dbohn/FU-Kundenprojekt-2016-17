@@ -38,7 +38,8 @@
                             </small>
                         </p>
                         <div class="d-flex w-100 justify-content-between"><h5
-                                class="list-group-item-heading">${lastConversation.messages[0].content}</h5> <!----></div>
+                                class="list-group-item-heading">${lastConversation.messages[0].content}</h5> <!---->
+                        </div>
                         <div class="list-group-item-text conversation-info">
                             <p class="m-0">
                                 <small>
@@ -49,7 +50,18 @@
                     </a>
                 </div>
             </div>
+            <div class="card card-block">
+                <h4 class="card-title"> Meine Projekte: </h4>
+                <p class="card-text">
+                </p>
+                <div class="list-group">
+                    <c:forEach var="u" items="${projectList}">
+                        ${u.name}
+                    </c:forEach>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>
 </body>

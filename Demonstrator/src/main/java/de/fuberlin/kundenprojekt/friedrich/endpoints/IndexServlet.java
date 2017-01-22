@@ -7,10 +7,12 @@ import com.google.gson.JsonSerializer;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.exceptions.NoConversationsException;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
+import de.fuberlin.kundenprojekt.friedrich.projects.ProjectsRepository;
 import de.fuberlin.kundenprojekt.friedrich.social.Configuration;
 import de.fuberlin.kundenprojekt.friedrich.social.HumHubMessages;
 import de.fuberlin.kundenprojekt.friedrich.social.messages.Conversation;
 import de.fuberlin.kundenprojekt.friedrich.storage.UserTypeAdapter;
+import de.fuberlin.kundenprojekt.friedrich.models.Project;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -30,6 +32,7 @@ import java.time.LocalDateTime;
 public class IndexServlet extends BaseServlet {
     @Inject
     private UserRepository userRepository;
+    private ProjectsRepository projectsRepository;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -71,6 +74,8 @@ public class IndexServlet extends BaseServlet {
         return conversationList;
     }
 
-
+    private List<Project> jsonProjectList(){
+        return projectsRepository.getProjectsList();
+    }
 
 }
