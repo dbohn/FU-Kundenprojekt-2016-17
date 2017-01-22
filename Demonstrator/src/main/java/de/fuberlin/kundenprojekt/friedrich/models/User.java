@@ -39,7 +39,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private Set<Project> projects;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private Set<Role> roles;
 
     public User() {

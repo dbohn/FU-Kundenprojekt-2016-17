@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Iterator;
 import java.util.List;
 import java.time.LocalDateTime;
 
@@ -56,6 +57,8 @@ public class IndexServlet extends BaseServlet {
         req.setAttribute("username",user.username);
         req.setAttribute("updatedMessage",time);
         req.setAttribute("projects", user.getProjects());
+        req.setAttribute("roles", user.getRoles());
+
 
         req.getRequestDispatcher("WEB-INF/index.jsp").forward(req, resp);
 

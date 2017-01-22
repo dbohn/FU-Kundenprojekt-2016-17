@@ -43,7 +43,7 @@
             </div>
 
         </div>
-        <div class="col">
+        <div class="col mb-2">
 
             <div class="card card-block">
                 <h4 class="card-title"> Meine Projekte: </h4>
@@ -55,9 +55,33 @@
                     </div>
                 </c:forEach>
             </div>
+
         </div>
 
     </div>
+    <div class="row">
+        <div class="col">
+            <div class="card card-block">
+                <h4 class="card-title"> Freundesliste: </h4>
+                <p class="card-text">
+                </p>
+
+            </div>        </div>
+        <div class="col">
+            <div class="card card-block">
+                <h4 class="card-title"> Meine Rollen: </h4>
+                <p class="card-text">
+                </p>
+                <c:forEach var="u" items="${roles}">
+                    <div class="list-group mb-2">
+                        <a href="projects" class="list-group-item list-group-item-action "> ${u.name} </a>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+
+    </div>
+
 </div>
 </body>
 </html>
