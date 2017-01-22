@@ -38,7 +38,6 @@ public class IndexServlet extends BaseServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = user(req);
 
-        //req.setAttribute("projects", user.getProjects());
         List<Conversation> conversations = jsonConversationList(req, resp);
         Conversation con = null;
 
@@ -56,6 +55,7 @@ public class IndexServlet extends BaseServlet {
         req.setAttribute("lastConversation",con);
         req.setAttribute("username",user.username);
         req.setAttribute("updatedMessage",time);
+        req.setAttribute("projects", user.getProjects());
 
         req.getRequestDispatcher("WEB-INF/index.jsp").forward(req, resp);
 
@@ -72,10 +72,6 @@ public class IndexServlet extends BaseServlet {
             e.printStackTrace();
         }
         return conversationList;
-    }
-
-    private List<Project> jsonProjectList(){
-        return projectsRepository.getProjectsList();
     }
 
 }

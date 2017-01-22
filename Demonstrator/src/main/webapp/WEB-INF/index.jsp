@@ -55,7 +55,7 @@
                 <p class="card-text">
                 </p>
                 <div class="list-group">
-                    <c:forEach var="u" items="${projectList}">
+                    <c:forEach var="u" items="${projects}">
                         ${u.name}
                     </c:forEach>
                 </div>

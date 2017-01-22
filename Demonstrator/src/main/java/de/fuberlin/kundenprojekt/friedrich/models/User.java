@@ -36,7 +36,7 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Userinfo userinfo;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "users")
     private Set<Project> projects;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
