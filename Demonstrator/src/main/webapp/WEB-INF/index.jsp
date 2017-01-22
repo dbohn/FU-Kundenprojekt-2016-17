@@ -15,13 +15,13 @@
     </div>
 </div>
 <div class="container">
-    <div class="row mb-2">
+    <div class="row">
         <div class="col">
-            <div class="card card-block">
+            <div class="card card-block mb-2">
                 <h4 class="card-title"> Letzte Nachricht: </h4>
                 <p class="card-text">
                 </p>
-                <div class="list-group">
+                <div class="list-group mb-2">
                     <a href="conversations" class="list-group-item list-group-item-action ">
                         <p class="m-0">
                             <small>
@@ -41,11 +41,15 @@
                     </a>
                 </div>
             </div>
-
+            <div class="card card-block mb-2">
+                <h4 class="card-title"> Meine Freunde: </h4>
+                <p class="card-text">
+                </p>
+            </div>
         </div>
         <div class="col mb-2">
 
-            <div class="card card-block">
+            <div class="card card-block mb-2">
                 <h4 class="card-title"> Meine Projekte: </h4>
                 <p class="card-text">
                 </p>
@@ -55,33 +59,18 @@
                     </div>
                 </c:forEach>
             </div>
-
-        </div>
-
-    </div>
-    <div class="row mb-2">
-        <div class="col">
-            <div class="card card-block">
-                <h4 class="card-title"> Freundesliste: </h4>
-                <p class="card-text">
-                </p>
-
-            </div>        </div>
-        <div class="col">
-            <div class="card card-block">
+            <div class="card card-block mb-2">
                 <h4 class="card-title"> Meine Rollen: </h4>
                 <p class="card-text">
                 </p>
                 <c:forEach var="u" items="${roles}">
                     <div class="list-group mb-2">
-                        <a href="projects" class="list-group-item list-group-item-action "> ${u.name} </a>
+                        <a href="users#roles" class="list-group-item list-group-item-action "> ${u.name} </a>
                     </div>
                 </c:forEach>
             </div>
         </div>
-
     </div>
-
 </div>
 </body>
 </html>
