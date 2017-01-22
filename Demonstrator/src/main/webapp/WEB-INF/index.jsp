@@ -63,7 +63,7 @@
                 <h4 class="card-title"> Meine Rollen: </h4>
                 <p class="card-text">
                 </p>
-                <c:forEach var="u" items="${roles}">
+                <c:forEach var="u" items="${userRoles}">
                     <div class="list-group mb-2">
                         <a href="users#roles" class="list-group-item list-group-item-action "> ${u.name} </a>
                     </div>

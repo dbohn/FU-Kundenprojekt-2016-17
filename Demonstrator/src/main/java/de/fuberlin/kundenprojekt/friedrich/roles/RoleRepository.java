@@ -49,4 +49,22 @@ public class RoleRepository {
 
         session.close();
     }
+
+    /**
+     * Get a Role from the database by id
+     * @param roleId the id of the role
+     * @return the role or null if none found
+     */
+    public Role getRoleById(String roleId) {
+        Session session = Database.getSession();
+
+        TypedQuery<Role> userQuery = session.createQuery("from Role where id=:role", Role.class)
+                .setParameter("role", Integer.parseInt(roleId));
+
+        Role role = userQuery.getSingleResult();
+
+        session.close();
+
+        return role;
+    }
 }

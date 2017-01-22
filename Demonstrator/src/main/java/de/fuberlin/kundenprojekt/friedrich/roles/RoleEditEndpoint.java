@@ -15,12 +15,12 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * Endpoint to create a new role.
+ * Endpoint to edit a role.
  *
  * @author Team Friedrich
  */
-@WebServlet("roles")
-public class RolesEndpoint extends BaseServlet {
+@WebServlet("/role/edit")
+public class RoleEditEndpoint extends BaseServlet {
 
     @Inject
     RoleRepository roleRepository;
@@ -29,7 +29,26 @@ public class RolesEndpoint extends BaseServlet {
     UserRepository userRepository;
 
     /**
-     * Save a new role in the database.
+     * Display the edit form for a role
+     *
+     * @param req The incoming request
+     * @param resp The outgoing response
+     * @throws ServletException If the servlet encounters difficulty
+     * @throws IOException If writing or reading the response/request fails
+     */
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String projectId = req.getParameter("role_id");
+
+        Role role = roleRepository.getRoleById(projectId);
+
+        req.setAttribute("role", role);
+
+        req.getRequestDispatcher("../WEB-INF/editRole.jsp").forward(req, resp);
+    }
+
+    /**
+     * Save an updated role in the database.
      *
      * @param req The incoming request
      * @param resp The outgoing response
@@ -38,22 +57,25 @@ public class RolesEndpoint extends BaseServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
+        String roleId = req.getParameter("role_id");
 
         List<String> selectedUserIds = getParameterList("users", req);
-
         List<User> selectedUsers = userRepository.getUserByIdList(selectedUserIds);
 
-        HashSet<User> users = new HashSet<>(selectedUsers);
+        Role role = roleRepository.getRoleById(roleId);
 
-        Role role = new Role(name);
+        role.setName(req.getParameter("name"));
+
+        HashSet<User> users = new HashSet<>(selectedUsers);
 
         role.setUsers(users);
 
         roleRepository.storeRole(role);
 
-        req.setAttribute("status", "Project successfully added!");
+        req.setAttribute("status", "Role successfully edited!");
 
-        resp.sendRedirect(req.getContextPath() + "/users");
+        req.setAttribute("role", role);
+
+        req.getRequestDispatcher("../WEB-INF/editRole.jsp").forward(req, resp);
     }
 }

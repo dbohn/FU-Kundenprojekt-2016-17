@@ -156,6 +156,8 @@
                                 <td>${r.name}</td>
                                 <td>
                                     <form action="${pageContext.request.contextPath}/role/delete" method="post">
+                                        <a href="${pageContext.request.contextPath}/role/edit?role_id=${r.id}"
+                                           class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></a>
                                         <input type="hidden" name="user_id" value="${r.id}">
                                         <button type="submit" class="btn btn-danger btn-sm" title="Rolle löschen"><i
                                                 class="fa fa-trash-o"></i></button>
@@ -180,6 +182,14 @@
                                 <div class="form-group">
                                     <label for="username">Name: </label>
                                     <input type="text" name="name" id="name" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="role_user">Benutzer: </label>
+                                    <select class="form-control" name="users[]" id="role_user" multiple>
+                                        <c:forEach var="u" items="${userList}">
+                                            <option value="${u.id}" ${(u.id == user.id) ? " selected=\"selected\"" : ""}>${u.username}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                                 <button class="btn btn-primary">Neue Rolle anlegen</button>
                             </form>

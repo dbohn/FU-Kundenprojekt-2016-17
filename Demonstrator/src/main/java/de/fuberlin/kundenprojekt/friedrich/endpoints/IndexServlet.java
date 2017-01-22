@@ -1,9 +1,5 @@
 package de.fuberlin.kundenprojekt.friedrich.endpoints;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializer;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.exceptions.NoConversationsException;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
@@ -11,8 +7,6 @@ import de.fuberlin.kundenprojekt.friedrich.projects.ProjectsRepository;
 import de.fuberlin.kundenprojekt.friedrich.social.Configuration;
 import de.fuberlin.kundenprojekt.friedrich.social.HumHubMessages;
 import de.fuberlin.kundenprojekt.friedrich.social.messages.Conversation;
-import de.fuberlin.kundenprojekt.friedrich.storage.UserTypeAdapter;
-import de.fuberlin.kundenprojekt.friedrich.models.Project;
 
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -22,9 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Iterator;
 import java.util.List;
-import java.time.LocalDateTime;
 
 /**
  * @author Team Friedrich
@@ -57,7 +49,7 @@ public class IndexServlet extends BaseServlet {
         req.setAttribute("username",user.username);
         req.setAttribute("updatedMessage",time);
         req.setAttribute("projects", user.getProjects());
-        req.setAttribute("roles", user.getRoles());
+        req.setAttribute("userRoles", user.getRoles());
 
 
         req.getRequestDispatcher("WEB-INF/index.jsp").forward(req, resp);
