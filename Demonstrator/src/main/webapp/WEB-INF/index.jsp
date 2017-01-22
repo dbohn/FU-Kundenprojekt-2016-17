@@ -17,21 +17,12 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <ul>
-                <c:forEach var="project" items="${projects}">
-                    <li>${project.name}</li>
-                </c:forEach>
-            </ul>
-            <p>Diese Seite basiert auf <a href="http://v4-alpha.getbootstrap.com">Bootstrap</a>, um eine Grundoptik zu
-                bieten</p>
-        </div>
-        <div class="col">
             <div class="card card-block">
                 <h4 class="card-title"> Letzte Nachricht: </h4>
                 <p class="card-text">
                 </p>
                 <div class="list-group">
-                    <a href="conversations" class="list-group-item list-group-item-action active">
+                    <a href="conversations" class="list-group-item list-group-item-action ">
                         <p class="m-0">
                             <small>
                                 ${(lastConversation.messages)[0].user.displayName}
@@ -50,15 +41,19 @@
                     </a>
                 </div>
             </div>
+
+        </div>
+        <div class="col">
+
             <div class="card card-block">
                 <h4 class="card-title"> Meine Projekte: </h4>
                 <p class="card-text">
                 </p>
-                <div class="list-group">
-                    <c:forEach var="u" items="${projects}">
-                        ${u.name}
-                    </c:forEach>
-                </div>
+                <c:forEach var="u" items="${projects}">
+                    <div class="list-group mb-2">
+                        <a href="projects" class="list-group-item list-group-item-action "> ${u.name} </a>
+                    </div>
+                </c:forEach>
             </div>
         </div>
 
