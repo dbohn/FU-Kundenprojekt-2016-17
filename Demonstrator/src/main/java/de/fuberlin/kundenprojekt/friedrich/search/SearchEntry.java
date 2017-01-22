@@ -24,13 +24,6 @@ public class SearchEntry {
         this.avatarUrl = extractAvatarUrl();
     }
 
-    public String extractAvatarUrl() {
-        if (this.getType().equals("User")) {
-            return "http://humhub.local:8082/bcs/user/avatar?user_id=" + this.guid;
-        } else {
-            return "";
-        }
-    }
 
     public String getAvatarUrl() {
         return avatarUrl;
@@ -71,5 +64,19 @@ public class SearchEntry {
             return user + " am " + date[2] + "." + date[1] + "." + date[0] + " um " + time[0] + ":" + time[1];
         }
         return attributes;
+    }
+
+    /**
+     * For a user, this method will extract and format the avatar url.
+     *
+     * @return the url as a string
+     */
+
+    public String extractAvatarUrl() {
+        if (this.getType().equals("User")) {
+            return "http://humhub.local:8082/bcs/user/avatar?user_id=" + this.guid;
+        } else {
+            return "";
+        }
     }
 }
