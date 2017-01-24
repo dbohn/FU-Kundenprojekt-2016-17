@@ -18,28 +18,36 @@
     <div class="row">
         <div class="col">
             <div class="card card-block mb-2">
-                <h4 class="card-title"> Letzte Nachricht: </h4>
-                <p class="card-text">
-                </p>
-                <div class="list-group mb-2">
-                    <a href="conversations" class="list-group-item list-group-item-action ">
-                        <p class="m-0">
-                            <small>
-                                ${(lastConversation.messages)[0].user.displayName}
-                            </small>
-                        </p>
-                        <div class="d-flex w-100 justify-content-between"><h5
-                                class="list-group-item-heading">${lastConversation.messages[0].content}</h5> <!---->
-                        </div>
-                        <div class="list-group-item-text conversation-info">
+                <c:if test="${hasConvertsation}">
+                    <h4 class="card-title"> Letzte Nachricht: </h4>
+                    <p class="card-text">
+                    </p>
+                    <div class="list-group mb-2">
+                        <a href="conversations" class="list-group-item list-group-item-action ">
                             <p class="m-0">
                                 <small>
-                                    Gesendet am: ${updatedMessage}
+                                        ${(lastConversation.messages)[0].user.displayName}
                                 </small>
                             </p>
-                        </div>
-                    </a>
-                </div>
+                            <div class="d-flex w-100 justify-content-between"><h5
+                                    class="list-group-item-heading">${lastConversation.messages[0].content}</h5> <!---->
+                            </div>
+                            <div class="list-group-item-text conversation-info">
+                                <p class="m-0">
+                                    <small>
+                                        Gesendet am: ${updatedMessage}
+                                    </small>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </c:if>
+                <c:if test="${!hasConvertsation}">
+                    <h4 class="card-title"> letzte Nachrichten: </h4>
+                    <p class="card-text">
+                        Keine Nachrichten vorhanden
+                    </p>
+                </c:if>
             </div>
             <div class="card card-block mb-2">
                 <h4 class="card-title"> Meine Freunde: </h4>

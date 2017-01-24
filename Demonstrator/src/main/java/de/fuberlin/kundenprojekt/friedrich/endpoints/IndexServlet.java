@@ -32,38 +32,48 @@ public class IndexServlet extends BaseServlet {
         User user = user(req);
 
         List<Conversation> conversations = jsonConversationList(req, resp);
+
         Conversation con = null;
 
-        for(int i=0; i< conversations.size();i++){
-            if(conversations.get(i).getMessages().get(0).getUser().getUser()!=user){
-                con = conversations.get(i);
+        for (Conversation conversation : conversations) {
+            if (conversation.getMessages().get(0).getUser().getUser() != user) {
+                con = conversation;
                 break;
             }
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu, HH:mm:ss");
 
-        LocalDateTime a = conversations.get(0).messages.get(0).getCreatedAt();
-        String time = a.format(formatter);
+        if (conversations.size() > 0) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu, HH:mm:ss");
 
-        req.setAttribute("lastConversation",con);
-        req.setAttribute("username",user.username);
-        req.setAttribute("updatedMessage",time);
+            LocalDateTime a = conversations.get(0).messages.get(0).getCreatedAt();
+            String time = a.format(formatter);
+
+            req.setAttribute("hasConversation", true);
+            req.setAttribute("lastConversation", con);
+            req.setAttribute("updatedMessage", time);
+        } else {
+            req.setAttribute("hasConversation", false);
+        }
+
+        req.setAttribute("username", user.username);
         req.setAttribute("projects", user.getProjects());
         req.setAttribute("userRoles", user.getRoles());
 
 
         req.getRequestDispatcher("WEB-INF/index.jsp").forward(req, resp);
-
     }
 
     private List<Conversation> jsonConversationList(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
+
         List<Conversation> conversationList = null;
+
         try {
             conversationList = humHubMessages.fetchConversations(user(request));
         } catch (NoConversationsException e) {
             replyAsJsonError(response, e.getMessage());
+
             e.printStackTrace();
         }
         return conversationList;
