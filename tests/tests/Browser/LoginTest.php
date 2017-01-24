@@ -8,6 +8,11 @@ use Tests\DuskTestCase;
 class LoginTest extends DuskTestCase
 {
 
+    protected $testUser = [
+        'email' => 'test@test.com',
+        'password' => 'test',
+    ];
+
     /**
      * A Dusk test example.
      *
@@ -15,15 +20,10 @@ class LoginTest extends DuskTestCase
      */
     public function testExample()
     {
-        Browser::$baseUrl = 'http://humhub.local:8082';
-
-        $bcsEmail = 'test@test.com';
-        $bcsPassword = 'test';
-
-        $this->browse(function (Browser $browser) use ($bcsEmail, $bcsPassword) {
+        $this->browse(function (Browser $browser) {
             $browser->visit('/user/auth/login')
-                ->type('#login_username', $bcsEmail)
-                ->type('#login_password', $bcsPassword)
+                ->type('#login_username', $this->testUser['email'])
+                ->type('#login_password', $this->testUser['password'])
                 ->press('Einloggen')
                 ->waitFor('#wallStream', 5)
                 ->assertPathIs('/');

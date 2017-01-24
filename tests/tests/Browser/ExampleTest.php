@@ -17,8 +17,6 @@ class ExampleTest extends DuskTestCase
      */
     public function testBasicExample()
     {
-        Browser::$baseUrl = 'http://humhub.local:8082';
-
         $this->browse(function ($browser) {
             $browser->visit('/')
                 ->assertSee('HumHub');
