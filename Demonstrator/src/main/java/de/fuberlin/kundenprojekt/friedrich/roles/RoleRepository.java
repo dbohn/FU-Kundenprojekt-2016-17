@@ -11,10 +11,15 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
+ * Collection of persistence logic regarding roles.
  * @author Team Friedrich
  */
 public class RoleRepository {
 
+    /**
+     * Get a list of all roles from the database.
+     * @return the role list
+     */
     @Produces
     @Named
     public List<Role> getRoles() {
@@ -28,6 +33,11 @@ public class RoleRepository {
         return roles;
     }
 
+    /**
+     * Persist a role.
+     *
+     * @param role The role to persist.
+     */
     public void storeRole(Role role) {
         Session session = Database.getSession();
 
@@ -38,5 +48,23 @@ public class RoleRepository {
         session.getTransaction().commit();
 
         session.close();
+    }
+
+    /**
+     * Get a Role from the database by id
+     * @param roleId the id of the role
+     * @return the role or null if none found
+     */
+    public Role getRoleById(String roleId) {
+        Session session = Database.getSession();
+
+        TypedQuery<Role> userQuery = session.createQuery("from Role where id=:role", Role.class)
+                .setParameter("role", Integer.parseInt(roleId));
+
+        Role role = userQuery.getSingleResult();
+
+        session.close();
+
+        return role;
     }
 }

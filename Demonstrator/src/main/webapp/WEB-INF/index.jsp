@@ -17,15 +17,58 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <ul>
-            <c:forEach var="project" items="${projects}">
-                <li>${project.name}</li>
-            </c:forEach>
-            </ul>
-            <p>Diese Seite basiert auf <a href="http://v4-alpha.getbootstrap.com">Bootstrap</a>, um eine Grundoptik zu bieten</p>
+            <div class="card card-block mb-2">
+                <h4 class="card-title"> Letzte Nachricht: </h4>
+                <p class="card-text">
+                </p>
+                <div class="list-group mb-2">
+                    <a href="conversations" class="list-group-item list-group-item-action ">
+                        <p class="m-0">
+                            <small>
+                                ${(lastConversation.messages)[0].user.displayName}
+                            </small>
+                        </p>
+                        <div class="d-flex w-100 justify-content-between"><h5
+                                class="list-group-item-heading">${lastConversation.messages[0].content}</h5> <!---->
+                        </div>
+                        <div class="list-group-item-text conversation-info">
+                            <p class="m-0">
+                                <small>
+                                    Gesendet am: ${updatedMessage}
+                                </small>
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="card card-block mb-2">
+                <h4 class="card-title"> Meine Freunde: </h4>
+                <p class="card-text">
+                </p>
+            </div>
         </div>
-        <div class="col">
-            <p>Test 2</p>
+        <div class="col mb-2">
+
+            <div class="card card-block mb-2">
+                <h4 class="card-title"> Meine Projekte: </h4>
+                <p class="card-text">
+                </p>
+                <c:forEach var="u" items="${projects}">
+                    <div class="list-group mb-2">
+                        <a href="projects" class="list-group-item list-group-item-action "> ${u.name} </a>
+                    </div>
+                </c:forEach>
+            </div>
+            <div class="card card-block mb-2">
+                <h4 class="card-title"> Meine Rollen: </h4>
+                <p class="card-text">
+                </p>
+                <c:forEach var="u" items="${userRoles}">
+                    <div class="list-group mb-2">
+                        <a href="users#roles" class="list-group-item list-group-item-action "> ${u.name} </a>
+                    </div>
+                </c:forEach>
+            </div>
         </div>
     </div>
 </div>

@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
+ * Display an edit project form and save the edit.
+ *
  * @author Team Friedrich
  */
 @WebServlet("/projects/edit")
@@ -48,7 +50,7 @@ public class ProjectEditEndpoint extends BaseServlet {
     /**
      * Save an updated project to the database.
      *
-     * @param req The incoming request
+     * @param req  The incoming request
      * @param resp The outgoing response
      * @throws ServletException If the servlet encounters difficulty
      * @throws IOException      If writing or reading the response/request fails

@@ -6,6 +6,8 @@ import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.social.HumHubApiUtil;
 
 /**
+ * Create a new space in HumHub.
+ *
  * @author Team Friedrich
  */
 public class HumHubSpaces {
@@ -21,6 +23,7 @@ public class HumHubSpaces {
     /**
      * Creates a new Space in HumHub by the given data.
      *
+     * @param id          The guid, that should be assigned to the space
      * @param name        The name that is displayed in the Space-Selector
      * @param description The description that could also be queried
      * @param user        The user, that should be assigned as the originator. Must be known to HumHub

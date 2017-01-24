@@ -89,8 +89,9 @@ public class ConversationsEndpoint extends BaseServlet {
      */
     private void loadConversation(String conversation, HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
+        String since = req.getParameter("since");
         HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
-        Conversation conv = humHubMessages.fetchConversation(new Long(conversation), (User) req.getSession().getAttribute("user"));
+        Conversation conv = humHubMessages.fetchConversation(new Long(conversation), (User) req.getSession().getAttribute("user"), since);
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.registerTypeAdapter(LocalDateTime.class, (JsonSerializer<LocalDateTime>) (localDateTime, type, jsonSerializationContext) -> new JsonPrimitive(localDateTime.format(DateTimeFormatter.ISO_DATE_TIME))).registerTypeAdapter(User.class, new UserTypeAdapter()).create();

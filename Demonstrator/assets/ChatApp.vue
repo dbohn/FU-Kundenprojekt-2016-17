@@ -4,17 +4,17 @@
             <create-conversation></create-conversation>
             <conversation-list
                     :me="me"
-                    :value="activeConversation"
+                    :value="conversation"
                     @input="loadConversation($event)">
             </conversation-list>
         </div>
         <div class="col-8 message-view">
-            <div v-if="activeConversation != null">
+            <div v-if="conversation.id != null">
                 <div class="header">
                     <small>Gestartet: {{ createdAtDate }}, {{ createdAtTime }}</small>
-                    <h3>{{ activeConversation.title }}</h3>
+                    <h3>{{ conversation.title }}</h3>
                     <div class="participants d-flex w-100 m-2">
-                        <div class="d-flex align-items-center mr-2" v-for="participant in activeConversation.participants">
+                        <div class="d-flex align-items-center mr-2" v-for="participant in conversation.participants">
                             <avatar :user="participant" class="mr-1"></avatar>
                             <small>{{ participant.displayName }}</small>
                         </div>
@@ -24,15 +24,9 @@
                     <div class="row"
                          v-for="message in messages">
                         <message :message="message" :class="{'from-me': mine(message), 'offset-6': mine(message), 'from-them': !mine(message)}"></message>
-                        <!--<div class="message-box col-6"
-                             :class="{'from-me': mine(message), 'offset-6': mine(message), 'from-them': !mine(message)}">
-                            <div class="author">{{ message.user.displayName }}</div>
-                            <div class="message" v-html="this.$options.filters.markdown(message.content)"></div>
-                            <div class="time">{{ format(message.createdAt) }}</div>
-                        </div>-->
                     </div>
                     <div class="row"
-                         v-for="message in pendingMessages">
+                         v-for="message in conversation.pending">
                         <div class="message-box col-6 from-me offset-6">
                             <div class="message pending">{{ message.content }}</div>
                         </div>
@@ -62,13 +56,14 @@
     import MessageEditor from './chat/MessageEditor.vue';
     import Message from './chat/Message.vue';
     import Dispatcher from './Dispatcher';
+    import Conversation from './chat/Conversation';
 
     export default {
         data() {
             return {
                 me: Settings.me,
                 thisUrl: Settings.thisUrl,
-                activeConversation: null,
+                conversation: new Conversation(Settings.thisUrl),
                 message: "",
                 pendingMessages: {},
                 conversations: [],
@@ -77,38 +72,49 @@
 
         computed: {
             createdAtDate() {
-                if (this.activeConversation == null) {
+                if (this.conversation == null) {
                     return "";
                 }
 
-                let date = new Date(this.activeConversation.createdAt);
+                let date = new Date(this.conversation.createdAt);
 
                 return date.toLocaleDateString();
             },
 
             createdAtTime() {
-                if (this.activeConversation == null) {
+                if (this.conversation == null) {
                     return "";
                 }
 
-                let date = new Date(this.activeConversation.createdAt);
+                let date = new Date(this.conversation.createdAt);
 
                 return date.toLocaleTimeString();
             },
 
             messages() {
-                return this.activeConversation.messages;
+                return this.conversation.messages;
             }
         },
+
+        mounted() {
+            this.conversation.addEventListener('beforeReply', ({key, message}) => {
+                this.message = "";
+
+                Vue.nextTick(() => {
+                    this.scrollToBottom();
+                });
+            });
+
+            setInterval(() => {
+                if (this.conversation.id != null) {
+                    this.conversation.refresh();
+                }
+            }, 3000);
+        },
+
         methods: {
             loadConversation(conversationId, pendingId = null) {
-                $.get('?conversation=' + conversationId).then((data) => {
-                    this.activeConversation = data;
-
-                    if (pendingId != null) {
-                        Vue.delete(this.pendingMessages, pendingId);
-                    }
-
+                this.conversation.load(conversationId).then((data) => {
                     Vue.nextTick(() => {
                         this.scrollToBottom();
                     });
@@ -118,26 +124,7 @@
             },
 
             postMessage() {
-                let id = this.activeConversation.id;
-                let message = this.message;
-                let key = Date.now();
-
-                Vue.set(this.pendingMessages, key, {
-                    content: this.message
-                });
-
-                this.message = "";
-
-                Vue.nextTick(() => {
-                    this.scrollToBottom();
-                });
-
-                $.post(this.thisUrl + "/conversations", {
-                    conversation: id,
-                    message: message,
-                }).then((response) => {
-                    this.loadConversation(id, key);
-                });
+                this.conversation.reply(this.message);
             },
 
             format(date) {

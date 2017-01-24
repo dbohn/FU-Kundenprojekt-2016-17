@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
+ * Timestamps for a certain user (created_at, updated_at)
+ *
  * @author Team Friedrich
  */
 @Entity
@@ -14,7 +16,7 @@ public class Userinfo {
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     LocalDateTime created_at;

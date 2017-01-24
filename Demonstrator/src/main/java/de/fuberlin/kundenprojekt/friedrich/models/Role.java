@@ -4,10 +4,12 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
+ * Representation of a user role, like project manager etc.
+ *
  * @author Team Friedrich
  */
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role {
 
     @Id
@@ -37,5 +39,13 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }
