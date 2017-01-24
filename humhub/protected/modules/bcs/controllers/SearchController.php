@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hanna
- * Date: 12.12.2016
- * Time: 12:56
- */
 
 namespace humhub\modules\bcs\controllers;
-
 
 use humhub\components\Request;
 use humhub\modules\bcs\transformers\search\SearchResultTransformer;

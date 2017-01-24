@@ -75,9 +75,11 @@ abstract class ApiController extends Controller
     }
 
     /**
-     * @param $message
-     * @param $code
-     * @param $status
+     * Creates a json formatted api message
+     *
+     * @param string $message message to display
+     * @param integer $code http code to set
+     * @param string $status status to set (e.g. "error")
      * @return Response
      */
     protected function responseJson($message, $code, $status)
@@ -100,7 +102,7 @@ abstract class ApiController extends Controller
     /**
      * Excepts a http status code and returns the specific error message
      *
-     * @param $code
+     * @param integer $code http code to resolve
      * @return string
      */
     protected function tryFetchHttpMessage($code)
@@ -120,8 +122,10 @@ abstract class ApiController extends Controller
     }
 
     /**
-     * @param $id
-     * @param int $duration
+     * login a user by given guid
+     *
+     * @param string $id user guid
+     * @param int $duration duration for login in seconds
      * @return bool
      */
     protected function loginBcsUser($id, $duration = 0)
