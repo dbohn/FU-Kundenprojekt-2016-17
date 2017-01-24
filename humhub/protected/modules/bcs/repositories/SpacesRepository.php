@@ -49,4 +49,13 @@ class SpacesRepository
 
         return $model;
     }
+
+    /**
+     * @param $spaceId
+     * @return Space
+     */
+    public function get($spaceId)
+    {
+        return Space::findOne(['guid' => $spaceId]);
+    }
 }

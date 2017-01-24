@@ -52,6 +52,23 @@ class SpacesController extends ApiController
         }, $spaces));
     }
 
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionAvatar()
+    {
+        $this->forceGetRequest();
+
+        /** @var \humhub\components\Request $request */
+        $request = \Yii::$app->request;
+
+        $spaceId = $request->get('space_id');
+
+        $space = $this->spaces->get($spaceId);
+
+        return $this->redirect($space->getProfileImage()->getUrl());
+    }
+
     public function actionCreate()
     {
         $this->forcePostRequest();
