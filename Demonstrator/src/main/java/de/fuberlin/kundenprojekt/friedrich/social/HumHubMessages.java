@@ -74,7 +74,7 @@ public class HumHubMessages {
                     .asJson();
             JSONObject body = response.getBody().getObject();
 
-            if (!body.has("message")) {
+            if (!body.has("message") || !(body.get("message") instanceof JSONArray)) {
                 throw new NoConversationsException("No conversations found");
             }
 

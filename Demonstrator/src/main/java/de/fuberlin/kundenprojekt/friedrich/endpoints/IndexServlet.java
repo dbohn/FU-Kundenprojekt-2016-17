@@ -31,18 +31,22 @@ public class IndexServlet extends BaseServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = user(req);
 
-        List<Conversation> conversations = jsonConversationList(req, resp);
-
+        List<Conversation> conversations = null;
         Conversation con = null;
+        try {
+            conversations = conversationList(user);
 
-        for (Conversation conversation : conversations) {
-            if (conversation.getMessages().get(0).getUser().getUser() != user) {
-                con = conversation;
-                break;
+            for (Conversation conversation : conversations) {
+                if (conversation.getMessages().get(0).getUser().getUser() != user) {
+                    con = conversation;
+                    break;
+                }
             }
+        } catch (NoConversationsException e) {
+            e.printStackTrace();
         }
 
-        if (conversations.size() > 0) {
+        if (con != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu, HH:mm:ss");
 
             LocalDateTime a = conversations.get(0).messages.get(0).getCreatedAt();
@@ -63,20 +67,11 @@ public class IndexServlet extends BaseServlet {
         req.getRequestDispatcher("WEB-INF/index.jsp").forward(req, resp);
     }
 
-    private List<Conversation> jsonConversationList(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    private List<Conversation> conversationList(User user) throws NoConversationsException {
 
         HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
 
-        List<Conversation> conversationList = null;
-
-        try {
-            conversationList = humHubMessages.fetchConversations(user(request));
-        } catch (NoConversationsException e) {
-            replyAsJsonError(response, e.getMessage());
-
-            e.printStackTrace();
-        }
-        return conversationList;
+        return humHubMessages.fetchConversations(user);
     }
 
 }
