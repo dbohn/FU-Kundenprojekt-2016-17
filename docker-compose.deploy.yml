@@ -12,7 +12,7 @@ services:
     image: nginx
     volumes:
       - ./humhub:/humhub
-      - ./config/site.conf:/etc/nginx/conf.d/site.conf
+      - ./config/site.conf:/etc/nginx/conf.d/default.conf
     networks:
       - humhub
     ports:
