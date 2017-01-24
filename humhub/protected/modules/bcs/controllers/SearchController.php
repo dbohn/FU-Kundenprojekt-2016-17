@@ -32,7 +32,7 @@ class SearchController extends ApiController
         $query = $request->get('query');
         $limitedToSpace = $request->get("space");
 
-        $options = ['checkPermissions' => false];
+        $options = ['checkPermissions' => true];
 
         if ($limitedToSpace !== null && $limitedToSpace !== 'All') {
             $space = Space::findOne(['guid' => $limitedToSpace]);
