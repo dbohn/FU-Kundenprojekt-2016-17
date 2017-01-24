@@ -9,24 +9,26 @@
 namespace humhub\modules\bcs\controllers;
 
 
-use humhub\modules\bcs\controllers\ApiController;
+use humhub\components\Request;
 use humhub\modules\bcs\transformers\search\SearchResultTransformer;
 use humhub\modules\space\models\Space;
 use Yii;
 
 class SearchController extends ApiController
 {
+
+    /**
+     * Endpoint for BCS-Search
+     *
+     * @return \yii\web\Response
+     */
     public function actionSearch()
     {
-
-      //  if ($error = $this->forceBcsAuthentication()) {
-       //     return $error;
-        //}
-
+        /** @var Request $request */
         $request = Yii::$app->request;
 
         $bcsId = $request->get("bcs_id");
-        
+
         $this->loginBcsUser($bcsId);
 
         $query = $request->get('query');
