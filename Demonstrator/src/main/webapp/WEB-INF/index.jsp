@@ -18,8 +18,8 @@
     <div class="row">
         <div class="col">
             <div class="card card-block mb-2">
+                <h4 class="card-title"> Letzte Nachricht: </h4>
                 <c:if test="${hasConversation}">
-                    <h4 class="card-title"> Letzte Nachricht: </h4>
                     <p class="card-text">
                     </p>
                     <div class="list-group mb-2">
@@ -43,39 +43,67 @@
                     </div>
                 </c:if>
                 <c:if test="${!hasConversation}">
-                    <h4 class="card-title"> Letzte Nachricht: </h4>
                     <p class="card-text">
                         Keine Nachrichten vorhanden
                     </p>
                 </c:if>
             </div>
             <div class="card card-block mb-2">
-                <h4 class="card-title"> Meine Freunde: </h4>
-                <p class="card-text">
-                </p>
+                <h4 class="card-title"> Meine Rollen: </h4>
+                <c:if test="${not empty userRoles}">
+                    <p class="card-text">
+                    </p>
+                    <c:forEach var="u" items="${userRoles}">
+                        <div class="list-group mb-2">
+                            <a href="users#roles" class="list-group-item list-group-item-action "> ${u.name} </a>
+                        </div>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${empty userRoles}">
+                    <p class="card-text">
+                        Keine Rollen zugeteilt
+                    </p>
+                </c:if>
             </div>
         </div>
-        <div class="col mb-2">
-
+        <div class="col">
             <div class="card card-block mb-2">
                 <h4 class="card-title"> Meine Projekte: </h4>
-                <p class="card-text">
-                </p>
-                <c:forEach var="u" items="${projects}">
-                    <div class="list-group mb-2">
-                        <a href="projects" class="list-group-item list-group-item-action "> ${u.name} </a>
-                    </div>
-                </c:forEach>
+
+                <c:if test="${not empty projects}">
+                    <p class="card-text">
+                    </p>
+                    <c:forEach var="u" items="${projects}">
+                        <div class="list-group mb-2">
+                            <a href="projects" class="list-group-item list-group-item-action "> ${u.name} </a>
+                        </div>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${empty projects}">
+                    <p class="card-text">
+                        Keine Projekte vorhanden
+                    </p>
+                </c:if>
             </div>
+        </div>
+        <div class="col">
             <div class="card card-block mb-2">
-                <h4 class="card-title"> Meine Rollen: </h4>
-                <p class="card-text">
-                </p>
-                <c:forEach var="u" items="${userRoles}">
-                    <div class="list-group mb-2">
-                        <a href="users#roles" class="list-group-item list-group-item-action "> ${u.name} </a>
-                    </div>
-                </c:forEach>
+                <h4 class="card-title"> Meine Freunde: </h4>
+
+                <c:if test="${not empty projects}">
+                    <p class="card-text">
+                    </p>
+                    <c:forEach var="u" items="${projects}">
+                        <div class="list-group mb-2">
+                            <a href="projects" class="list-group-item list-group-item-action "> ${u.name} </a>
+                        </div>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${empty projects}">
+                    <p class="card-text">
+                        Keine Einträge vorhanden
+                    </p>
+                </c:if>
             </div>
         </div>
     </div>
