@@ -35,7 +35,7 @@ public class IndexServlet extends BaseServlet {
     @Inject
     private UserRepository userRepository;
     private ProjectsRepository projectsRepository;
-    private List<User> friendList = new ArrayList<>();
+    private List<User> friends = new ArrayList<>();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -71,6 +71,8 @@ public class IndexServlet extends BaseServlet {
             req.setAttribute("hasConversation", false);
         }
 
+        ArrayList<String> idList = new ArrayList<>();
+
         try {
             HttpResponse<JsonNode> friendsResponse = HumHubApiUtil.get(Configuration.getHost(), "/bcs/user/friends", Configuration.getBcsToken())
                     .queryString("user_id", user.getId())
@@ -79,21 +81,21 @@ public class IndexServlet extends BaseServlet {
             JSONObject message = friendsResponse.getBody().getObject().getJSONObject("message");
             JSONArray friendsList = message.getJSONArray("friends");
 
-
             for (int i = 0; i < friendsList.length(); i++) {
                 JSONObject friend = friendsList.getJSONObject(i);
-                User friendEntry = extractFriendEntry(friend);
-                friendList.add(friendEntry);
+                idList.add(friend.getString("id"));
             }
 
         } catch (UnirestException e) {
             e.printStackTrace();
         }
 
+        friends = userRepository.getUserByIdList(idList);
+
         req.setAttribute("username", user.username);
         req.setAttribute("projects", user.getProjects());
         req.setAttribute("userRoles", user.getRoles());
-        req.setAttribute("friends",friendList);
+        req.setAttribute("friends", friends);
 
         req.getRequestDispatcher("WEB-INF/index.jsp").forward(req, resp);
     }
@@ -105,7 +107,4 @@ public class IndexServlet extends BaseServlet {
         return humHubMessages.fetchConversations(user);
     }
 
-    private User extractFriendEntry(JSONObject friend) {
-        return userRepository.getUserById(friend.getString("id"));
-    }
 }
