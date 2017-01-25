@@ -28,7 +28,8 @@
             this.editor = new SimpleMDE({
                 element: this.$refs.text,
                 spellChecker: false,
-                status: false
+                status: false,
+                autoDownloadFontAwesome: false,
             });
 
             this.editor.value(this.value);
