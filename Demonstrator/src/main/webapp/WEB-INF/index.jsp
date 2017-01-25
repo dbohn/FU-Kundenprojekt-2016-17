@@ -90,12 +90,12 @@
             <div class="card card-block mb-2">
                 <h4 class="card-title"> Meine Freunde: </h4>
 
-                <c:if test="${not empty projects}">
+                <c:if test="${not empty friends}">
                     <p class="card-text">
                     </p>
-                    <c:forEach var="u" items="${projects}">
+                    <c:forEach var="u" items="${friends}">
                         <div class="list-group mb-2">
-                            <a href="projects" class="list-group-item list-group-item-action "> ${u.name} </a>
+                            <a href="projects" class="list-group-item list-group-item-action "> ${u.username} </a>
                         </div>
                     </c:forEach>
                 </c:if>
