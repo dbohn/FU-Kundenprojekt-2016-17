@@ -166,6 +166,12 @@ class MessagesController extends ApiController
         /** @var \humhub\components\Request $request */
         $request = \Yii::$app->request;
 
+        $this->forcePostRequest();
+
+        if ($error = $this->forceBcsAuthentication()) {
+            return $error;
+        }
+
         $userGuid = $request->post('user_id');
         $user = $this->userRepository->findByBcsId($userGuid);
 

@@ -24,8 +24,9 @@ class BcsUserRepository
     public function getUserByUsername($username)
     {
         return $this->postgres
-            ->createCommand("SELECT * FROM users WHERE username=:username")
+            ->createCommand("SELECT * FROM users WHERE username=:username or email=:email")
             ->bindParam(":username", $username)
+            ->bindParam(":email", $username)
             ->queryOne();
     }
 
