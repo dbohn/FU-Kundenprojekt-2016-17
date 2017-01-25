@@ -99,7 +99,7 @@
                         </div>
                     </c:forEach>
                 </c:if>
-                <c:if test="${empty projects}">
+                <c:if test="${empty friends}">
                     <p class="card-text">
                         Keine Einträge vorhanden
                     </p>
