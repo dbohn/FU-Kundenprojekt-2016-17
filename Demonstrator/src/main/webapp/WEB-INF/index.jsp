@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col">
             <div class="card card-block mb-2">
-                <c:if test="${hasConvertsation}">
+                <c:if test="${hasConversation}">
                     <h4 class="card-title"> Letzte Nachricht: </h4>
                     <p class="card-text">
                     </p>
@@ -42,8 +42,8 @@
                         </a>
                     </div>
                 </c:if>
-                <c:if test="${!hasConvertsation}">
-                    <h4 class="card-title"> letzte Nachrichten: </h4>
+                <c:if test="${!hasConversation}">
+                    <h4 class="card-title"> Letzte Nachricht: </h4>
                     <p class="card-text">
                         Keine Nachrichten vorhanden
                     </p>
