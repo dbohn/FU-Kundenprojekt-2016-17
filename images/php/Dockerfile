@@ -27,4 +27,11 @@ RUN apt-get update \
     && apt-get install -y cron \
     && rm -rf /var/lib/apt/lists/*
 
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY dynamic.php /dynamic.php
+
+RUN chmod +x /docker-entrypoint.sh
+
 WORKDIR "$workdir"
+
+CMD ["/bin/sh", "/docker-entrypoint.sh"]
