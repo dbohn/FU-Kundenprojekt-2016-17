@@ -21,7 +21,7 @@
                         id = this.user.id;
                     }
                 }
-                return `http://humhub.local:8082/bcs/user/avatar?user_id=${id}`;
+                return `http://${window.location.hostname}:8082/bcs/user/avatar?user_id=${id}`;
             },
 
             description() {
