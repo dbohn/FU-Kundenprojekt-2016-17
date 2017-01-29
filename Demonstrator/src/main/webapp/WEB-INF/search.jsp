@@ -103,11 +103,15 @@
                                 <h4 class="card-title">${u.message} (${u.type}) </h4>
                                 <p class="card-text">
                                     <c:if test="${not empty u.attributes}">
-                                        ${u.attributes}<br>
-                                        <script type="text/javascript">
-                                            noResults = 1;
-                                        </script>
+                                        ${u.attributes}
                                     </c:if>
+                                    <c:if test="${empty u.attributes}">
+                                        Keine User-Tags vorhanden
+                                    </c:if>
+                                    <br>
+                                    <script type="text/javascript">
+                                        noResults = 1;
+                                    </script>
                                 </p>
                                 <c:if test="${not empty u.url}">
                                     <a class="card-link" target="_blank" href="${u.url}">Zum
