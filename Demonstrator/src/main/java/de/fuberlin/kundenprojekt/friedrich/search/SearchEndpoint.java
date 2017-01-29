@@ -22,10 +22,26 @@ import java.util.List;
 @WebServlet("/search")
 public class SearchEndpoint extends BaseServlet {
 
+    /**
+     * Display the search form
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("WEB-INF/search.jsp").forward(req, resp);
     }
 
+    /**
+     * Handle an incoming search request
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String searchTerm = req.getParameter("searchTerm");

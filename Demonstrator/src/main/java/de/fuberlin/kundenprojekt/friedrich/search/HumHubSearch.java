@@ -21,11 +21,25 @@ public class HumHubSearch {
     private List<SearchEntry> searchResults = new ArrayList<>();
     private List<SpaceEntry> spacesList = new ArrayList<>();
 
+    /**
+     * Create a new HumHubSearchObject
+     *
+     * @param host
+     * @param bcsToken
+     */
     public HumHubSearch(String host, String bcsToken) {
         this.host = host;
         this.bcsToken = bcsToken;
     }
 
+    /**
+     * Retrieve a list of all serach results for a query
+     *
+     * @param user
+     * @param query
+     * @param limitedSpaces
+     * @return
+     */
     public List<SearchEntry> fetchSearchResults(User user, String query, String limitedSpaces) {
         try {
             HttpRequest request = HumHubApiUtil.get(host, "/bcs/search/search", bcsToken)
@@ -50,6 +64,11 @@ public class HumHubSearch {
         return searchResults;
     }
 
+    /**
+     * Retrieve a list of all spaces
+     *
+     * @return
+     */
     public List<SpaceEntry> fetchSpaceResults() {
 
         HttpRequest spacesRequest = HumHubApiUtil.get(host, "/bcs/spaces", bcsToken);
@@ -72,11 +91,22 @@ public class HumHubSearch {
     }
 
 
-
+    /**
+     * Create a SearchEntry object from a JSON message
+     *
+     * @param message
+     * @return
+     */
     private SearchEntry extractSearchEntry(JSONObject message) {
         return new SearchEntry(message.getString("guid"), message.getString("message"), message.getString("type"), message.getString("url"), message.getString("attributes"));
     }
 
+    /**
+     * Create a SpaceEntry object from a JSON message
+     *
+     * @param message
+     * @return
+     */
     private SpaceEntry extractSpaceEntry(JSONObject message) {
         return new SpaceEntry(message.getInt("id"), message.getString("guid"), message.getString("name"), message.getString("desc"));
     }
