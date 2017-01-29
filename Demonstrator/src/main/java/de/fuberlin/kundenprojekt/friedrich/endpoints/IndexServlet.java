@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Handling of requests to create a dashboard
+ *
  * @author Team Friedrich
  */
 @WebServlet("/index")
@@ -37,6 +39,14 @@ public class IndexServlet extends BaseServlet {
     private ProjectsRepository projectsRepository;
     private List<User> friends = new ArrayList<>();
 
+    /**
+     * Send a request to create a dashboard, including a friendslist, a rolelist, the user's newest message, and the user's projects
+     *
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = user(req);
@@ -100,6 +110,13 @@ public class IndexServlet extends BaseServlet {
         req.getRequestDispatcher("WEB-INF/index.jsp").forward(req, resp);
     }
 
+    /**
+     * Retrieve List of conversations
+     *
+     * @param user
+     * @return
+     * @throws NoConversationsException
+     */
     private List<Conversation> conversationList(User user) throws NoConversationsException {
 
         HumHubMessages humHubMessages = new HumHubMessages(userRepository, Configuration.getHost(), Configuration.getBcsToken());
