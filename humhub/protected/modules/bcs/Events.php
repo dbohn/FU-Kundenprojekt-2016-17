@@ -2,7 +2,6 @@
 
 namespace humhub\modules\bcs;
 
-use humhub\modules\bcs\models\UserBcs;
 use humhub\modules\bcs\repositories\BcsUserRepository;
 use humhub\modules\space\models\Space;
 use humhub\modules\user\models\Group;
@@ -68,6 +67,12 @@ class Events extends \yii\base\Object
 
         static::syncGroups($user);
         static::syncSpaces($user);
+    }
+
+    public static function onConsoleInit($event)
+    {
+        $application = $event->sender;
+        $application->controllerMap['bcs'] = commands\Setup::className();
     }
 
     private static function syncGroups(User $user)
