@@ -1,7 +1,7 @@
 package de.fuberlin.kundenprojekt.friedrich.projects;
 
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
-import de.fuberlin.kundenprojekt.friedrich.endpoints.BaseServlet;
+import de.fuberlin.kundenprojekt.friedrich.BaseServlet;
 import de.fuberlin.kundenprojekt.friedrich.models.Project;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 

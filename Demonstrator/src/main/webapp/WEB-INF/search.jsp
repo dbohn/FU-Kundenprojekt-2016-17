@@ -98,7 +98,7 @@
                     <div class="card">
                         <div class="d-flex flex-row p-2">
                             <img class="d-inline-flex p-2" style="width: 120px; height: 120px" alt="Profilbild"
-                                 src="${u.avatarUrl}">
+                                 src="http://${pageContext.request.serverName}:8082/${u.avatarUrl}">
                             <div class="d-flex flex-column p-2">
                                 <h4 class="card-title">${u.message} (${u.type}) </h4>
                                 <p class="card-text">
@@ -121,7 +121,7 @@
                     <div class="card">
                         <div class="d-flex flex-row p-2">
                             <img class="d-inline-flex p-2" style="width: 120px; height: 120px" alt="Spacebild"
-                                 src="${u.avatarUrl}">
+                                 src="http://${pageContext.request.serverName}:8082/${u.avatarUrl}">
                             <div class="d-flex flex-column p-2">
                                 <h4 class="card-title">${u.message} (${u.type})</h4>
                                 <p class="card-text">

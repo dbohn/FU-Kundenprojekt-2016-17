@@ -2,7 +2,7 @@ package de.fuberlin.kundenprojekt.friedrich.projects;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
-import de.fuberlin.kundenprojekt.friedrich.endpoints.BaseServlet;
+import de.fuberlin.kundenprojekt.friedrich.BaseServlet;
 import de.fuberlin.kundenprojekt.friedrich.models.Project;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.social.Configuration;

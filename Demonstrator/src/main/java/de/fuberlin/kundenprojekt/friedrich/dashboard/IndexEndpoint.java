@@ -1,9 +1,9 @@
-package de.fuberlin.kundenprojekt.friedrich.endpoints;
+package de.fuberlin.kundenprojekt.friedrich.dashboard;
 
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
+import de.fuberlin.kundenprojekt.friedrich.BaseServlet;
 import de.fuberlin.kundenprojekt.friedrich.exceptions.NoConversationsException;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
-import de.fuberlin.kundenprojekt.friedrich.projects.ProjectsRepository;
 import de.fuberlin.kundenprojekt.friedrich.social.Configuration;
 import de.fuberlin.kundenprojekt.friedrich.social.HumHubMessages;
 import de.fuberlin.kundenprojekt.friedrich.social.messages.Conversation;
@@ -22,10 +22,9 @@ import java.util.List;
  * @author Team Friedrich
  */
 @WebServlet("/index")
-public class IndexServlet extends BaseServlet {
+public class IndexEndpoint extends BaseServlet {
     @Inject
     private UserRepository userRepository;
-    private ProjectsRepository projectsRepository;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -74,11 +74,11 @@ public class SearchEntry {
 
     public String extractAvatarUrl() {
         if (this.getType().equals("User")) {
-            return "http://humhub.local:8082/bcs/user/avatar?user_id=" + this.guid;
+            return "bcs/user/avatar?user_id=" + this.guid;
         } else if (this.getType().equals("Space")) {
-            return "http://humhub.local:8082/bcs/spaces/avatar?space_id=" + this.guid;
-        } else {
-            return "";
+            return "bcs/spaces/avatar?space_id=" + this.guid;
         }
+
+        return "";
     }
 }

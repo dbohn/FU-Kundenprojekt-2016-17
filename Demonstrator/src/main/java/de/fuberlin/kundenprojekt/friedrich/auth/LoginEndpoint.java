@@ -1,4 +1,4 @@
-package de.fuberlin.kundenprojekt.friedrich.endpoints;
+package de.fuberlin.kundenprojekt.friedrich.auth;
 
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
 import de.fuberlin.kundenprojekt.friedrich.exceptions.AuthenticationException;

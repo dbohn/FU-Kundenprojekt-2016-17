@@ -1,4 +1,4 @@
-package de.fuberlin.kundenprojekt.friedrich.filters;
+package de.fuberlin.kundenprojekt.friedrich.auth;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

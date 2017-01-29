@@ -1,12 +1,11 @@
-package de.fuberlin.kundenprojekt.friedrich.endpoints;
+package de.fuberlin.kundenprojekt.friedrich.social;
 
 import com.google.gson.*;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;
+import de.fuberlin.kundenprojekt.friedrich.BaseServlet;
 import de.fuberlin.kundenprojekt.friedrich.exceptions.MessageReplyException;
 import de.fuberlin.kundenprojekt.friedrich.exceptions.NoConversationsException;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
-import de.fuberlin.kundenprojekt.friedrich.social.Configuration;
-import de.fuberlin.kundenprojekt.friedrich.social.HumHubMessages;
 import de.fuberlin.kundenprojekt.friedrich.social.messages.Conversation;
 import de.fuberlin.kundenprojekt.friedrich.storage.UserTypeAdapter;
 

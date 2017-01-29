@@ -1,4 +1,4 @@
-package de.fuberlin.kundenprojekt.friedrich.endpoints;
+package de.fuberlin.kundenprojekt.friedrich.users;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;

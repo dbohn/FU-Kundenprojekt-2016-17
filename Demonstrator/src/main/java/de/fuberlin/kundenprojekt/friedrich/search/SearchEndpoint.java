@@ -1,19 +1,14 @@
 package de.fuberlin.kundenprojekt.friedrich.search;
 
-import de.fuberlin.kundenprojekt.friedrich.endpoints.BaseServlet;
+import de.fuberlin.kundenprojekt.friedrich.BaseServlet;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 import de.fuberlin.kundenprojekt.friedrich.social.Configuration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**

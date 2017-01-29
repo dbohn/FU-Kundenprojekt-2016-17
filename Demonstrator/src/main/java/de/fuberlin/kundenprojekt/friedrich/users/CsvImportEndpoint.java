@@ -1,4 +1,4 @@
-package de.fuberlin.kundenprojekt.friedrich.endpoints;
+package de.fuberlin.kundenprojekt.friedrich.users;
 
 import de.fuberlin.kundenprojekt.friedrich.PasswordHasher;
 import de.fuberlin.kundenprojekt.friedrich.UserRepository;

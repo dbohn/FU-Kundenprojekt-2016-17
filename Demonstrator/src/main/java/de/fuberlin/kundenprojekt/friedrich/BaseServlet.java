@@ -1,4 +1,4 @@
-package de.fuberlin.kundenprojekt.friedrich.endpoints;
+package de.fuberlin.kundenprojekt.friedrich;
 
 import de.fuberlin.kundenprojekt.friedrich.models.User;
 

@@ -1,10 +1,9 @@
-package de.fuberlin.kundenprojekt.friedrich.endpoints;
+package de.fuberlin.kundenprojekt.friedrich.social;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import de.fuberlin.kundenprojekt.friedrich.BaseServlet;
 import de.fuberlin.kundenprojekt.friedrich.models.User;
-import de.fuberlin.kundenprojekt.friedrich.social.Configuration;
-import de.fuberlin.kundenprojekt.friedrich.social.HumHubApiUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
