@@ -29,6 +29,7 @@ RUN apt-get update \
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 COPY dynamic.php /dynamic.php
+COPY wait-for-database.php /wait-for-database.php
 
 RUN chmod +x /docker-entrypoint.sh
 
