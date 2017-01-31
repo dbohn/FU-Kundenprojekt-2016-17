@@ -40,3 +40,5 @@ rm -f images/wildfly_deploy/Demonstrator.war
 
 # Start containers
 docker-compose --file $COMPOSE_FILE up -d
+
+docker-compose logs -f
