@@ -8,6 +8,16 @@ Dieses Repository beherbergt drei Komponenten:
 
 Diese Komponenten werden hier kurz vorgestellt.
 
+## Automatische Installation
+
+Die Installation wurde in Form eines Deployment-Shellskript automatisiert.
+Ausgehend von einer vorhandenen Docker-Installation baut dieses Skript den Demonstrator und führt das Setup in den entsprechenden Containern aus.
+Zur Ausführung genügt der Aufruf von
+
+```
+./deploy.sh
+```
+
 ## Docker-Setup
 
 Zur Erstellung einer überall identischen Entwicklungsumgebung wird eine Container-Konfiguration in Form einer docker-compose.yml-Datei vorgegeben.
@@ -36,7 +46,7 @@ Zur Auslieferung der Demonstrator-Anwendung, die das BCS-System repräsentiert, 
 Die ausgelieferten .war-Archive werden aus dem `build`-Verzeichnis übernommen. Ein neues bzw. geändertes Archiv wird sofort verfügbar gemacht.
 
 ### Kommunikation im Docker-Netz
-Alle Container befinden sich in einem eigenen Netzwerk, `appnet` genannt. Dadurch ist es den Containern möglich, sich gegenseitig über den Container-Namen zu erreichen. So reicht es aus, als Host für die Datenbank lediglich `mysql` anzugeben.
+Alle Container befinden sich in einem eigenen Netzwerk, `humhub` genannt. Dadurch ist es den Containern möglich, sich gegenseitig über den Container-Namen zu erreichen. So reicht es aus, als Host für die Datenbank lediglich `mysql` anzugeben.
 
 ## Ausführung des Docker-Setups
 Eine funktionierende Docker-Installation mit docker-compose vorausgesetzt, lässt sich diese Umgebung durch den Befehl `docker-compose up -d` starten. Die Entwicklungsumgebung kann durch die Eingabe von `docker-compose down` wieder beendet werden.
@@ -46,9 +56,9 @@ Bei dem Java-Demonstrator handelt es sich um eine Servlet-basierte Anwendung.
 Als Servlet-Container kommt, wie oben beschrieben, derzeit JBoss Wildfly zum Einsatz.
 Im Verzeichnis `Demonstrator` befindet sich ein IntelliJ-Projekt, das das nötige Setup zur Arbeit enthält.
 Es kann entweder durch Doppelklick auf die Demonstrator.iml-Datei geöffnet werden oder auch durch `File | Open` direkt aus IntelliJ heraus geöffnet werden.
-Zum Kompilieren des Codes muss `Build | Build Artifacts` ausgewählt werden. Im sich öffnenden Popup muss das Artifact "Demonstrator:war" ausgewählt werden.
+Zum Kompilieren des Codes muss einmalig im Panel `Maven` der Punkt `package` ausgewählt werden.
 Dadurch wird automatisch in das build-Verzeichnis, das oben beschrieben wurde, das erstellte `Demonstrator.war`-Archiv abgelegt und im selben Schritt auch von Wildfly sofort geladen.
-Die Anwendung ist dann unter der Adresse `http://localhost:18080/Demonstrator/` verfügbar.
+Die Anwendung ist dann unter der Adresse `http://localhost:8002/Demonstrator/` verfügbar.
 
 Im Unterordner `web` werden die .jsp-Dateien und die web.xml (die Hauptkonfigurationsdatei) abgelegt. Unter `resources` können CSS-Dateien, Bilder oder andere Assets abgelegt werden. Der `src`-Ordner ist dann schließlich dem Java-Code vorbehalten.
 
