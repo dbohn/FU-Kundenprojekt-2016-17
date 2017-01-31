@@ -97,7 +97,9 @@ public class IndexEndpoint extends BaseServlet {
             e.printStackTrace();
         }
 
-        friends = userRepository.getUserByIdList(idList);
+        if (idList.size() > 0) {
+            friends = userRepository.getUserByIdList(idList);
+        }
 
         req.setAttribute("username", user.username);
         req.setAttribute("projects", user.getProjects());

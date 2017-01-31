@@ -41,7 +41,8 @@ services:
       - humhub
 
   database:
-    image: postgres:latest
+    build:
+      context: images/postgres
     ports:
       - "5432:5432"
     environment:
