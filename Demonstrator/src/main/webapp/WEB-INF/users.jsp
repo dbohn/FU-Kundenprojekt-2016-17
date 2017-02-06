@@ -159,8 +159,8 @@
                                         <a href="${pageContext.request.contextPath}/role/edit?role_id=${r.id}"
                                            class="btn btn-secondary btn-sm"><i class="fa fa-pencil"></i></a>
                                         <input type="hidden" name="user_id" value="${r.id}">
-                                        <button type="submit" class="btn btn-danger btn-sm" title="Rolle löschen"><i
-                                                class="fa fa-trash-o"></i></button>
+                                        <!--<button type="submit" class="btn btn-danger btn-sm" title="Rolle löschen"><i
+                                                class="fa fa-trash-o"></i></button>-->
                                     </form>
                                 </td>
                             </tr>
