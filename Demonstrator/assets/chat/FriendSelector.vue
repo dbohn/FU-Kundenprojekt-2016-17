@@ -10,6 +10,10 @@
 <script>
     import Avatar from '../Avatar.vue';
 
+    /**
+     * This component is used to display a friend list
+     * in the create conversation view.
+     */
     export default {
         data() {
             return {
@@ -34,9 +38,6 @@
         },
 
         methods: {
-            avatar(id) {
-                return "http://humhub.local:8082/bcs/user/avatar?user_id=" + id;
-            },
 
             selectFriend(friend) {
                 let index = this.selected.indexOf(friend.id);

@@ -1,5 +1,11 @@
 import Vue from "vue";
 
+/**
+ * This class represents the current conversation.
+ * It provides a list of all messages, metadata about
+ * the conversation and also methods to refresh the list
+ * or post a new message to the conversation.
+ */
 export default class Conversation {
 
     constructor(baseUrl) {

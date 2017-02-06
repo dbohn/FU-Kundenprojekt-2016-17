@@ -11,6 +11,12 @@
 
     const converter = new Showdown.Converter();
 
+    /**
+     * This component represents a single message in a conversation.
+     * They are displayed as a bubble with the author and the time
+     * above and below it. The markdown content of the message is parsed
+     * using the showdown library.
+     */
     export default {
         data() {
             return {};

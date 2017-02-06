@@ -41,6 +41,10 @@
     import FriendSelector from './FriendSelector.vue';
     import MessageEditor from './MessageEditor.vue';
 
+    /**
+     * This component is used to display a modal for creating a conversation
+     * if the button is clicked.
+     */
     export default {
         data() {
             return {

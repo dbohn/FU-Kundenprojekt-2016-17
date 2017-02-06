@@ -38,6 +38,10 @@
 
     moment.locale('de');
 
+    /**
+     * This component is used to display a list of all conversations of the current
+     * user.
+     */
     export default {
         data() {
             return {

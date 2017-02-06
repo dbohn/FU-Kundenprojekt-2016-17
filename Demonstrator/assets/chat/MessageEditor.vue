@@ -6,6 +6,11 @@
 <script>
     import SimpleMDE from 'simplemde';
 
+    /**
+     * This is the vue component for the message editor.
+     * It is responsible for including the markdown editor
+     * and emit the right events to make it v-model compatible.
+     */
     export default {
         data() {
             return {

@@ -58,6 +58,11 @@
     import Dispatcher from './Dispatcher';
     import Conversation from './chat/Conversation';
 
+    /**
+     * This is the main chat application component.
+     * It is responsible for coordinating the child components and
+     * displaying the messages of a selected chat.
+     */
     export default {
         data() {
             return {
@@ -113,7 +118,10 @@
         },
 
         methods: {
-            loadConversation(conversationId, pendingId = null) {
+            /**
+             * Load the selected conversation.
+             */
+            loadConversation(conversationId) {
                 this.conversation.load(conversationId).then((data) => {
                     Vue.nextTick(() => {
                         this.scrollToBottom();
@@ -123,20 +131,32 @@
                 });
             },
 
+            /**
+             * Submit a new message to the current conversation.
+             */
             postMessage() {
                 this.conversation.reply(this.message);
             },
 
+            /**
+             * Format the given date into a local representation
+             */
             format(date) {
                 let dateObj = new Date(date);
 
                 return dateObj.toLocaleString();
             },
 
+            /**
+             * Check if the passed message is from the current user.
+             */
             mine(message) {
                 return message.user.user != null && this.me == message.user.user.id;
             },
 
+            /**
+             * Scroll to the bottom of the message list container.
+             */
             scrollToBottom() {
                 let messageContainer = this.$refs.messages;
                 messageContainer.scrollTop = messageContainer.scrollHeight;
