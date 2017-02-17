@@ -1,4 +1,34 @@
-# Kundenprojekt - Team Friedrich
+# Kundenprojekt - WiSe 2016/2017
+
+Der Code in diesem Repository ist das Produkt des Softwareprojekts "Kundenprojekt 1 - Webtechnologien" im Wintersemester 2016/2017 an der Freien Universität Berlin.
+Die vorliegende Software wurde (in alphabetischer Reihenfolge) von
+
+* David Bohn
+* Hanna Lachnitt
+* Annika Sommer
+* Eike Steinert
+* Friedrich Ueberreiter
+
+entwickelt.
+Der Sinn dieses Repositories ist die Archivierung und zukünftige Referenz.
+Der Code (ausgenommen die HumHub-Installation im Verzeichnis humhub ohne das Modul in humhub/protected/modules/bcs, die unter der Lizenz von HumHub veröffentlicht steht) ist nach der im Projekt getroffenen Vereinbarung unter der MIT-Lizenz veröffentlicht. Nach einer englischen Version dieses Prologs folgt das originale README.
+
+---
+
+The code in this repository is the result of the university course "Kundenprojekt 1 - Webtechnologien", that took place at the Free University of Berlin (Freie Universität Berlin) in the winter term 2016/2017.
+The software in this repository was developed by the following students, who are listed in alphabetical order:
+
+* David Bohn
+* Hanna Lachnitt
+* Annika Sommer
+* Eike Steinert
+* Friedrich Ueberreiter
+
+This repository is a mirror of the internal repository, that might not be available anymore in the future. To save the code for the future and as a future reference, this fork was created.
+All code (except the included HumHub installation in the humhub directory, but including the module in humhub/protected/modules/bcs) is published under the MIT license.
+The following is the readme, that was prepared during the course.
+
+---
 
 Dieses Repository beherbergt drei Komponenten:
 
